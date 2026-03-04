@@ -1,0 +1,45 @@
+# ==================== 通用忽略 ====================
+# 操作系统文件
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+
+# 编辑器配置（VS Code）
+.vscode/
+.idea/
+
+# ==================== Python 后端（backend）忽略 ====================
+# 虚拟环境
+backend/venv/
+backend/env/
+backend/.venv/
+backend/ENV/
+
+# 依赖缓存
+backend/__pycache__/
+backend/*.py[cod]
+backend/*$py.class
+
+# 环境变量（敏感信息）
+backend/.env
+backend/.env.local
+backend/.env.*.local
+
+# 上传的视频和分析结果
+backend/uploads/
+backend/analysis_records/
+backend/media_extracts/
+
+# ==================== Vue 前端（frontend）忽略 ====================
+# 依赖包
+frontend/node_modules/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+
+# 构建产物
+frontend/dist/
+frontend/build/
+
+# 本地配置
+frontend/vite.config.js.local
