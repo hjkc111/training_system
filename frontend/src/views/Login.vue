@@ -110,8 +110,8 @@ const handleLogin = async (e) => {
       // 4. 登录成功：保存用户信息并跳转（避免页面刷新重复触发）
       ElMessage.success('登录成功！')
       localStorage.setItem('userInfo', JSON.stringify(res.data.user_info))
-      // 跳转到视频上传页（替换为你的路由路径）
-      router.push('/video/upload')
+      // 改为跳转到首页
+      router.push('/home') 
     } else {
       ElMessage.error(res.data.message || '登录失败，请检查用户名密码！')
     }
