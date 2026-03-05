@@ -1,26 +1,15 @@
 <template>
   <div class="upload-container">
-    <!-- 顶部导航栏 -->
-    <div class="header-nav">
-      <div class="nav-content">
-        <div class="logo">
-          <i class="el-icon-video-camera"></i>
-          <span>世界技能大赛 - 训练视频分析系统</span>
-        </div>
-        <div class="user-info" v-if="userInfo.username">
-          <el-tag type="info" effect="dark">
-            <i class="el-icon-user"></i> {{ userInfo.username }}
-          </el-tag>
-        </div>
-      </div>
-    </div>
+    <!-- 替换为统一的顶部导航组件 -->
+    <HeaderNav />
 
     <!-- 主内容区 -->
     <div class="main-content">
-      <el-page-header content="视频上传与分析" class="page-header"></el-page-header>
+      <!-- 移除el-page-header（含返回按钮），替换为纯标题 -->
+      <div class="page-header-title">视频上传与分析</div>
       
       <!-- 上传区域 -->
-      <el-card shadow="none" class="upload-card">
+      <el-card shadow="never" class="upload-card">
         <div class="upload-card-inner">
           <el-upload
             ref="uploadRef"
@@ -87,7 +76,7 @@
       </el-card>
 
       <!-- 分析结果 -->
-      <el-card shadow="none" class="result-card" v-if="analysisResult">
+      <el-card shadow="never" class="result-card" v-if="analysisResult">
         <template #header>
           <div class="card-header">
             <i class="el-icon-chart"></i>
@@ -116,7 +105,7 @@
         <el-divider content-position="left" class="divider">
           <i class="el-icon-document"></i> 分析总结
         </el-divider>
-        <el-card class="summary-card" shadow="none">
+        <el-card class="summary-card" shadow="never">
           {{ analysisResult.analysis_result?.analysis_summary || '暂无分析总结' }}
         </el-card>
 
@@ -138,12 +127,12 @@
       </el-card>
 
       <!-- 历史记录 -->
-      <el-card shadow="none" class="history-card" v-if="historyList.length>0">
+      <el-card shadow="never" class="history-card" v-if="historyList.length>0">
         <template #header>
           <div class="card-header">
             <i class="el-icon-time"></i>
             <span>历史分析记录</span>
-            <el-button type="text" @click="loadHistory" class="refresh-btn">
+            <el-button type="link" @click="loadHistory" class="refresh-btn">
               <i class="el-icon-refresh"></i> 刷新
             </el-button>
           </div>
@@ -186,6 +175,7 @@
 import { ref, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import axios from 'axios'
+import HeaderNav from '@/components/HeaderNav.vue'
 
 // 基础配置：适配 FastAPI 的传参要求
 axios.defaults.baseURL = '/'
@@ -359,40 +349,18 @@ onMounted(() => {
   background: #f5f7fa;
 }
 
-/* 顶部导航 */
-.header-nav {
-  background: #1e40af;
-  color: white;
-  padding: 0 20px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-}
-.nav-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 60px;
-}
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 18px;
-  font-weight: 600;
-}
-.logo i {
-  font-size: 24px;
-}
-.user-info {
-  font-size: 14px;
-}
-
 /* 主内容区 */
 .main-content {
   max-width: 1200px;
   margin: 0 auto;
   padding: 30px 20px;
+}
+/* 新增：纯标题样式，保持和原page-header一致的间距和字体 */
+.page-header-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 20px;
 }
 .page-header {
   margin-bottom: 20px;

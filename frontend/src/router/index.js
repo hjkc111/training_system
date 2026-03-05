@@ -1,34 +1,64 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// 引入页面组件（保留你原有路径，无需修改）
+// 引入页面组件
 import Login from '../views/Login.vue'
 import VideoUpload from '../views/VideoUpload.vue'
+import Home from '../views/Home.vue'
+import Profile from '../views/Profile.vue'
+import TrainingPlan from '../views/TrainingPlan.vue'
+import ResourceView from '../views/ResourceView.vue'
+import About from '../views/About.vue'
+// 新增训练日页面
+import TrainingDayList from '../views/TrainingDayList.vue'
+import TrainingDayDetail from '../views/TrainingDayDetail.vue'
 
 const router = createRouter({
-  history: createWebHistory(),  // 路由模式（保留你原有配置，不用改）
+  history: createWebHistory(),
   routes: [
-    // 默认跳转到登录页（保留）
-    { path: '/', redirect: '/login' },
-    // 登录页（保留）
+    // 默认跳转到首页
+    { path: '/', redirect: '/home' },
+    // 登录页
     { path: '/login', component: Login },
-    // 视频上传页（保留你原有路径 /video/upload，仅新增可选的登录守卫）
-    { 
-      path: '/video/upload', 
-      component: VideoUpload,
-      // 修复：容错处理 localStorage.getItem('userInfo') 为 null 的情况
-      beforeEnter: (to, from, next) => {
-        const userInfoStr = localStorage.getItem('userInfo')
-        // 只有存在 userInfo 且解析后有 username 才允许访问
-        if (userInfoStr) {
-          const userInfo = JSON.parse(userInfoStr)
-          if (userInfo?.username) {
-            next() // 已登录，允许访问
-            return
-          }
-        }
-        next('/login') // 未登录/无用户名，强制跳回登录页
-      }
-    }
+    // 首页
+    { path: '/home', component: Home },
+    // 个人中心
+    { path: '/profile', component: Profile },
+    // 原单视频分析（数据分析页）
+    { path: '/data-analysis', component: VideoUpload },
+    // 训练计划
+    { path: '/training-plan', component: TrainingPlan },
+    // 资源查阅
+    { path: '/resource-view', component: ResourceView },
+    // 关于我们
+    { path: '/about', component: About },
+    // 新增：训练日列表
+    { path: '/training/day-list', component: TrainingDayList },
+    // 新增：训练日详情
+    { path: '/training/day-detail/:id', component: TrainingDayDetail }
   ]
+})
+
+// 全局路由守卫：验证登录状态
+router.beforeEach((to, from, next) => {
+  const whiteList = ['/login']
+  if (whiteList.includes(to.path)) {
+    next()
+    return
+  }
+
+  const userInfoStr = localStorage.getItem('userInfo')
+  if (userInfoStr) {
+    try {
+      const userInfo = JSON.parse(userInfoStr)
+      if (userInfo?.username) {
+        next()
+        return
+      }
+    } catch (e) {
+      localStorage.removeItem('userInfo')
+    }
+  }
+
+  next('/login')
 })
 
 export default router
