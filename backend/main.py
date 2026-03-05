@@ -329,6 +329,16 @@ async def get_preset_projects_api():
     }
 
 
+# ------------------- 注册静态资源路由 -------------------
+from static_resource import static_router, mount_static_resources
+
+# 挂载静态资源目录
+mount_static_resources(app)
+# 注册静态资源接口
+app.include_router(static_router)
+
+
+
 # ------------------- 启动 -------------------
 if __name__ == "__main__":
     uvicorn.run("main:app", reload=True, host="0.0.0.0", port=8000)
