@@ -10,9 +10,22 @@
 - 前端：编写好 package.json 后，执行 `npm install` 下载依赖
 - 视频处理：需安装 ffmpeg 并配置到系统环境变量中
 
+
 ### 启动流程
 1. 启动后端：进入 backend 文件夹，执行 `python main.py`
+conda activate training_system
+D:
+cd visualproject
+cd training_system
+cd backend
+python main.py
 2. 启动前端：新开终端，执行 `npm run dev`
+conda activate training_system
+D:
+cd visualproject
+cd training_system
+cd frontend
+npm run dev
 
 ### 登录账号信息
 FAKE_USERS = {
