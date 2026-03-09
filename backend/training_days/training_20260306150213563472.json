@@ -1,0 +1,111 @@
+{
+    "training_day_id": "training_20260306150213563472",
+    "username": "player1",
+    "training_day_name": "2026.3.6.2",
+    "project_list": [
+        {
+            "project_id": "project_1",
+            "project_name": "RJ45水晶头端接",
+            "project_desc": "网络布线标准水晶头端接操作，考核端接规范性、线序正确率、操作时长",
+            "project_order": 1,
+            "video_filename": "20260306150221_10号开面板线.MP4",
+            "video_duration": 200.16,
+            "analysis_result": {
+                "project_name": "RJ45水晶头端接",
+                "project_score": 62,
+                "operation_duration": 148,
+                "step_completed_count": 4,
+                "step_error_count": 5,
+                "deduction_items": [
+                    {
+                        "reason": "线序错误：T568B标准要求白橙/橙/白绿/蓝/白蓝/绿/白棕/棕，视频关键帧显示第3位为白绿（正确），但第6位为棕（应为绿），第7-8位顺序颠倒（白棕/棕误为棕/白棕），属严重线序错误，扣20分",
+                        "deduction_score": 20
+                    },
+                    {
+                        "reason": "剪齐操作失效：双绞线未在压接前垂直剪齐，留有斜切与毛刺，导致线芯无法均匀顶至水晶头触点底部，影响导通可靠性；违反《TIA/EIA-568-C.2》第7.3.2条，扣12分",
+                        "deduction_score": 12
+                    },
+                    {
+                        "reason": "外护套未压入水晶头卡槽：护套未延伸进入水晶头后部凹槽≥6mm，仅裸露线芯插入，导致抗拉强度不足、易脱线，不符合大赛‘机械可靠性’一票否决项（扣10分）",
+                        "deduction_score": 10
+                    },
+                    {
+                        "reason": "压接后未进行导通测试验证：全程未使用网络测试仪检测8芯连通性与串扰，缺失质量闭环，违反评分细则‘结果验证’强制项，扣8分",
+                        "deduction_score": 8
+                    },
+                    {
+                        "reason": "操作超时：标准限时120秒，实际耗时148秒，超时28秒，按每超10秒扣3分计（28÷10≈2.8→取整3次），扣9分",
+                        "deduction_score": 9
+                    },
+                    {
+                        "reason": "工具使用不规范：使用非专用剥线钳（疑似普通斜口钳）剥除外护套，造成4对线对绝缘层划伤（关键帧可见绿/蓝对线芯局部裸露），增加近端串扰风险，扣6分",
+                        "deduction_score": 6
+                    }
+                ],
+                "correct_items": [
+                    "完成双绞线开缆并分离四对线对（无断线）",
+                    "完成水晶头方向确认（卡扣朝下、引脚朝上）"
+                ],
+                "time_analysis": "偏慢；超时28秒，主因是反复调整线序（3次重排）、剪齐动作迟疑（耗时22秒）、压接前未预置护套位置导致二次返工",
+                "action_norm_analysis": "存在多项高风险不规范动作：①剥线时手腕悬空无支撑，力度失控；②排线时用指甲强行推挤线芯，易致绝缘层位移；③压接时水晶头未完全嵌入压线钳定位槽，导致右侧2芯压接深度不足（关键帧可见引脚未完全凸出）；整体动作缺乏节奏感与工序预判，不符合‘单手稳定、双眼聚焦、三步预判’的世赛动作规范要求",
+                "improvement_suggestions": [
+                    "强化T568B线序肌肉记忆训练：每日盲排10组线序+红外线序校验仪即时反馈，确保8芯位置零误差",
+                    "执行‘三定剪齐法’：定尺（6mm剥线长度标记）、定角（剥线钳垂直90°切入）、定力（单次剪切不回拉），配合放大镜检查切面平整度",
+                    "建立‘压接前五查清单’：查护套进深≥6mm、查线序透光可见、查线芯平齐无翘起、查水晶头卡扣朝向、查压线钳归位档位，逐项打钩后方可压接"
+                ]
+            },
+            "upload_time": "2026-03-06 15:03:08",
+            "is_analyzed": true
+        },
+        {
+            "project_id": "project_2",
+            "project_name": "110配线架端接",
+            "project_desc": "110语音配线架端接操作，考核打线规范性、导通率、操作时长",
+            "project_order": 2,
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false
+        },
+        {
+            "project_id": "project_3",
+            "project_name": "光纤熔接操作",
+            "project_desc": "光纤熔接标准流程，考核端面处理、熔接损耗、热缩管封装规范性",
+            "project_order": 3,
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false
+        },
+        {
+            "project_id": "project_4",
+            "project_name": "链路通断测试",
+            "project_desc": "网络链路通断、串扰、衰减测试操作，考核仪器使用规范性、结果判读正确率",
+            "project_order": 4,
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false
+        },
+        {
+            "project_id": "project_5",
+            "project_name": "机柜理线与标签",
+            "project_desc": "机柜内线缆整理、标签粘贴操作，考核理线美观度、标签规范性、扎带使用标准",
+            "project_order": 5,
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false
+        }
+    ],
+    "total_duration": 200.16,
+    "overall_score": 0,
+    "overall_analysis": null,
+    "created_time": "2026-03-06 15:02:13",
+    "finished_time": null,
+    "is_finished": false
+}
