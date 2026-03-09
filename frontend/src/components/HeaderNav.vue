@@ -18,11 +18,21 @@
             <i class="el-icon-house"></i>
             <span>首页</span>
           </el-menu-item>
-            <!-- 新增：训练管理 -->
-          <el-menu-item index="7" @click="toPage('/training/day-list')">
-            <i class="el-icon-date"></i>
-            <span>训练管理</span>
-          </el-menu-item>
+
+          <!-- 核心修复：Element Plus 2.x 用 el-sub-menu（带短横线） -->
+          <el-sub-menu index="7" popper-class="training-submenu">
+            <template #title>
+              <i class="el-icon-date"></i>
+              <span>训练管理</span>
+            </template>
+            <el-menu-item index="7-1" @click="toPage('/training/day-list')">
+              <span>网络布线项目</span>
+            </el-menu-item>
+            <el-menu-item index="7-2" @click="toPage('/training/photoelectric')">
+              <span>光电项目</span>
+            </el-menu-item>
+          </el-sub-menu>
+
           <el-menu-item index="2" @click="toPage('/profile')">
             <i class="el-icon-user"></i>
             <span>个人中心</span>
@@ -55,22 +65,22 @@
 </template>
 
 <script setup>
-// 确保所有导入语句正确，无语法错误
 import { ref, onMounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
 
-// 初始化路由和响应式变量
+// 初始化变量
 const router = useRouter()
 const route = useRoute()
 const userInfo = ref({ username: '' })
 const activeIndex = ref('1')
 
-// 路由-菜单索引映射（纯英文符号，避免语法错误）
+// 路由-菜单索引映射
 const pathToIndexMap = {
   '/home': '1',
   '/training/day-list': '7',
   '/training/day-detail': '7',
+  '/training/photoelectric': '7', // 光电项目路由映射
   '/profile': '2',
   '/data-analysis': '3',
   '/training-plan': '4',
@@ -80,7 +90,6 @@ const pathToIndexMap = {
 
 // 初始化逻辑
 onMounted(() => {
-  // 加载用户信息
   try {
     const userInfoStr = localStorage.getItem('userInfo')
     if (userInfoStr) {
@@ -89,11 +98,10 @@ onMounted(() => {
   } catch (error) {
     ElMessage.warning('用户信息异常，请重新登录')
   }
-  // 初始化选中的菜单
   updateActiveIndex(route.path)
 })
 
-// 监听路由变化，更新菜单选中状态
+// 监听路由变化
 watch(
   () => route.path,
   (newPath) => {
@@ -102,13 +110,12 @@ watch(
   { immediate: true }
 )
 
-// 更新选中索引的方法
+// 更新激活索引
 function updateActiveIndex(path) {
-  // 兜底：找不到对应索引则默认选中首页
   activeIndex.value = pathToIndexMap[path] || '1'
 }
 
-// 路由跳转方法
+// 路由跳转
 function toPage(path) {
   router.push(path)
 }
@@ -156,5 +163,27 @@ function toPage(path) {
 .user-info {
   font-size: 14px;
   padding: 10px 0;
+}
+
+/* 适配Element Plus 2.x 水平菜单子菜单样式 */
+:deep(.training-submenu) {
+  background-color: #1e40af !important;
+  border: none !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+:deep(.training-submenu .el-menu-item) {
+  height: 45px !important;
+  line-height: 45px !important;
+  padding-left: 30px !important;
+  color: #fff !important;
+}
+:deep(.training-submenu .el-menu-item:hover) {
+  background-color: #19369e !important;
+}
+:deep(.el-sub-menu__title) {
+  height: 60px !important;
+  line-height: 60px !important;
+  padding: 0 20px !important;
+  color: #fff !important;
 }
 </style>

@@ -10,6 +10,9 @@ import About from '../views/About.vue'
 // 新增训练日页面
 import TrainingDayList from '../views/TrainingDayList.vue'
 import TrainingDayDetail from '../views/TrainingDayDetail.vue'
+// 导入你的页面组件（光电项目先建一个空页面占位）
+import Photoelectric from '@/views/Photoelectric.vue' 
+
 
 const router = createRouter({
   history: createWebHistory(),
@@ -33,7 +36,13 @@ const router = createRouter({
     // 新增：训练日列表
     { path: '/training/day-list', component: TrainingDayList },
     // 新增：训练日详情
-    { path: '/training/day-detail/:id', component: TrainingDayDetail }
+    { path: '/training/day-detail/:id', component: TrainingDayDetail },
+    // 新增：光电项目页面
+    {
+    path: '/training/photoelectric',
+    name: 'Photoelectric',
+    component: Photoelectric
+  }
   ]
 })
 
