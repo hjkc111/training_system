@@ -1,0 +1,102 @@
+{
+    "training_day_id": "training_20260306114134927871",
+    "username": "player1",
+    "training_day_name": "3.6",
+    "project_list": [
+        {
+            "project_id": "project_1",
+            "project_name": "RJ45水晶头端接",
+            "project_desc": "网络布线标准水晶头端接操作，考核端接规范性、线序正确率、操作时长",
+            "project_order": 1,
+            "video_filename": "20260306114143_10号开面板线.MP4",
+            "video_duration": 200.16,
+            "analysis_result": {
+                "project_name": "RJ45水晶头端接",
+                "project_score": 82,
+                "operation_duration": 47,
+                "step_completed_count": 7,
+                "step_error_count": 3,
+                "deduction_items": [
+                    {
+                        "reason": "线序错误：T568B标准中橙白/橙对与绿白/绿对位置互换（第2位橙线与第3位绿白线顺序颠倒），导致线序正确率0%，违反核心评分项（扣30分）",
+                        "deduction_score": 30
+                    },
+                    {
+                        "reason": "剪线后线缆未齐平：8根导线末端参差不齐，最长与最短线芯长度差达1.8mm（超限值1.0mm），影响水晶头压接可靠性，扣10分",
+                        "deduction_score": 10
+                    },
+                    {
+                        "reason": "水晶头未完全推入压线钳定位槽，压接时尾部外露2.3mm（标准要求≤0.5mm），导致IDC刀片未全接触线芯，存在虚接风险，扣8分",
+                        "deduction_score": 8
+                    }
+                ],
+                "correct_items": [
+                    "规范剥除外护套（长度12mm，无伤及绝缘层）",
+                    "按T568B标准完成线对拆散与初步理直（无绞距残留）",
+                    "使用压线钳完成单次压接（无重复压接、无断裂）",
+                    "压接后水晶头卡扣完整无变形",
+                    "操作全程佩戴防静电手环并接地有效"
+                ],
+                "time_analysis": "偏快（标准时限60秒，用时47秒），但提速牺牲关键质量项：线序校验环节缺失（未使用线序仪或目视双人复核），剪线与插入动作过急导致齐平度与定位偏差。",
+                "action_norm_analysis": "整体动作流畅性良好，工具握持姿势符合人体工学；但存在三处关键失范：① 理线后未执行‘拇指食指捏合线束+目视俯角45°校验线序’标准动作；② 剪线前未将线束在压线钳V型槽内轻顿3次实现自动齐平；③ 插入水晶头时未以‘水晶头正面朝上、引脚朝向操作者、线束顶至透明窗底沿’三基准定位，导致插入深度不足。",
+                "improvement_suggestions": [
+                    "强制增加线序双人交叉校验环节：一人持线束按T568B口诀（白橙-橙-白绿-蓝-白蓝-绿-白棕-棕）报序，另一人同步指认水晶头引脚编号，录像存档备查",
+                    "剪线前必须执行‘三顿齐平法’：将理顺线束垂直插入压线钳V型定位槽，轻顿三次（每次间隔0.5秒），再剪切，确保线端齐平度≤0.8mm",
+                    "插入水晶头前执行‘三基准定位检查’：确认水晶头正面标识朝上、金属引脚正对操作者视线、线束绝缘皮边缘与水晶头透明窗底部刻线重合（误差≤0.3mm）"
+                ]
+            },
+            "upload_time": "2026-03-06 11:42:11",
+            "is_analyzed": true
+        },
+        {
+            "project_id": "project_2",
+            "project_name": "110配线架端接",
+            "project_desc": "110语音配线架端接操作，考核打线规范性、导通率、操作时长",
+            "project_order": 2,
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false
+        },
+        {
+            "project_id": "project_3",
+            "project_name": "光纤熔接操作",
+            "project_desc": "光纤熔接标准流程，考核端面处理、熔接损耗、热缩管封装规范性",
+            "project_order": 3,
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false
+        },
+        {
+            "project_id": "project_4",
+            "project_name": "链路通断测试",
+            "project_desc": "网络链路通断、串扰、衰减测试操作，考核仪器使用规范性、结果判读正确率",
+            "project_order": 4,
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false
+        },
+        {
+            "project_id": "project_5",
+            "project_name": "机柜理线与标签",
+            "project_desc": "机柜内线缆整理、标签粘贴操作，考核理线美观度、标签规范性、扎带使用标准",
+            "project_order": 5,
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false
+        }
+    ],
+    "total_duration": 200.16,
+    "overall_score": 0,
+    "overall_analysis": null,
+    "created_time": "2026-03-06 11:41:34",
+    "finished_time": null,
+    "is_finished": false
+}

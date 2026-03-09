@@ -1,0 +1,100 @@
+{
+    "training_day_id": "training_20260306151404180860",
+    "username": "player1",
+    "training_day_name": "网络布线",
+    "project_list": [
+        {
+            "project_id": "project_1",
+            "project_name": "RJ45水晶头端接",
+            "project_desc": "网络布线标准水晶头端接操作，考核端接规范性、线序正确率、操作时长",
+            "project_order": 1,
+            "video_filename": "20260306151410_10号开面板线.MP4",
+            "video_duration": 200.16,
+            "analysis_result": {
+                "project_name": "RJ45水晶头端接",
+                "project_score": 82,
+                "operation_duration": 47.3,
+                "step_completed_count": 7,
+                "step_error_count": 2,
+                "deduction_items": [
+                    {
+                        "reason": "线序错误：T568B标准下第2位（白橙）与第3位（白绿）交叉，实际为白橙-白绿-蓝-白蓝-绿-橙-白棕-棕 → 第2/3对调，导致线序不合规（违反ANSI/TIA-568-C.2核心要求），属严重功能性缺陷",
+                        "deduction_score": 15
+                    },
+                    {
+                        "reason": "剪线后线缆未齐平插入：8根导线未完全顶至水晶头前端卡槽底部，有2根（橙、白棕）突出约0.3mm，导致压接后接触不良风险，不符合IEC 60603-7-1‘导线端面须与插头前缘平齐’规定",
+                        "deduction_score": 3
+                    }
+                ],
+                "correct_items": [
+                    "规范剥除外护套（长度1.5±0.2cm，无伤绞对）",
+                    "按T568B标准完成线对拆分与初步理直（无扭绞残留）",
+                    "使用压线钳正确完成水晶头压接（8P触点完整下压，无漏压、过压）",
+                    "压接后目视检查线序可见性（8芯清晰排列，无重叠遮挡）",
+                    "操作全程佩戴防静电手环并接地（视频关键帧显示腕带金属扣与接地桩连接）",
+                    "工具摆放符合5S规范（剥线钳、压线钳、测线仪分区定位）",
+                    "完成通断测试（测线仪8灯同步亮起，无错灯、闪灯）"
+                ],
+                "time_analysis": "偏快（标准时限50秒，用时47.3秒），但提速牺牲线序校验环节：在理线后未执行‘翻转线序面二次核对’动作（标准流程第4步），导致线序错误未被发现，属典型速度-质量失衡",
+                "action_norm_analysis": "动作整体流畅，符合人体工学：持线手法稳定（拇指食指捏持线束中段）、压接时钳口垂直于水晶头轴线、无抖动或斜向施力；但存在两处非标动作：①剥线时刀片切入角度略大于30°（应≤25°以避免铜芯划伤）；②插入水晶头前未用拇指轻推线束根部确保绞对分离区完全进入护套腔体",
+                "improvement_suggestions": [
+                    "强制增加‘双人镜像复核’步骤：理线完成后，将线序面朝上置于白色背景板，用手机慢动作录像回放+口头报序（'白橙、橙、白绿、蓝、白蓝、绿、白棕、棕'），确保T568B零差错",
+                    "采用‘0.5mm限位夹具’辅助剪线：在剥线后将线束插入3D打印的限位夹（前端开口深度8.0±0.1mm），再剪切，确保所有线芯端面绝对齐平",
+                    "开展‘盲压训练’：蒙眼完成剥线→理线→插入→压接全流程（每次限时35秒），强化肌肉记忆与触觉反馈，杜绝依赖视觉修正导致的节奏紊乱"
+                ]
+            },
+            "upload_time": "2026-03-06 15:14:52",
+            "is_analyzed": true
+        },
+        {
+            "project_id": "project_2",
+            "project_name": "110配线架端接",
+            "project_desc": "110语音配线架端接操作，考核打线规范性、导通率、操作时长",
+            "project_order": 2,
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false
+        },
+        {
+            "project_id": "project_3",
+            "project_name": "光纤熔接操作",
+            "project_desc": "光纤熔接标准流程，考核端面处理、熔接损耗、热缩管封装规范性",
+            "project_order": 3,
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false
+        },
+        {
+            "project_id": "project_4",
+            "project_name": "链路通断测试",
+            "project_desc": "网络链路通断、串扰、衰减测试操作，考核仪器使用规范性、结果判读正确率",
+            "project_order": 4,
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false
+        },
+        {
+            "project_id": "project_5",
+            "project_name": "机柜理线与标签",
+            "project_desc": "机柜内线缆整理、标签粘贴操作，考核理线美观度、标签规范性、扎带使用标准",
+            "project_order": 5,
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false
+        }
+    ],
+    "total_duration": 200.16,
+    "overall_score": 0,
+    "overall_analysis": null,
+    "created_time": "2026-03-06 15:14:04",
+    "finished_time": null,
+    "is_finished": false
+}
