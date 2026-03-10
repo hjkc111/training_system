@@ -28,7 +28,8 @@
             <el-menu-item index="7-1" @click="toPage('/training/day-list')">
               <span>网络布线项目</span>
             </el-menu-item>
-            <el-menu-item index="7-2" @click="toPage('/training/photoelectric')">
+            <!-- 关键修改1：跳转路径改为光电项目训练日列表页 -->
+            <el-menu-item index="7-2" @click="toPage('/training/photoelectric-day-list')">
               <span>光电项目</span>
             </el-menu-item>
           </el-sub-menu>
@@ -80,7 +81,10 @@ const pathToIndexMap = {
   '/home': '1',
   '/training/day-list': '7',
   '/training/day-detail': '7',
-  '/training/photoelectric': '7', // 光电项目路由映射
+  // 关键修改2：更新光电项目列表页的路由映射
+  '/training/photoelectric-day-list': '7',
+  // 关键修改3：补充光电项目详情页的路由映射（确保进入详情页时训练管理菜单仍激活）
+  '/training/photoelectric-day-detail': '7',
   '/profile': '2',
   '/data-analysis': '3',
   '/training-plan': '4',
@@ -110,9 +114,13 @@ watch(
   { immediate: true }
 )
 
-// 更新激活索引
+// 更新激活索引（优化：适配动态路由）
 function updateActiveIndex(path) {
-  activeIndex.value = pathToIndexMap[path] || '1'
+  // 处理动态路由（如/detail/:id），只匹配前缀
+  const matchedKey = Object.keys(pathToIndexMap).find(key => 
+    path.startsWith(key)
+  )
+  activeIndex.value = matchedKey ? pathToIndexMap[matchedKey] : '1'
 }
 
 // 路由跳转
