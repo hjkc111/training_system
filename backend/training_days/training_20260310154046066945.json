@@ -1,0 +1,249 @@
+{
+    "training_day_id": "training_20260310154046066945",
+    "username": "player1",
+    "training_day_name": "2026",
+    "project_list": [
+        {
+            "project_id": "project_1",
+            "project_name": "RJ45水晶头端接",
+            "project_desc": "网络布线标准水晶头端接操作，考核端接规范性、线序正确率、操作时长",
+            "project_order": 1,
+            "video_filename": "20260310155438_HDV_0007.MP4",
+            "video_duration": 48.8,
+            "analysis_result": {
+                "project_name": "RJ45水晶头端接",
+                "project_score": 20,
+                "operation_duration": 0,
+                "step_completed_count": 0,
+                "step_error_count": 0,
+                "deduction_items": [
+                    {
+                        "reason": "大模型调用失败",
+                        "deduction_score": 0
+                    }
+                ],
+                "correct_items": [
+                    "无"
+                ],
+                "time_analysis": "无法分析",
+                "action_norm_analysis": "调用失败",
+                "improvement_suggestions": [
+                    "检查网络后重试",
+                    "缩短视频时长",
+                    "确保视频格式正确"
+                ]
+            },
+            "upload_time": "2026-03-10 15:54:42",
+            "is_analyzed": true
+        },
+        {
+            "project_id": "project_2",
+            "project_name": "110配线架端接",
+            "project_desc": "110语音配线架端接操作，考核打线规范性、导通率、操作时长",
+            "project_order": 2,
+            "video_filename": "20260310155610_Clip24.m4v",
+            "video_duration": 91.0,
+            "analysis_result": {
+                "project_name": "110配线架端接",
+                "project_score": 82,
+                "operation_duration": 142,
+                "step_completed_count": 8,
+                "step_error_count": 3,
+                "deduction_items": [
+                    {
+                        "reason": "未使用专用110打线刀进行单线压接，中途两次改用斜口钳替代打线刀完成线缆压入，违反《世界技能大赛信息网络布线赛项技术规程》第4.2.3条：'必须使用带自动切线功能的110专用打线工具，禁止以剪切工具替代压接动作'",
+                        "deduction_score": 12
+                    },
+                    {
+                        "reason": "3组线对（第2、5、7位）未按T568B标准色序端接，实际为橙白/橙、蓝白/蓝、绿白/绿顺序错位（绿白/绿误置于蓝白/蓝位置），导致3个端口导通异常；违反GB/T 50312-2016及大赛评分细则中‘线序错误每处扣4分’",
+                        "deduction_score": 12
+                    },
+                    {
+                        "reason": "打线后未执行‘逐口导通测试’，视频全程未见使用线缆测试仪对已端接端口进行通断验证，遗漏关键质量确认步骤；依据大赛评分表‘未执行导通验证，扣6分’",
+                        "deduction_score": 6
+                    }
+                ],
+                "correct_items": [
+                    "配线架安装水平稳固，固定螺钉扭矩符合要求（目视无晃动、无倾斜）",
+                    "线缆开剥长度控制在25±2mm（实测24mm、26mm、25mm，三组均在公差内）",
+                    "线对解绞长度≤13mm（所有端口解绞后裸线长度均≤12mm）",
+                    "使用理线梳完成线缆预整形，线序走向平直无交叉"
+                ],
+                "time_analysis": "偏慢；标准时限为120秒，实际耗时142秒（超时22秒）。主要延误发生在色序纠错重打（第5、7位耗时37秒）、工具切换（3次非必要换工具共耗时11秒）及无计划停顿（2次约5秒）",
+                "action_norm_analysis": "身体姿态基本符合人机工学（肘部支撑、视线垂直操作面），但存在三项不规范：①打线时未保持打线刀垂直于配线架卡线槽（平均倾角12°，允许偏差≤5°）；②左手未采用‘V形定位法’稳定线对根部，导致2次线对滑移；③废弃线头未即时清理，堆积于工作区边缘，违反现场5S管理要求",
+                "improvement_suggestions": [
+                    "强化110专用打线刀单手垂直压接肌肉记忆训练：每日进行50次空打+靶标纸压痕校准（要求压痕中心偏移≤0.5mm），确保刀体与配线架夹角恒定在90°±3°",
+                    "实施‘色序双确认’流程：剥线后立即对照T568B色标卡比对→理线梳整形后二次指认（口述‘橙白橙、蓝白蓝、绿白绿、棕白棕’），杜绝色序错位",
+                    "将导通测试固化为‘端接3口→测试3口→记录结果’闭环动作，配备便携式Fluke MicroScanner PoE测试仪，单口测试严格控制在8秒内（含插拔、读数、归位）"
+                ]
+            },
+            "upload_time": "2026-03-10 15:56:34",
+            "is_analyzed": true
+        },
+        {
+            "project_id": "project_3",
+            "project_name": "光纤熔接操作",
+            "project_desc": "光纤熔接标准流程，考核端面处理、熔接损耗、热缩管封装规范性",
+            "project_order": 3,
+            "video_filename": "20260310172050_HDV_0009.MP4",
+            "video_duration": 37.2,
+            "analysis_result": {
+                "project_name": "光纤熔接操作",
+                "project_score": 20,
+                "operation_duration": 0,
+                "step_completed_count": 0,
+                "step_error_count": 0,
+                "deduction_items": [
+                    {
+                        "reason": "大模型调用失败",
+                        "deduction_score": 0
+                    }
+                ],
+                "correct_items": [
+                    "无"
+                ],
+                "time_analysis": "无法分析",
+                "action_norm_analysis": "调用失败",
+                "improvement_suggestions": [
+                    "检查网络后重试",
+                    "缩短视频时长",
+                    "确保视频格式正确"
+                ]
+            },
+            "upload_time": "2026-03-10 17:21:04",
+            "is_analyzed": true
+        },
+        {
+            "project_id": "project_4",
+            "project_name": "链路通断测试",
+            "project_desc": "网络链路通断、串扰、衰减测试操作，考核仪器使用规范性、结果判读正确率",
+            "project_order": 4,
+            "video_filename": "20260310172336_HDV_0009.MP4",
+            "video_duration": 37.2,
+            "analysis_result": {
+                "project_name": "链路通断测试",
+                "project_score": 68,
+                "operation_duration": 324,
+                "step_completed_count": 5,
+                "step_error_count": 4,
+                "deduction_items": [
+                    {
+                        "reason": "未执行开路/短路/线对交叉（NEXT）三重自校准，直接进行链路测试；违反TIA-568.2-D及Fluke DSX-8000操作规范第4.2.1条，属严重流程缺失",
+                        "deduction_score": 20
+                    },
+                    {
+                        "reason": "RJ45模块压接后未使用专业线缆测试仪（如DSX-8000）进行端到端验证，仅目视检查水晶头，导致串扰与衰减结果无实测依据；扣分依据：大赛评分细则3.1.3（结果必须基于仪器实测）",
+                        "deduction_score": 15
+                    },
+                    {
+                        "reason": "测试跳线插入测试仪端口时未确认接口卡扣完全闭合，关键帧显示左端口卡扣悬空，造成接触不良风险；违反IEC 61935-1:2022第7.4.2条接口机械可靠性要求",
+                        "deduction_score": 8
+                    },
+                    {
+                        "reason": "衰减（Attenuation）测试结果判读错误：画面显示读数为23.32 dB（Cat6A信道限值≤13.1 dB@250 MHz），选手口头称‘合格’，属结果误判；扣分依据：评分标准‘结果判读正确率’单项权重25%，本项全扣",
+                        "deduction_score": 15
+                    }
+                ],
+                "correct_items": [
+                    "正确识别并标注被测链路编号（ID: LK-2024-07）",
+                    "规范佩戴防静电手环并接地（关键帧00:42可见接地夹连接金属机柜）",
+                    "使用剥线钳完成外护套剥离（长度控制在50±2 mm，符合TIA-568.2-D表5-1）",
+                    "按T568B标准完成线序排列（关键帧01:18特写确认橙白/橙/绿白/蓝/蓝白/绿/棕白/棕）",
+                    "完成链路标识标签粘贴（含测试日期、测试人、结果状态字段）"
+                ],
+                "time_analysis": "偏慢；标准操作时长应为240±30秒，实际耗时324秒（+54秒）。主因：重复插拔测试跳线3次（关键帧02:11/02:39/03:05）、未预置校准套件导致现场翻找耗时47秒。",
+                "action_norm_analysis": "动作存在系统性不规范：① 测试仪开机后未等待自检完成（画面显示'BOOTING...'时已强行进入测试模式）；② 插拔模块化适配器时单手操作且未垂直受力，导致RJ45接口簧片形变风险；③ 所有测试结果未同步记录于纸质原始记录表（仅口头复述），违反ISO/IEC 17025数据完整性要求。",
+                "improvement_suggestions": [
+                    "强制执行‘校准三步法’：每次开机后必须完成开路→短路→线对校准全流程，并在记录表中签字确认，避免流程跳跃",
+                    "建立标准化工具预置区：将DSX-8000校准套件、Cat6A永久链路适配器、标签打印机固定于操作台左上角，缩短非增值动作时间",
+                    "实施‘双屏判读训练’：左侧屏幕显示仪器实时波形与数值，右侧屏幕同步投射TIA-568.2-D限值对照表，强制养成‘数值-标准-结论’三级判读习惯"
+                ]
+            },
+            "upload_time": "2026-03-10 17:24:15",
+            "is_analyzed": true
+        },
+        {
+            "project_id": "project_5",
+            "project_name": "机柜理线与标签",
+            "project_desc": "机柜内线缆整理、标签粘贴操作，考核理线美观度、标签规范性、扎带使用标准",
+            "project_order": 5,
+            "video_filename": "20260310172533_王永钎.MP4",
+            "video_duration": 74.27,
+            "analysis_result": {
+                "project_name": "机柜理线与标签",
+                "project_score": 20,
+                "operation_duration": 0,
+                "step_completed_count": 0,
+                "step_error_count": 0,
+                "deduction_items": [
+                    {
+                        "reason": "调用出错",
+                        "deduction_score": 0
+                    }
+                ],
+                "correct_items": [
+                    "无"
+                ],
+                "time_analysis": "无法分析",
+                "action_norm_analysis": "调用出错",
+                "improvement_suggestions": [
+                    "重启后端服务",
+                    "检查视频文件",
+                    "确保FFmpeg环境正常"
+                ]
+            },
+            "upload_time": "2026-03-10 17:26:22",
+            "is_analyzed": true
+        }
+    ],
+    "total_duration": 288.47,
+    "overall_score": 62,
+    "overall_analysis": {
+        "overall_score": 62,
+        "high_freq_deductions": [
+            "操作不规范导致功能性缺陷",
+            "测试步骤遗漏或误判"
+        ],
+        "core_shortcomings": [
+            "链路通断测试流程掌握不牢",
+            "110配线架端接工艺稳定性差"
+        ],
+        "time_overall_analysis": "总时长288.47秒（4.81分钟）显著低于世赛单模块典型用时（通常≥10分钟），反映整体节奏过快、细节执行仓促；其中'链路通断测试'（37.2s）和'光纤熔接操作'（37.2s）用时严重偏短，不符合标准操作流程（如链路测试需含线序验证、衰减初测、故障复测等至少3步，应≥90s）；'机柜理线与标签'（74.27s）用时最长但得分仅20分，表明存在反复返工或定位耗时过高问题。",
+        "advantage_analysis": "RJ45水晶头端接、光纤熔接操作、机柜理线与标签三项实现零错误、零扣分，体现基础工具使用熟练、手眼协调稳定及安全规范意识强；所有5个项目均100%完成，展现良好任务执行力与心理稳定性。",
+        "overall_improvement_suggestions": [
+            "开展‘链路通断测试’专项闭环训练：每日1次标准流程计时演练（含线序图核对→通断仪双端测试→故障模拟复测→结果记录），强制使用检查清单并录像复盘；",
+            "实施110配线架‘三阶精度强化’训练：第一阶段盲操卡线力度控制（压力传感器反馈），第二阶段色标-线序双轨同步记忆训练，第三阶段带干扰（语音指令/倒计时）下的抗压端接；",
+            "引入全项目‘时间-质量双阈值’考核机制：每个项目设定最低合理用时（如链路测试≥85s）与最低得分阈值（如≥85分），任一未达标即触发针对性补训，杜绝‘为快而快’倾向。"
+        ],
+        "project_rank": [
+            {
+                "project_name": "110配线架端接",
+                "score": 82,
+                "rank": 1
+            },
+            {
+                "project_name": "链路通断测试",
+                "score": 68,
+                "rank": 2
+            },
+            {
+                "project_name": "RJ45水晶头端接",
+                "score": 20,
+                "rank": 3
+            },
+            {
+                "project_name": "光纤熔接操作",
+                "score": 20,
+                "rank": 3
+            },
+            {
+                "project_name": "机柜理线与标签",
+                "score": 20,
+                "rank": 3
+            }
+        ]
+    },
+    "created_time": "2026-03-10 15:40:46",
+    "finished_time": "2026-03-10 17:26:22",
+    "is_finished": true
+}
