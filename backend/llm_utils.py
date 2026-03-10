@@ -1,4 +1,6 @@
 import json
+import dashscope
+import base64
 from dashscope import Generation
 from config import DASHSCOPE_API_KEY
 
