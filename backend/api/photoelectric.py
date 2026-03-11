@@ -10,7 +10,7 @@ from models import (
     ProjectAnalyzeRequest, TrainingDaySummaryRequest, TrainingDayIdRequest
 )
 from utils.video_utils import get_file_size, extract_video_audio_text, extract_video_key_frames
-from utils.llm_utils import call_qwen35, call_qwen_project_analysis, call_qwen_training_summary
+from utils.llm_utils import call_qwen35, call_qwen_project_analysis_network, call_qwen_training_summary,call_qwen_project_analysis_photoelectric
 from utils.record_utils import save_analysis_record, get_analysis_history
 from utils.training_utils import (
     create_training_day, get_user_training_day_list,
@@ -154,7 +154,7 @@ async def project_analyze_photoelectric(req: ProjectAnalyzeRequest = Body(...)):
         os.makedirs(extract_save_dir)
     video_text, is_audio_useful = extract_video_audio_text(video_path, extract_save_dir)
     key_frames = extract_video_key_frames(video_path, extract_save_dir, num_frames=16)
-    analysis_result = call_qwen_project_analysis(
+    analysis_result = call_qwen_project_analysis_photoelectric(
         project_name=target_project["project_name"],
         project_desc=target_project["project_desc"],
         video_text=video_text,

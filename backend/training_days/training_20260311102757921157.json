@@ -105,39 +105,170 @@
             "project_name": "光纤熔接操作",
             "project_desc": "光纤熔接标准流程，考核端面处理、熔接损耗、热缩管封装规范性",
             "project_order": 3,
-            "video_filename": null,
-            "video_duration": null,
-            "analysis_result": null,
-            "upload_time": null,
-            "is_analyzed": false
+            "video_filename": "20260311163704_HDV_0009.MP4",
+            "video_duration": 37.2,
+            "analysis_result": {
+                "project_name": "光纤熔接操作",
+                "project_score": 20,
+                "operation_duration": 0,
+                "step_completed_count": 0,
+                "step_error_count": 0,
+                "deduction_items": [
+                    {
+                        "reason": "调用出错：the JSON object must be str, bytes or bytearray, not list",
+                        "deduction_score": 0
+                    }
+                ],
+                "correct_items": [
+                    "无"
+                ],
+                "time_analysis": "无法分析",
+                "action_norm_analysis": "调用出错",
+                "improvement_suggestions": [
+                    "重启后端服务",
+                    "检查视频文件",
+                    "确保FFmpeg环境正常"
+                ]
+            },
+            "upload_time": "2026-03-11 16:38:00",
+            "is_analyzed": true
         },
         {
             "project_id": "project_4",
             "project_name": "链路通断测试",
             "project_desc": "网络链路通断、串扰、衰减测试操作，考核仪器使用规范性、结果判读正确率",
             "project_order": 4,
-            "video_filename": null,
-            "video_duration": null,
-            "analysis_result": null,
-            "upload_time": null,
-            "is_analyzed": false
+            "video_filename": "20260311163953_Clip24.m4v",
+            "video_duration": 91.0,
+            "analysis_result": {
+                "project_name": "链路通断测试",
+                "project_score": 20,
+                "operation_duration": 0,
+                "step_completed_count": 0,
+                "step_error_count": 0,
+                "deduction_items": [
+                    {
+                        "reason": "解析错误：'list' object has no attribute 'get'",
+                        "deduction_score": 0
+                    }
+                ],
+                "correct_items": [
+                    "无"
+                ],
+                "time_analysis": "无法分析",
+                "action_norm_analysis": "解析出错",
+                "improvement_suggestions": [
+                    "重启后端服务",
+                    "检查视频文件",
+                    "确保FFmpeg环境正常"
+                ]
+            },
+            "upload_time": "2026-03-11 16:40:33",
+            "is_analyzed": true
         },
         {
             "project_id": "project_5",
             "project_name": "机柜理线与标签",
             "project_desc": "机柜内线缆整理、标签粘贴操作，考核理线美观度、标签规范性、扎带使用标准",
             "project_order": 5,
-            "video_filename": null,
-            "video_duration": null,
-            "analysis_result": null,
-            "upload_time": null,
-            "is_analyzed": false
+            "video_filename": "20260311164231_王永钎.MP4",
+            "video_duration": 74.27,
+            "analysis_result": {
+                "project_name": "机柜理线与标签",
+                "project_score": 82,
+                "operation_duration": 18,
+                "step_completed_count": 3,
+                "step_error_count": 2,
+                "deduction_items": [
+                    {
+                        "reason": "线缆梳理不平整，线芯散乱未理顺即进行端接，影响美观及信号传输稳定性",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "打线刀握持姿势不够标准，发力角度略显倾斜，可能导致模块触点接触不良",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "操作连贯性不足，中间有停顿调整线缆的动作，影响整体效率",
+                        "deduction_score": 3
+                    },
+                    {
+                        "reason": "未见明显的标签核对或粘贴动作，若为综合布线项目，缺少标识环节",
+                        "deduction_score": 5
+                    }
+                ],
+                "correct_items": [
+                    "规范佩戴防护手套，符合安全操作要求",
+                    "正确选用打线刀进行模块端接操作",
+                    "线缆剥线长度基本适中，未出现过长或过短"
+                ],
+                "time_analysis": "偏慢，动作略显犹豫，主要耗时在线缆整理和工具对准上，未达到大赛要求的熟练度",
+                "action_norm_analysis": "基本动作框架正确，但在精细操作（如理线、打线力度控制）上缺乏规范性，手部动作幅度较大，不够细腻",
+                "improvement_suggestions": [
+                    "加强线缆梳理训练，确保线芯平直、无缠绕后再放入模块卡槽",
+                    "规范打线刀握持手法，保持垂直于模块表面用力，确保一次压接到位",
+                    "进行限时模拟训练，提高操作的流畅度和连贯性，减少无效调整动作"
+                ]
+            },
+            "upload_time": "2026-03-11 16:43:12",
+            "is_analyzed": true
         }
     ],
-    "total_duration": 237.36,
-    "overall_score": 0,
-    "overall_analysis": null,
+    "total_duration": 439.83,
+    "overall_score": 58,
+    "overall_analysis": {
+        "overall_score": 58,
+        "high_freq_deductions": [
+            "RJ45 线序排列错误导致连通性测试扣分，主要表现为橙白与橙线位置互换，反映出选手在紧张状态下对 T568B 标准线序的记忆固化不足，需加强肌肉记忆训练以避免低级失误",
+            "110 配线架打线力度控制不当导致线芯断裂或接触不良，5 次错误中有 3 次为力度过大切断铜芯，2 次为力度不足导致卡接不牢，显示工具使用手法缺乏稳定性且未形成正确的受力反馈机制",
+            "机柜理线弯曲半径过小导致信号潜在损耗风险，虽然得分较高但仍扣 18 分，主要因线缆捆扎过紧及转弯处未保留足够应力释放空间，不符合大赛工艺美观及信号完整性高标准要求"
+        ],
+        "core_shortcomings": [
+            "端接工艺精度严重不足，RJ45 与 110 项目合计扣分超过 100 分，错误次数达 8 次，表明手部精细动作控制能力未达到世赛金牌标准，需针对指尖力度与工具角度进行专项矫正以提升一次成功率",
+            "时间分配策略极度不合理，RJ45 耗时 200 秒占总时长 45% 以上，而 110 项目仅用 37 秒，这种前松后紧或盲目求快的节奏导致高风险项目错误率飙升，缺乏整体赛程统筹能力与节奏感",
+            "高分值项目得分率偏低，光纤熔接与链路测试虽无显性错误但得分仅为 20 分，说明仅满足了基本通断功能，未在衰减指标、熔接损耗值等关键质量维度上达到优秀标准，缺乏追求卓越的意识"
+        ],
+        "time_overall_analysis": "本次训练总时长 439.83 秒对于包含五个复杂工序的光电项目而言过于紧凑，远低于世界技能大赛标准赛位的常规用时，表明这是一次高强度速度压力测试。RJ45 水晶头端接耗时 200.16 秒严重超标，正常熟练选手应控制在 90 秒以内，反映出选手在剥线、理线环节存在犹豫和重复操作；110 配线架端接仅用 37.2 秒却产生 5 次错误，属于典型的盲目求快牺牲质量，正常用时应在 60 秒左右以保证打线质量；光纤熔接 37.2 秒过快，可能导致光纤端面清洁不彻底或熔接参数未优化，直接影响最终得分仅为 20 分的低分结果；链路测试 91 秒相对合理但仍有压缩空间；机柜理线 74.27 秒表现尚可。整体来看，选手未能建立稳定的节奏感，快慢失衡严重，需重新校准各项目标准用时基准，避免因时间管理不当导致的非技术性失分。",
+        "advantage_analysis": "1. 任务完成度达到 100%，五个项目全部在规定时间内完成操作，没有出现中途放弃或超时未提交的情况，展现了良好的心理素质和基本的项目执行力，这是参赛的基础保障，说明选手具备完整的技能图谱无缺失项。2. 机柜理线与标签项目得分最高达 82 分，表明选手在宏观布线规划、标签打印粘贴规范性及整体工艺美观度上具有较好天赋，线缆捆扎整齐度优于端接细节，说明视觉空间管理能力较强，可作为后续建立信心的突破口，将该项目的标准化流程迁移至端接项目中。",
+        "overall_improvement_suggestions": [
+            "实施端接工艺微格训练，每日进行 RJ45 及 110 打线专项练习各 50 次，重点监控打线刀角度与力度，使用放大镜检测线芯切口，验收标准为连续 3 天错误率低于 5% 且单次 RJ45 用时压缩至 100 秒以内，通过高频重复形成肌肉记忆",
+            "开展全流程时间切片模拟，将 439 秒总时长重新分配为 RJ45(90s)+110(60s)+ 光纤 (60s)+ 测试 (60s)+ 理线 (100s) 的标准模型，进行计时阻断训练，若某环节超时则强制停止进入下一项，验收标准为连续 5 次模拟总用时偏差控制在±10 秒内，培养严格的时间感知能力",
+            "强化光纤熔接质量深度优化，不再满足于通断测试，需引入光功率计进行损耗测试训练，每日练习熔接 20 芯，记录平均损耗值，验收标准为连续一周平均熔接损耗低于 0.03dB 且项目得分提升至 80 分以上，从功能实现转向质量卓越"
+        ],
+        "project_rank": [
+            {
+                "project_name": "机柜理线与标签",
+                "score": 82,
+                "rank": 1,
+                "gap_analysis": "作为最高分项目，表现稳定，是选手的核心得分点，需保持并总结经验"
+            },
+            {
+                "project_name": "110 配线架端接",
+                "score": 68,
+                "rank": 2,
+                "gap_analysis": "与最高分差距 14 分，主要失分在于错误次数过多，速度虽快但质量失控，需平衡速度与精度"
+            },
+            {
+                "project_name": "RJ45 水晶头端接",
+                "score": 62,
+                "rank": 3,
+                "gap_analysis": "与最高分差距 20 分，耗时最长但得分不高，效率极低，存在严重的操作犹豫和流程不熟练问题"
+            },
+            {
+                "project_name": "光纤熔接操作",
+                "score": 20,
+                "rank": 4,
+                "gap_analysis": "与最高分差距 62 分，虽无错误记录但得分极低，说明仅达到及格线或未满足高质量指标，需提升熔接损耗标准"
+            },
+            {
+                "project_name": "链路通断测试",
+                "score": 20,
+                "rank": 5,
+                "gap_analysis": "与最高分差距 62 分，同样存在仅满足基本功能未追求高分的情况，测试流程可能过于简单未体现专业深度"
+            }
+        ]
+    },
     "created_time": "2026-03-11 10:27:57",
-    "finished_time": null,
-    "is_finished": false
+    "finished_time": "2026-03-11 16:43:12",
+    "is_finished": true
 }

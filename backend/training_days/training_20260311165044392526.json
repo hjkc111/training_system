@@ -1,0 +1,100 @@
+{
+    "training_day_id": "training_20260311165044392526",
+    "username": "player1",
+    "training_day_name": "2026.3.6光电项目日常训练",
+    "project_list": [
+        {
+            "project_id": "photoelectric_1",
+            "project_name": "光纤熔接操作",
+            "project_desc": "光纤熔接标准流程，考核端面处理、熔接损耗、热缩管封装规范性",
+            "project_order": 1,
+            "video_filename": "20260311165048_Clip24.m4v",
+            "video_duration": 91.0,
+            "analysis_result": {
+                "project_name": "光纤熔接操作",
+                "project_score": 65,
+                "operation_duration": 18,
+                "step_completed_count": 2,
+                "step_error_count": 3,
+                "deduction_items": [
+                    {
+                        "reason": "核心熔接步骤缺失：视频未展示剥纤、清洁、切割、熔接机对准及放电熔接等关键技术环节，无法评估端面处理质量和熔接损耗",
+                        "deduction_score": 30
+                    },
+                    {
+                        "reason": "光纤盘纤规范性不足：可见光纤走线略显杂乱，弯曲半径控制不明，存在微弯损耗风险，不符合大赛对盘纤美观及技术指标的要求",
+                        "deduction_score": 15
+                    },
+                    {
+                        "reason": "操作视角严重受阻：画面多次被货架或工具遮挡（如帧6、7），且对焦不准，裁判无法清晰观察热缩管封装平整度及光纤余长处理",
+                        "deduction_score": 10
+                    }
+                ],
+                "correct_items": [
+                    "操作人员佩戴3M防护手套，符合安全操作及防污染规范",
+                    "进行了熔接盘/热缩管放置的后期整理动作",
+                    "识别并使用了黄色的单模光纤进行作业"
+                ],
+                "time_analysis": "用时极短（约18秒），仅覆盖了熔接后整理或局部操作片段。标准单芯光纤熔接全流程（含制备、熔接、保护、盘纤）通常需3-5分钟，当前视频无法体现完整作业效率。",
+                "action_norm_analysis": "动作主要集中在后期组装阶段。手部动作尚可，但缺乏精细度展示。未观察到标准的‘剥、洁、切、熔、热、盘’闭环操作。光纤在盘内的走向不够清晰，存在交叉风险，不符合‘横平竖直、圆滑自然’的盘纤标准。",
+                "improvement_suggestions": [
+                    "补充核心步骤视频：必须完整记录剥除涂覆层（30-40mm）、酒精单向擦拭、切割刀切割（端面角度<0.5°）、熔接机自动熔接及热缩管加热保护的全过程，这是评分的核心依据。",
+                    "规范盘纤工艺：光纤在熔接盘内的盘绕半径应严格大于30mm，避免直角弯折。走线应分层、分槽固定，使用魔术贴或卡槽固定，确保光纤不受应力，美观整齐。",
+                    "优化操作视角与照明：调整摄像头位置至操作台正上方或斜前方45度，避免金属架遮挡视线。确保操作区域光线充足，以便清晰展示光纤端面质量及熔接机屏幕上的损耗数值。"
+                ]
+            },
+            "upload_time": "2026-03-11 16:51:56",
+            "is_analyzed": true
+        },
+        {
+            "project_id": "photoelectric_2",
+            "project_name": "光电测试仪使用",
+            "project_desc": "光电测试仪器使用，考核仪器连接规范性、参数设置正确率、结果判读准确性",
+            "project_order": 2,
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false
+        },
+        {
+            "project_id": "photoelectric_3",
+            "project_name": "光纤端面清洁",
+            "project_desc": "光纤端面清洁操作，考核清洁工具使用规范性、清洁效果、操作时长",
+            "project_order": 3,
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false
+        },
+        {
+            "project_id": "photoelectric_4",
+            "project_name": "光纤识别与分类",
+            "project_desc": "不同类型光纤识别与分类，考核识别准确率、分类规范性、操作效率",
+            "project_order": 4,
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false
+        },
+        {
+            "project_id": "photoelectric_5",
+            "project_name": "光纤连接器安装",
+            "project_desc": "光纤连接器安装操作，考核安装规范性、连接稳定性、操作时长",
+            "project_order": 5,
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false
+        }
+    ],
+    "total_duration": 91.0,
+    "overall_score": 0,
+    "overall_analysis": null,
+    "created_time": "2026-03-11 16:50:44",
+    "finished_time": null,
+    "is_finished": false
+}
