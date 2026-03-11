@@ -295,7 +295,7 @@ const getTrainingDayDetail = async () => {
   if (!trainingDayId || !userInfo.value.username) return
   loading.value = true
   try {
-    const res = await axios.post('/api/training/photoelectric/day/detail', {
+    const res = await axios.post('/api/photoelectric/training/day/detail', {
       training_day_id: trainingDayId,
       username: userInfo.value.username
     })
@@ -362,7 +362,7 @@ const analyzeCurrentProject = async () => {
   const currentProject = projectList.value[currentProjectIndex.value]
   analyzing.value = true
   try {
-    const res = await axios.post('/api/training/photoelectric/project/analyze', {
+    const res = await axios.post('/api/photoelectric/training/project/analyze', {
       training_day_id: trainingDayId,
       project_id: currentProject.project_id,
       filename: uploadedFilename.value,
@@ -387,7 +387,7 @@ const analyzeCurrentProject = async () => {
 const generateSummary = async () => {
   summaryLoading.value = true
   try {
-    const res = await axios.post('/api/training/photoelectric/day/summary', {
+    const res = await axios.post('/api/photoelectric/training/day/summary', {
       training_day_id: trainingDayId,
       username: userInfo.value.username
     })
@@ -406,7 +406,7 @@ const generateSummary = async () => {
 
 // 返回光电项目训练日列表页
 const goBack = () => {
-  router.push('/training/photoelectric-day-list')
+  router.push('/photoelectric/training/day-list')
 }
 
 onMounted(() => {

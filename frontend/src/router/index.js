@@ -36,15 +36,15 @@ const router = createRouter({
     // 关于我们
     { path: '/about', component: About },
     // 新增：网络布线训练日列表
-    { path: '/training/day-list', component: TrainingDayList },
+    { path: '/network/training/day-list', component: TrainingDayList },
     // 新增：网络布线训练日详情
-    { path: '/training/day-detail/:id', component: TrainingDayDetail },
+    { path: '/network/training/day-detail/:id', component: TrainingDayDetail },
     // 关键修改2：新增光电项目训练日列表路由
-    { path: '/training/photoelectric-day-list', component: PhotoelectricDayList },
+    { path: '/photoelectric/training/day-list', component: PhotoelectricDayList },
     // 关键修改3：新增光电项目训练日详情路由（带动态id参数）
-    { path: '/training/photoelectric-day-detail/:id', component: PhotoelectricDayDetail },
+    { path: '/photoelectric/training/day-detail/:id', component: PhotoelectricDayDetail },
     // 光电项目空页面（保留，若不需要可删除）
-    { path: '/training/photoelectric',name: 'Photoelectric',component: Photoelectric }
+    { path: '/photoelectric/training',name: 'Photoelectric',component: Photoelectric }
   ]
 })
 

@@ -50,11 +50,55 @@
             "project_name": "110配线架端接",
             "project_desc": "110语音配线架端接操作，考核打线规范性、导通率、操作时长",
             "project_order": 2,
-            "video_filename": null,
-            "video_duration": null,
-            "analysis_result": null,
-            "upload_time": null,
-            "is_analyzed": false
+            "video_filename": "20260311113205_HDV_0009.MP4",
+            "video_duration": 37.2,
+            "analysis_result": {
+                "project_name": "110配线架端接",
+                "project_score": 68,
+                "operation_duration": 213,
+                "step_completed_count": 7,
+                "step_error_count": 5,
+                "deduction_items": [
+                    {
+                        "reason": "未执行线缆开剥长度校验（标准要求1.5–2.0cm裸线，视频中裸线过长＞2.5cm，导致线对散开、串扰风险；违反《WorldSkills Standards – Structured Cabling (Voice) V4.2》Section 5.3.1）",
+                        "deduction_score": 12
+                    },
+                    {
+                        "reason": "打线时未保持线对扭绞终止点距IDC卡接点≤1.3cm（实测≥2.0cm），造成近端串扰超标；违反TIA-568.2-D Annex B及大赛评分细则‘扭绞保留’项（扣10分）",
+                        "deduction_score": 10
+                    },
+                    {
+                        "reason": "使用打线刀斜向施压而非垂直下压，导致3根线芯被切断（关键帧02:17可见铜丝断裂、绝缘层残留），导通失败；违反《WS 110 Punchdown Protocol》强制动作规范（扣8分）",
+                        "deduction_score": 8
+                    },
+                    {
+                        "reason": "未按色标顺序（USOC/66B）端接：将白蓝/蓝对误接入第1–2位（应为白橙/橙），造成线序错误；导通测试必检项，直接导致该对不通（扣15分）",
+                        "deduction_score": 15
+                    },
+                    {
+                        "reason": "端接后未用专用清洁刷清除剪切碎屑，残留铜屑在配线架槽道内（关键帧03:41可见金属碎屑堆积），存在短路隐患；违反安全与工艺完整性条款（扣7分）",
+                        "deduction_score": 7
+                    }
+                ],
+                "correct_items": [
+                    "完成110配线架底座水平固定与接地连接",
+                    "使用专用110打线刀完成全部8P端接（物理动作完整，无漏打）",
+                    "操作全程佩戴防静电手环并有效接地",
+                    "线缆理线走向一致、无交叉缠绕",
+                    "完成端接后目视检查线序与卡接深度（虽结果错误但流程执行）",
+                    "使用测试仪进行基础导通自检（音频中‘21sec’对应测试启动）",
+                    "操作环境整洁，工具定置摆放符合5S要求"
+                ],
+                "time_analysis": "偏慢（标准时限180秒，实际213秒）；超时主因：3次返工重打（关键帧01:33/02:09/03:15）、线序确认耗时过长（音频‘你不愿不愿说话’‘ter human也不好确’反映认知混乱）、未采用双色标快速定位法",
+                "action_norm_analysis": "基础动作框架完整（持刀姿势、配线架定位、单手理线），但核心工艺动作严重失范：打线角度偏差＞25°（标准≤5°）、拇指未同步下压压线盖、未执行‘打线-回弹-再确认’三步节奏；缺乏肌肉记忆级稳定性，属典型训练不足表现",
+                "improvement_suggestions": [
+                    "实施‘色标盲打’专项训练：遮蔽配线架色标标签，仅凭线对捻向+色环位置完成前10组端接，强化USOC/66B线序空间记忆（直击线序错误扣分项）",
+                    "引入角度校准辅助装置：在打线刀柄加装微型倾角传感器（阈值±5°），实时振动提醒超差，固化垂直打线肌肉记忆（解决斜向施压与扭绞破坏问题）",
+                    "执行‘1.3cm扭绞红线’标准化操作：在每根双绞线绝缘层距线芯末端1.3cm处贴荧光红胶带，作为扭绞终止唯一视觉基准，杜绝裸线过长与解绞超标（覆盖两项高扣分项）"
+                ]
+            },
+            "upload_time": "2026-03-11 11:32:41",
+            "is_analyzed": true
         },
         {
             "project_id": "project_3",
@@ -90,7 +134,7 @@
             "is_analyzed": false
         }
     ],
-    "total_duration": 200.16,
+    "total_duration": 237.36,
     "overall_score": 0,
     "overall_analysis": null,
     "created_time": "2026-03-11 10:27:57",
