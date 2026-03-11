@@ -69,7 +69,7 @@
               <!-- 视频上传区域（和原有逻辑完全兼容） -->
               <el-upload
                 ref="uploadRef"
-                action="/api/video/upload"
+                action="/api/network/video/upload"
                 :chunk-size="5 * 1024 * 1024"
                 accept="video/mp4,video/mov,video/avi"
                 :show-file-list="true"
@@ -295,7 +295,7 @@ const getTrainingDayDetail = async () => {
   if (!trainingDayId || !userInfo.value.username) return
   loading.value = true
   try {
-    const res = await axios.post('/api/training/day/detail', {
+    const res = await axios.post('/api/network/training/day/detail', {
       training_day_id: trainingDayId,
       username: userInfo.value.username
     })
@@ -362,7 +362,7 @@ const analyzeCurrentProject = async () => {
   const currentProject = projectList.value[currentProjectIndex.value]
   analyzing.value = true
   try {
-    const res = await axios.post('/api/training/project/analyze', {
+    const res = await axios.post('/api/network/training/project/analyze', {
       training_day_id: trainingDayId,
       project_id: currentProject.project_id,
       filename: uploadedFilename.value,
@@ -387,7 +387,7 @@ const analyzeCurrentProject = async () => {
 const generateSummary = async () => {
   summaryLoading.value = true
   try {
-    const res = await axios.post('/api/training/day/summary', {
+    const res = await axios.post('/api/network/training/day/summary', {
       training_day_id: trainingDayId,
       username: userInfo.value.username
     })
@@ -406,7 +406,7 @@ const generateSummary = async () => {
 
 // 返回上一页
 const goBack = () => {
-  router.push('/training/day-list')
+  router.push('/network/training/day-list')
 }
 
 onMounted(() => {

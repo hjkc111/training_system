@@ -135,7 +135,7 @@ const initUserInfo = () => {
 // 获取预设项目（前端本地预设，若需后端获取可保留原接口）
 const getPresetProjects = async () => {
   try {
-    const res = await axios.get('/api/training/photoelectric/project/preset')
+    const res = await axios.get('/api/photoelectric/training/project/preset')
     if (res.data.code === 200) {
       presetProjects.value = res.data.preset_projects
       selectedProjectIds.value = presetProjects.value.map(item => item.project_id)
@@ -150,7 +150,7 @@ const getPresetProjects = async () => {
 const getTrainingList = async () => {
   if (!userInfo.value.username) return
   try {
-    const res = await axios.post('/api/training/photoelectric/day/list', {
+    const res = await axios.post('/api/photoelectric/training/day/list', {
       username: userInfo.value.username
     })
     if (res.data.code === 200) {
@@ -184,7 +184,7 @@ const createTrainingDay = async () => {
         project_order: idx + 1
       }))
 
-    const res = await axios.post('/api/training/photoelectric/day/create', {
+    const res = await axios.post('/api/photoelectric/training/day/create', {
       ...createForm.value,
       custom_projects: customProjects
     })
@@ -205,7 +205,7 @@ const createTrainingDay = async () => {
 
 // 跳转到光电项目详情页
 const goToDetail = (id) => {
-  router.push(`/training/photoelectric-day-detail/${id}`)
+  router.push(`/photoelectric/training/day-detail/${id}`)
 }
 
 onMounted(() => {

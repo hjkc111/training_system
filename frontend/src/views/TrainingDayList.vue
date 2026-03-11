@@ -108,7 +108,7 @@ const initUserInfo = () => {
 // 获取预设项目
 const getPresetProjects = async () => {
   try {
-    const res = await axios.get('/api/training/project/preset')
+    const res = await axios.get('/api/network/training/project/preset')
     if (res.data.code === 200) {
       presetProjects.value = res.data.preset_projects
       // 默认全选
@@ -123,7 +123,7 @@ const getPresetProjects = async () => {
 const getTrainingList = async () => {
   if (!userInfo.value.username) return
   try {
-    const res = await axios.post('/api/training/day/list', {
+    const res = await axios.post('/api/network/training/day/list', {
       username: userInfo.value.username
     })
     if (res.data.code === 200) {
@@ -157,7 +157,7 @@ const createTrainingDay = async () => {
         project_order: idx + 1
       }))
 
-    const res = await axios.post('/api/training/day/create', {
+    const res = await axios.post('/api/network/training/day/create', {
       ...createForm.value,
       custom_projects: customProjects
     })
@@ -178,7 +178,7 @@ const createTrainingDay = async () => {
 
 // 跳转到详情页
 const goToDetail = (id) => {
-  router.push(`/training/day-detail/${id}`)
+  router.push(`/network/training/day-detail/${id}`)
 }
 
 onMounted(() => {

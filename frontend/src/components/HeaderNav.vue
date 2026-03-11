@@ -25,11 +25,11 @@
               <i class="el-icon-date"></i>
               <span>训练管理</span>
             </template>
-            <el-menu-item index="7-1" @click="toPage('/training/day-list')">
+            <el-menu-item index="7-1" @click="toPage('/network/training/day-list')">
               <span>网络布线项目</span>
             </el-menu-item>
             <!-- 关键修改1：跳转路径改为光电项目训练日列表页 -->
-            <el-menu-item index="7-2" @click="toPage('/training/photoelectric-day-list')">
+            <el-menu-item index="7-2" @click="toPage('/photoelectric/training/day-list')">
               <span>光电项目</span>
             </el-menu-item>
           </el-sub-menu>
@@ -79,12 +79,12 @@ const activeIndex = ref('1')
 // 路由-菜单索引映射
 const pathToIndexMap = {
   '/home': '1',
-  '/training/day-list': '7',
-  '/training/day-detail': '7',
+  '/networktraining/day-list': '7',
+  '/network/training/day-detail': '7',
   // 关键修改2：更新光电项目列表页的路由映射
-  '/training/photoelectric-day-list': '7',
+  '/photoelectric/training/day-list': '7',
   // 关键修改3：补充光电项目详情页的路由映射（确保进入详情页时训练管理菜单仍激活）
-  '/training/photoelectric-day-detail': '7',
+  '/photoelectric/training/day-detail/:id': '7',
   '/profile': '2',
   '/data-analysis': '3',
   '/training-plan': '4',

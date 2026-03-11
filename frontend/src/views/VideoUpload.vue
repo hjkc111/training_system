@@ -13,7 +13,7 @@
         <div class="upload-card-inner">
           <el-upload
             ref="uploadRef"
-            action="/api/video/upload"
+            action="/api/network/video/upload"
             :chunk-size="5 * 1024 * 1024"
             :chunk-number="(n) => n - 1"
             accept="video/mp4,video/mov,video/avi"
@@ -276,7 +276,7 @@ const analyzeVideo = async () => {
   analyzing.value = true
   try {
     // 传参格式：严格 JSON，参数名和后端保持一致
-    const res = await axios.post('/api/video/analyze', {
+    const res = await axios.post('/api/network/video/analyze', {
       filename: uploadedFilename.value,
       username: userInfo.value.username
     })
@@ -312,7 +312,7 @@ const loadHistory = async () => {
   if (!userInfo.value.username) return
   
   try {
-    const res = await axios.post('/api/video/analysis/history', {
+    const res = await axios.post('/api/network/video/analysis/history', {
       username: userInfo.value.username
     })
     historyList.value = res.data.history || []
