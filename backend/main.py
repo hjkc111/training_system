@@ -59,7 +59,7 @@ async def login(login_data: LoginRequest = Body(...)):
         "user_info": {"username": username, "role": role}
     }
 
-# ------------------- 视频上传接口 -------------------
+# ------------------- 网络布线视频上传接口 -------------------
 @app.post("/api/video/upload")
 async def upload_video(
     file: UploadFile = File(...),
@@ -124,7 +124,73 @@ async def upload_video(
         }
     }
 
-# ------------------- 视频分析接口 -------------------
+# ------------------- 光电项目视频上传接口 -------------------
+@app.post("/api/photoelectric/video/upload")
+async def upload_video_photoelectric(
+    file: UploadFile = File(...),
+    chunk: str = Form(None),
+    chunks: str = Form(None),
+    filename: str = Form(None),
+    username: str = Form(...)
+):
+    if file.content_type not in ALLOWED_VIDEO_TYPES:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"仅支持上传mp4/mov/avi格式视频，当前格式：{file.content_type}"
+        )
+    
+    file_size = await get_file_size(file)
+    if file_size > MAX_VIDEO_SIZE:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"文件大小超过限制（最大100MB），当前大小：{round(file_size/1024/1024, 2)}MB"
+        )
+    
+    if not filename:
+        filename = file.filename or "unknown_video"
+    unique_filename = f"{datetime.now().strftime('%Y%m%d%H%M%S')}_{filename}"
+    file_path = os.path.join(UPLOAD_DIR, unique_filename)
+    
+    try:
+        chunk_int = int(chunk) if chunk is not None else None
+        chunks_int = int(chunks) if chunks is not None else None
+    except (ValueError, TypeError):
+        chunk_int = None
+        chunks_int = None
+    
+    if chunk_int is not None and chunks_int is not None:
+        temp_chunk_path = f"{file_path}.part{chunk_int}"
+        with open(temp_chunk_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+        
+        if chunk_int == chunks_int - 1:
+            with open(file_path, "wb") as final_file:
+                for i in range(chunks_int):
+                    part_path = f"{file_path}.part{i}"
+                    if os.path.exists(part_path):
+                        with open(part_path, "rb") as part_file:
+                            final_file.write(part_file.read())
+                        os.remove(part_path)
+            status = "合并完成"
+        else:
+            status = f"分片{chunk_int+1}/{chunks_int}上传成功"
+    else:
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+        status = "普通上传完成"
+    
+    return {
+        "code": 200,
+        "message": f"视频上传成功！{status}",
+        "file_info": {
+            "filename": unique_filename,
+            "size_mb": round(file_size/1024/1024, 2),
+            "save_path": file_path.replace("\\", "/")
+        }
+    }
+
+
+# ------------------- 网络布线视频分析接口 -------------------
 @app.post("/api/video/analyze")
 async def analyze_video(analysis_req: AnalysisRequest = Body(...)):
     video_filename = analysis_req.filename
@@ -157,6 +223,7 @@ async def analyze_video(analysis_req: AnalysisRequest = Body(...)):
         "analysis_record": record
     }
 
+
 # ------------------- 获取历史分析记录 -------------------
 @app.post("/api/video/analysis/history")
 async def get_analysis_history_api(history_req: HistoryRequest = Body(...)):
@@ -182,7 +249,7 @@ from video_utils import extract_video_audio_text, extract_video_key_frames
 from llm_utils import call_qwen_project_analysis, call_qwen_training_summary
 import cv2
 
-# 1. 创建新训练日
+# 1.1 创建新网络布线训练日
 @app.post("/api/training/day/create")
 async def create_training_day_api(req: CreateTrainingDayRequest = Body(...)):
     try:
@@ -194,8 +261,21 @@ async def create_training_day_api(req: CreateTrainingDayRequest = Body(...)):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"创建训练日失败：{str(e)}")
+# 1.2 创建新电光训练日（接口复用，前端根据项目类型调用不同接口）
+@app.post("/api/training/photoelectric/day/create")
+async def create_training_day_api_photoelectric(req: CreateTrainingDayRequest = Body(...)):
+    try:
+        training_day_data = create_training_day(req)
+        return {
+            "code": 200,
+            "message": "训练日创建成功",
+            "training_day_data": training_day_data
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"创建训练日失败：{str(e)}")
+    
 
-# 2. 获取用户的训练日列表
+# 2.1 获取用户的网络布线训练日列表
 @app.post("/api/training/day/list")
 async def get_training_day_list_api(req: HistoryRequest = Body(...)):
     try:
@@ -207,7 +287,18 @@ async def get_training_day_list_api(req: HistoryRequest = Body(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"获取训练日列表失败：{str(e)}")
 
-# 3. 获取训练日详情
+# 2.2 获取用户的电光训练日列表（接口复用，前端根据项目类型调用不同接口）
+@app.post("/api/training/photoelectric/day/list")
+async def get_training_day_list_api_photoelectric(req: HistoryRequest = Body(...)):
+    try:
+        list_data = get_user_training_day_list(req.username)
+        return {
+            "code": 200,
+            "list": list_data
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取训练日列表失败：{str(e)}")
+# 3.1 获取训练日详情
 @app.post("/api/training/day/detail")
 async def get_training_day_detail_api(req: TrainingDayIdRequest = Body(...)):
     training_day = get_training_day(req.training_day_id, req.username)
@@ -217,8 +308,19 @@ async def get_training_day_detail_api(req: TrainingDayIdRequest = Body(...)):
         "code": 200,
         "detail": training_day
     }
+#3.2 电光项目获取训练日详情
+@app.post("/api/training/photoelectric/day/detail")
+async def get_training_day_detail_api_photoelectric(req: TrainingDayIdRequest = Body(...)):
+    training_day = get_training_day(req.training_day_id, req.username)
+    if not training_day:
+        raise HTTPException(status_code=404, detail="训练日不存在或无权限")
+    return {
+        "code": 200,
+        "detail": training_day
+    }
 
-# 4. 单个项目视频分析
+
+# 4.1 网络布线单个项目视频分析
 @app.post("/api/training/project/analyze")
 async def project_analyze_api(req: ProjectAnalyzeRequest = Body(...)):
     # 1. 校验训练日和项目
@@ -286,7 +388,76 @@ async def project_analyze_api(req: ProjectAnalyzeRequest = Body(...)):
         "project_analysis": analysis_result
     }
 
-# 5. 生成训练日整体汇总报告
+# 4.2 电光项目获取训练日详情（接口复用，前端根据项目类型调用不同接口）
+@app.post("/api/training/photoelectric/project/analyze")
+async def project_analyze_api_photoelectric(req: ProjectAnalyzeRequest = Body(...)):
+    # 1. 校验训练日和项目
+    training_day = get_training_day(req.training_day_id, req.username)
+    if not training_day:
+        raise HTTPException(status_code=404, detail="训练日不存在或无权限")
+    
+    # 找到对应项目
+    target_project = None
+    for project in training_day["project_list"]:
+        if project["project_id"] == req.project_id:
+            target_project = project
+            break
+    if not target_project:
+        raise HTTPException(status_code=404, detail="项目不存在")
+    
+    # 2. 校验视频文件
+    video_path = os.path.join(UPLOAD_DIR, req.filename)
+    if not os.path.exists(video_path):
+        raise HTTPException(status_code=404, detail="视频文件不存在")
+    
+    # 3. 创建媒体保存目录
+    extract_dir_name = f"{req.training_day_id}_{req.project_id}"
+    extract_save_dir = os.path.join(MEDIA_EXTRACT_DIR, extract_dir_name)
+    if not os.path.exists(extract_save_dir):
+        os.makedirs(extract_save_dir)
+    
+    # 4. 提取音频和关键帧（复用原有工具函数）
+    video_text, is_audio_useful = extract_video_audio_text(video_path, extract_save_dir)
+    key_frames = extract_video_key_frames(video_path, extract_save_dir, num_frames=16)
+    
+    # 5. 调用大模型专项分析
+    analysis_result = call_qwen_project_analysis(
+        project_name=target_project["project_name"],
+        project_desc=target_project["project_desc"],
+        video_text=video_text,
+        key_frames_base64=key_frames,
+        username=req.username,
+        is_audio_useful=is_audio_useful
+    )
+    
+    # 6. 获取视频时长
+    cap = cv2.VideoCapture(video_path)
+    fps = cap.get(cv2.CAP_PROP_FPS)
+    total_frames = cap.get(cv2.CAP_PROP_FRAME_COUNT)
+    video_duration = round(total_frames / fps, 2) if fps and total_frames else 0
+    cap.release()
+    
+    # 7. 更新项目数据
+    success, result = update_project_analysis(
+        training_day_id=req.training_day_id,
+        project_id=req.project_id,
+        username=req.username,
+        video_info={"filename": req.filename, "duration": video_duration},
+        analysis_result=analysis_result
+    )
+    
+    if not success:
+        raise HTTPException(status_code=500, detail=result)
+    
+    return {
+        "code": 200,
+        "message": "项目分析完成",
+        "training_day_data": result,
+        "project_analysis": analysis_result
+    }
+
+
+# 5.1 生成训练日整体汇总报告
 @app.post("/api/training/day/summary")
 async def training_day_summary_api(req: TrainingDaySummaryRequest = Body(...)):
     # 1. 校验训练日
@@ -318,8 +489,40 @@ async def training_day_summary_api(req: TrainingDaySummaryRequest = Body(...)):
         "training_day_data": result,
         "summary_result": summary_result
     }
+#5.2 电光项目生成训练日整体汇总
+@app.post("/api/training/photoelectric/day/summary")
+async def training_day_summary_api_photoelectric(req: TrainingDaySummaryRequest = Body(...)):
+    # 1. 校验训练日
+    training_day = get_training_day(req.training_day_id, req.username)
+    if not training_day:
+        raise HTTPException(status_code=404, detail="训练日不存在或无权限")
+    
+    # 2. 校验是否全部项目完成
+    all_finished = all([p["is_analyzed"] for p in training_day["project_list"]])
+    if not all_finished:
+        raise HTTPException(status_code=400, detail="还有项目未完成分析，无法生成整体汇总")
+    
+    # 3. 调用大模型生成汇总
+    summary_result = call_qwen_training_summary(training_day, req.username)
+    
+    # 4. 更新训练日数据
+    success, result = update_training_day_summary(
+        training_day_id=req.training_day_id,
+        username=req.username,
+        overall_analysis=summary_result
+    )
+    
+    if not success:
+        raise HTTPException(status_code=500, detail=result)
+    
+    return {
+        "code": 200,
+        "message": "整体汇总生成完成",
+        "training_day_data": result,
+        "summary_result": summary_result
+    }
 
-# 6. 获取预设项目列表
+# 6.1 网络布线获取预设项目列表
 @app.get("/api/training/project/preset")
 async def get_preset_projects_api():
     from config import PRESET_PROJECTS
@@ -327,7 +530,14 @@ async def get_preset_projects_api():
         "code": 200,
         "preset_projects": PRESET_PROJECTS
     }
-
+# 6.2 电光获取预设项目列表（接口复用，前端根据项目类型调用不同接口）
+@app.get("/api/training/photoelectric/project/preset")
+async def get_preset_projects_api_photoelectric():
+    from config import PRESET_PHOTOELECTRIC_PROJECTS
+    return {
+        "code": 200,
+        "preset_projects": PRESET_PHOTOELECTRIC_PROJECTS
+    }
 
 # ------------------- 注册静态资源路由 -------------------
 from static_resource import static_router, mount_static_resources
