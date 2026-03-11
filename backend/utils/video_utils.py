@@ -79,7 +79,7 @@ def extract_video_audio_text(video_path, save_dir):
         return "", False
 
 def extract_video_key_frames(video_path, save_dir, num_frames=16):
-    """提取视频关键帧，保存到指定目录，返回base64列表（修复Windows路径编码问题）"""
+    """提取视频关键帧，保存到指定目录，返回带data:image前缀的base64列表（修复Windows路径编码问题）"""
     key_frames_base64 = []
     print(f"开始提取关键帧: {video_path}")
     cap = cv2.VideoCapture(video_path)
@@ -125,20 +125,24 @@ def extract_video_key_frames(video_path, save_dir, num_frames=16):
             if not os.path.exists(frame_save_path):
                 raise Exception(f"图片保存后不存在：{frame_save_path}")
             
-            # 3. 转换为base64
+            # 3. 转换为带data:image前缀的base64（核心修改：解决Qwen3.5-Plus URL无效问题）
             buffer = BytesIO()
             img.save(buffer, format="JPEG", quality=80)
             buffer.seek(0)
-            img_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
+            # 第一步：生成纯base64编码
+            pure_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
+            # 第二步：拼接data:image前缀（Qwen3.5-Plus必须的格式）
+            complete_base64 = f"data:image/jpg;base64,{pure_base64}"
             
-            # 校验base64有效性
-            if len(img_base64) < 100:
-                print(f"第 {i} 帧base64编码无效，跳过")
+            # 校验base64有效性（包含前缀后的长度校验）
+            if len(complete_base64) < 200:  # 带前缀后长度至少200，避免无效编码
+                print(f"第 {i} 帧base64编码无效（带前缀后长度：{len(complete_base64)}），跳过")
                 continue
             
-            key_frames_base64.append(img_base64)
-            print(f"✅ 成功提取第 {i} 帧（base64长度：{len(img_base64)}），实际保存路径: {frame_save_path}")
+            key_frames_base64.append(complete_base64)
+            print(f"✅ 成功提取第 {i} 帧（带前缀base64长度：{len(complete_base64)}），实际保存路径: {frame_save_path}")
             print(f"   文件大小: {os.path.getsize(frame_save_path) / 1024:.2f} KB")  # 验证文件大小
+            print(f"   base64前缀校验: {complete_base64[:30]}...")  # 新增：验证前缀是否正确
         
         except Exception as e:
             print(f"❌ 第 {i} 帧保存失败：{str(e)}")

@@ -3,6 +3,8 @@ import dashscope
 import base64
 from dashscope import Generation
 from config import DASHSCOPE_API_KEY
+import os
+import cv2
 
 def call_qwen35(video_text, key_frames_base64, username, is_audio_useful):
     """调用Qwen3.5-Plus分析视频，优先分析关键帧，优化评分逻辑"""
@@ -118,9 +120,9 @@ def call_qwen35(video_text, key_frames_base64, username, is_audio_useful):
             "key_frame_analysis": f"关键帧提取成功，调用出错：{str(e)[:50]}"
         }
     
-# ------------------- 新增：单项目专项分析（适配比赛项目） -------------------
-def call_qwen_project_analysis(project_name: str, project_desc: str, video_text: str, key_frames_base64: list, username: str, is_audio_useful: bool):
-    """针对单个比赛项目的专项AI分析，适配世界技能大赛标准"""
+# ------------------- 新增：单项目专项分析（适配比赛项目）网络布线 -------------------
+def call_qwen_project_analysis_network(project_name: str, project_desc: str, video_text: str, key_frames_base64: list, username: str, is_audio_useful: bool):
+    """针对单个比赛项目的专项AI分析（修复List嵌套JSON的解析错误）"""
     prompt = f"""
     你是世界技能大赛官方认证的技术裁判，现在针对【{project_name}】项目，分析选手{username}的训练视频，严格遵循该项目的行业标准和大赛评分规则。
     【项目标准说明】：{project_desc}
@@ -133,8 +135,8 @@ def call_qwen_project_analysis(project_name: str, project_desc: str, video_text:
     3. 量化评分：项目总分100分，按大赛标准扣分，给出最终得分；
     4. 详细列出：扣分项（含扣分原因、扣分值）、正确完成项、操作用时分析；
     5. 给出可落地的改进建议，至少3条，贴合大赛评分标准。
-
-    【输出格式】：严格JSON字符串，字段如下：
+    6.尽量多的尽可能精确的描述内容，并给出标准化的操作步骤应该是怎么样的，字数稍微多一些
+    【输出格式】：严格返回纯JSON字符串，仅返回JSON，不要任何额外文字、注释、换行、反引号、列表包裹！字段如下：
     {{
         "project_name": "{project_name}",
         "project_score": 最终得分（数字0-100）,
@@ -150,92 +152,309 @@ def call_qwen_project_analysis(project_name: str, project_desc: str, video_text:
     """
     
     try:
-        print(f"开始调用Qwen进行【{project_name}】专项分析...")
+        print(f"开始调用Qwen3.5-Plus进行【{project_name}】专项分析...")
         valid_frames = key_frames_base64[:8]
-        print(f"向大模型传递 {len(valid_frames)} 帧关键帧")
+        print(f"向Qwen3.5-Plus传递 {len(valid_frames)} 帧关键帧")
         
+        # 构建messages（和你能跑的代码结构一致）
         messages = [
             {
                 "role": "user",
-                "content": [
-                    {"type": "text", "text": prompt},
-                    *[{"type": "image", "image": frame} for frame in valid_frames]
-                ]
+                "content": [{"image": b64} for b64 in valid_frames] + [{"text": prompt}]
             }
         ]
         
-        response = Generation.call(
-            model="qwen-plus",
+        # 调用Qwen3.5-Plus
+        response = dashscope.MultiModalConversation.call(
             api_key=DASHSCOPE_API_KEY,
-            messages=messages,
-            result_format="json",
-            temperature=0.1,
-            top_p=0.9,
-            max_tokens=2000
+            model='qwen3.5-plus',
+            messages=messages
         )
         
         if response.status_code == 200:
-            usage = response.usage
-            print(f"Qwen Token消耗: 输入={usage.input_tokens}, 输出={usage.output_tokens}, 总计={usage.total_tokens}")
+            print(f"Qwen3.5-Plus调用成功，开始解析结果")
             
             try:
-                analysis_result = json.loads(response.output.choices[0].message.content)
-                # 兜底校验
-                if analysis_result.get("project_score", 0) < 0:
-                    analysis_result["project_score"] = 0
+                # 第一步：获取原始返回内容并打印（完整日志）
+                raw_content = response.output.choices[0].message.content
+                print(f"大模型原始返回内容：{str(raw_content)[:500]}...")
+                
+                # 第二步：处理List类型返回（核心修复）
+                analysis_result_str = ""
+                if isinstance(raw_content, list):
+                    print(f"返回内容是List类型，长度：{len(raw_content)}，开始提取嵌套的JSON字符串")
+                    # 遍历List，找到包含text字段的字典
+                    for item in raw_content:
+                        if isinstance(item, dict) and "text" in item:
+                            # 提取text字段里的内容（这才是真正的JSON字符串）
+                            analysis_result_str = item["text"].strip()
+                            print(f"从List中提取到JSON字符串（前200字符）：{analysis_result_str[:200]}...")
+                            break
+                    # 如果List里没找到text字段，取第一个元素转为字符串
+                    if not analysis_result_str and len(raw_content) > 0:
+                        analysis_result_str = str(raw_content[0]).strip()
+                elif isinstance(raw_content, dict):
+                    print(f"返回内容是Dict类型，提取text字段")
+                    analysis_result_str = raw_content.get("text", "").strip()
+                elif isinstance(raw_content, (str, bytes, bytearray)):
+                    print(f"返回内容是字符串类型，直接使用")
+                    analysis_result_str = str(raw_content).strip()
+                else:
+                    raise Exception(f"不支持的返回类型：{type(raw_content)}")
+                
+                # 第三步：清理JSON字符串（移除多余字符）
+                if not analysis_result_str:
+                    raise Exception("提取到的JSON字符串为空")
+                
+                # 移除markdown反引号、换行、空格
+                analysis_result_str = analysis_result_str.replace("```json", "").replace("```", "").replace("\n", "").replace("\r", "").strip()
+                print(f"清理后的JSON字符串（前200字符）：{analysis_result_str[:200]}...")
+                
+                # 第四步：解析为字典
+                analysis_result = json.loads(analysis_result_str)
+                
+                # 第五步：校验是否为字典（防止解析后还是List）
+                if not isinstance(analysis_result, dict):
+                    raise Exception(f"解析后不是字典类型，而是：{type(analysis_result)}")
+                
+                # 兜底校验：确保得分在0-100之间
+                analysis_result["project_score"] = max(0, min(100, analysis_result.get("project_score", 0)))
+                print(f"✅ 解析成功，项目得分：{analysis_result['project_score']}")
                 return analysis_result
+            
             except json.JSONDecodeError as e:
-                print(f"解析大模型结果失败：{str(e)}")
+                print(f"解析大模型结果失败（JSON格式错误）：{str(e)}")
+                print(f"失败的内容：{analysis_result_str[:500]}")
+                # 兜底返回值
                 return {
                     "project_name": project_name,
                     "project_score": 20,
                     "operation_duration": 0,
                     "step_completed_count": 0,
                     "step_error_count": 0,
-                    "deduction_items": [{"reason": "解析结果失败", "deduction_score": 0}],
+                    "deduction_items": [{"reason": f"JSON解析失败：{str(e)}", "deduction_score": 0}],
                     "correct_items": ["无"],
                     "time_analysis": "无法分析",
                     "action_norm_analysis": "解析失败",
                     "improvement_suggestions": ["重新上传清晰视频", "确保操作完整入镜", "同步口述操作步骤"]
                 }
+            except Exception as e:
+                print(f"解析结果时发生错误：{str(e)}")
+                # 兜底返回值
+                return {
+                    "project_name": project_name,
+                    "project_score": 20,
+                    "operation_duration": 0,
+                    "step_completed_count": 0,
+                    "step_error_count": 0,
+                    "deduction_items": [{"reason": f"解析错误：{str(e)}", "deduction_score": 0}],
+                    "correct_items": ["无"],
+                    "time_analysis": "无法分析",
+                    "action_norm_analysis": "解析出错",
+                    "improvement_suggestions": ["重启后端服务", "检查视频文件", "确保FFmpeg环境正常"]
+                }
         else:
-            print(f"大模型调用失败：{response.message}")
+            print(f"Qwen3.5-Plus调用失败：{response.code} - {response.message}")
+            # 兜底返回值
             return {
                 "project_name": project_name,
                 "project_score": 20,
                 "operation_duration": 0,
                 "step_completed_count": 0,
                 "step_error_count": 0,
-                "deduction_items": [{"reason": "大模型调用失败", "deduction_score": 0}],
+                "deduction_items": [{"reason": f"大模型调用失败：{response.code}-{response.message}", "deduction_score": 0}],
                 "correct_items": ["无"],
                 "time_analysis": "无法分析",
                 "action_norm_analysis": "调用失败",
                 "improvement_suggestions": ["检查网络后重试", "缩短视频时长", "确保视频格式正确"]
             }
     except Exception as e:
-        print(f"调用Qwen出错：{str(e)}")
+        print(f"调用Qwen3.5-Plus出错：{str(e)}")
+        # 兜底返回值
         return {
             "project_name": project_name,
             "project_score": 20,
             "operation_duration": 0,
             "step_completed_count": 0,
             "step_error_count": 0,
-            "deduction_items": [{"reason": "调用出错", "deduction_score": 0}],
+            "deduction_items": [{"reason": f"调用出错：{str(e)}", "deduction_score": 0}],
             "correct_items": ["无"],
             "time_analysis": "无法分析",
             "action_norm_analysis": "调用出错",
             "improvement_suggestions": ["重启后端服务", "检查视频文件", "确保FFmpeg环境正常"]
         }
+#针对光电项目的qwen3.5-plus实验
+def call_qwen_project_analysis_photoelectric(project_name: str, project_desc: str, video_text: str, key_frames_base64: list, username: str, is_audio_useful: bool):
+    """针对单个比赛项目的专项AI分析（修复List嵌套JSON的解析错误）"""
+    prompt = f"""
+    你是世界技能大赛官方认证的技术裁判，现在针对【{project_name}】项目，分析选手{username}的训练视频，严格遵循该项目的行业标准和大赛评分规则。
+    【项目标准说明】：{project_desc}
+    【分析优先级】：优先分析关键帧画面内容，音频仅作为辅助参考！
+    【音频内容】：{video_text if is_audio_useful else '（音频无效，忽略）'}
 
+    【分析要求】：
+    1. 严格基于项目标准，分析视频中的操作流程、动作规范性、工具使用是否符合大赛要求；
+    2. 精准统计：操作总时长、关键步骤完成数量、错误步骤数量；
+    3. 量化评分：项目总分100分，按大赛标准扣分，给出最终得分；
+    4. 详细列出：扣分项（含扣分原因、扣分值）、正确完成项、操作用时分析；
+    5. 给出可落地的改进建议，至少3条，贴合大赛评分标准。
+    6.尽量多的尽可能精确的描述内容，并给出标准化的操作步骤应该是怎么样的，字数稍微多一些
+    【输出格式】：严格返回纯JSON字符串，仅返回JSON，不要任何额外文字、注释、换行、反引号、列表包裹！字段如下：
+    {{
+        "project_name": "{project_name}",
+        "project_score": 最终得分（数字0-100）,
+        "operation_duration": 操作时长（秒，数字）,
+        "step_completed_count": 完成步骤数（数字）,
+        "step_error_count": 错误步骤数（数字）,
+        "deduction_items": [{{"reason": "扣分原因", "deduction_score": 扣分值}}],
+        "correct_items": ["正确完成的操作1", "正确完成的操作2"],
+        "time_analysis": "用时分析（是偏快/偏慢/符合标准，原因）",
+        "action_norm_analysis": "动作规范性分析",
+        "improvement_suggestions": ["建议1", "建议2", "建议3"]
+    }}
+    """
+    
+    try:
+        print(f"开始调用Qwen3.5-Plus进行【{project_name}】专项分析...")
+        valid_frames = key_frames_base64[:8]
+        print(f"向Qwen3.5-Plus传递 {len(valid_frames)} 帧关键帧")
+        
+        # 构建messages（和你能跑的代码结构一致）
+        messages = [
+            {
+                "role": "user",
+                "content": [{"image": b64} for b64 in valid_frames] + [{"text": prompt}]
+            }
+        ]
+        
+        # 调用Qwen3.5-Plus
+        response = dashscope.MultiModalConversation.call(
+            api_key=DASHSCOPE_API_KEY,
+            model='qwen3.5-plus',
+            messages=messages
+        )
+        
+        if response.status_code == 200:
+            print(f"Qwen3.5-Plus调用成功，开始解析结果")
+            
+            try:
+                # 第一步：获取原始返回内容并打印（完整日志）
+                raw_content = response.output.choices[0].message.content
+                print(f"大模型原始返回内容：{str(raw_content)[:500]}...")
+                
+                # 第二步：处理List类型返回（核心修复）
+                analysis_result_str = ""
+                if isinstance(raw_content, list):
+                    print(f"返回内容是List类型，长度：{len(raw_content)}，开始提取嵌套的JSON字符串")
+                    # 遍历List，找到包含text字段的字典
+                    for item in raw_content:
+                        if isinstance(item, dict) and "text" in item:
+                            # 提取text字段里的内容（这才是真正的JSON字符串）
+                            analysis_result_str = item["text"].strip()
+                            print(f"从List中提取到JSON字符串（前200字符）：{analysis_result_str[:200]}...")
+                            break
+                    # 如果List里没找到text字段，取第一个元素转为字符串
+                    if not analysis_result_str and len(raw_content) > 0:
+                        analysis_result_str = str(raw_content[0]).strip()
+                elif isinstance(raw_content, dict):
+                    print(f"返回内容是Dict类型，提取text字段")
+                    analysis_result_str = raw_content.get("text", "").strip()
+                elif isinstance(raw_content, (str, bytes, bytearray)):
+                    print(f"返回内容是字符串类型，直接使用")
+                    analysis_result_str = str(raw_content).strip()
+                else:
+                    raise Exception(f"不支持的返回类型：{type(raw_content)}")
+                
+                # 第三步：清理JSON字符串（移除多余字符）
+                if not analysis_result_str:
+                    raise Exception("提取到的JSON字符串为空")
+                
+                # 移除markdown反引号、换行、空格
+                analysis_result_str = analysis_result_str.replace("```json", "").replace("```", "").replace("\n", "").replace("\r", "").strip()
+                print(f"清理后的JSON字符串（前200字符）：{analysis_result_str[:200]}...")
+                
+                # 第四步：解析为字典
+                analysis_result = json.loads(analysis_result_str)
+                
+                # 第五步：校验是否为字典（防止解析后还是List）
+                if not isinstance(analysis_result, dict):
+                    raise Exception(f"解析后不是字典类型，而是：{type(analysis_result)}")
+                
+                # 兜底校验：确保得分在0-100之间
+                analysis_result["project_score"] = max(0, min(100, analysis_result.get("project_score", 0)))
+                print(f"✅ 解析成功，项目得分：{analysis_result['project_score']}")
+                return analysis_result
+            
+            except json.JSONDecodeError as e:
+                print(f"解析大模型结果失败（JSON格式错误）：{str(e)}")
+                print(f"失败的内容：{analysis_result_str[:500]}")
+                # 兜底返回值
+                return {
+                    "project_name": project_name,
+                    "project_score": 20,
+                    "operation_duration": 0,
+                    "step_completed_count": 0,
+                    "step_error_count": 0,
+                    "deduction_items": [{"reason": f"JSON解析失败：{str(e)}", "deduction_score": 0}],
+                    "correct_items": ["无"],
+                    "time_analysis": "无法分析",
+                    "action_norm_analysis": "解析失败",
+                    "improvement_suggestions": ["重新上传清晰视频", "确保操作完整入镜", "同步口述操作步骤"]
+                }
+            except Exception as e:
+                print(f"解析结果时发生错误：{str(e)}")
+                # 兜底返回值
+                return {
+                    "project_name": project_name,
+                    "project_score": 20,
+                    "operation_duration": 0,
+                    "step_completed_count": 0,
+                    "step_error_count": 0,
+                    "deduction_items": [{"reason": f"解析错误：{str(e)}", "deduction_score": 0}],
+                    "correct_items": ["无"],
+                    "time_analysis": "无法分析",
+                    "action_norm_analysis": "解析出错",
+                    "improvement_suggestions": ["重启后端服务", "检查视频文件", "确保FFmpeg环境正常"]
+                }
+        else:
+            print(f"Qwen3.5-Plus调用失败：{response.code} - {response.message}")
+            # 兜底返回值
+            return {
+                "project_name": project_name,
+                "project_score": 20,
+                "operation_duration": 0,
+                "step_completed_count": 0,
+                "step_error_count": 0,
+                "deduction_items": [{"reason": f"大模型调用失败：{response.code}-{response.message}", "deduction_score": 0}],
+                "correct_items": ["无"],
+                "time_analysis": "无法分析",
+                "action_norm_analysis": "调用失败",
+                "improvement_suggestions": ["检查网络后重试", "缩短视频时长", "确保视频格式正确"]
+            }
+    except Exception as e:
+        print(f"调用Qwen3.5-Plus出错：{str(e)}")
+        # 兜底返回值
+        return {
+            "project_name": project_name,
+            "project_score": 20,
+            "operation_duration": 0,
+            "step_completed_count": 0,
+            "step_error_count": 0,
+            "deduction_items": [{"reason": f"调用出错：{str(e)}", "deduction_score": 0}],
+            "correct_items": ["无"],
+            "time_analysis": "无法分析",
+            "action_norm_analysis": "调用出错",
+            "improvement_suggestions": ["重启后端服务", "检查视频文件", "确保FFmpeg环境正常"]
+        }
 # ------------------- 新增：训练日整体汇总分析 -------------------
 def call_qwen_training_summary(training_day_data: dict, username: str):
-    """基于训练日所有项目的分析结果，生成整体汇总报告"""
+    """基于训练日所有项目的分析结果，生成整体汇总报告（适配Qwen3.5-Plus调用，修复解析逻辑）"""
     project_list = training_day_data["project_list"]
     project_count = len(project_list)
     finished_projects = [p for p in project_list if p["is_analyzed"]]
     total_duration = training_day_data["total_duration"]
 
-    # 整理所有项目的核心数据
+    # 整理所有项目的核心数据（原有逻辑完全保留）
     project_summary = []
     total_score = 0
     total_deduction = 0
@@ -255,6 +474,7 @@ def call_qwen_training_summary(training_day_data: dict, username: str):
 
     avg_score = round(total_score / len(finished_projects), 2) if finished_projects else 0
 
+    # Prompt保留原有逻辑，新增详细度要求（和你之前要求的"多内容、多字数"一致）
     prompt = f"""
     你是世界技能大赛总教练，现在针对选手{username}的训练日【{training_day_data['training_day_name']}】生成整体训练分析报告。
     【训练日基础数据】：
@@ -267,47 +487,95 @@ def call_qwen_training_summary(training_day_data: dict, username: str):
 
     【分析要求】：
     1. 给出整体训练评分（0-100分），基于各项目平均分、完成度、扣分情况综合评定；
-    2. 汇总所有项目的扣分项，找出高频错误、核心短板；
-    3. 用时分析：总时长是否符合大赛标准，各项目用时是否合理，哪些项目偏快/偏慢，原因是什么；
-    4. 优势分析：本次训练中表现好的地方；
-    5. 整体改进建议：针对核心短板给出可落地的训练计划，至少3条；
-    6. 输出严格JSON格式，禁止额外内容。
+    2. 汇总所有项目的扣分项，找出高频错误、核心短板（详细描述，至少列出3个高频错误）；
+    3. 用时分析：总时长是否符合大赛标准，各项目用时是否合理，哪些项目偏快/偏慢，原因是什么（详细分析）；
+    4. 优势分析：本次训练中表现好的地方（至少列出2点，详细描述）；
+    5. 整体改进建议：针对核心短板给出可落地的训练计划，至少3条，每条建议需包含具体训练方法、频次、验收标准；
+    6. 项目排名：按得分从高到低排序，列出所有完成项目的排名、得分、差距分析；
+    7. 尽量多的尽可能精确的描述内容，字数尽量多，分析维度尽量全面，禁止精简内容；
+    8. 输出严格JSON格式，禁止额外内容、注释、换行、反引号、列表包裹。
 
-    【输出格式】：严格JSON字符串，字段如下：
+    【输出格式】：严格返回纯JSON字符串，仅返回JSON，字段如下：
     {{
         "overall_score": 整体评分（数字0-100）,
-        "high_freq_deductions": ["高频扣分项1", "高频扣分项2"],
-        "core_shortcomings": ["核心短板1", "核心短板2"],
-        "time_overall_analysis": "整体用时分析",
-        "advantage_analysis": "优势分析",
-        "overall_improvement_suggestions": ["整体改进建议1", "整体改进建议2", "整体改进建议3"],
-        "project_rank": [{{"project_name": "项目名", "score": 得分, "rank": 排名}}]
+        "high_freq_deductions": ["高频扣分项1", "高频扣分项2", "高频扣分项3"],
+        "core_shortcomings": ["核心短板1", "核心短板2", "核心短板3"],
+        "time_overall_analysis": "整体用时分析（详细描述，不少于50字）",
+        "advantage_analysis": "优势分析（详细描述，不少于50字）",
+        "overall_improvement_suggestions": ["整体改进建议1（详细）", "整体改进建议2（详细）", "整体改进建议3（详细）"],
+        "project_rank": [{{"project_name": "项目名", "score": 得分, "rank": 排名, "gap_analysis": "与最高分的差距分析"}}]
     }}
     """
     
     try:
-        print("开始调用Qwen生成训练日整体汇总...")
-        response = Generation.call(
-            model="qwen-plus",
+        print("开始调用Qwen3.5-Plus生成训练日整体汇总报告...")
+        
+        # 构建messages（适配Qwen3.5-Plus的调用格式）
+        messages = [
+            {
+                "role": "user",
+                "content": [{"text": prompt}]  # 纯文本请求，无需图片
+            }
+        ]
+        
+        # 核心修改：调用Qwen3.5-Plus（替换原Generation.call）
+        response = dashscope.MultiModalConversation.call(
             api_key=DASHSCOPE_API_KEY,
-            messages=[{"role": "user", "content": prompt}],
-            result_format="json",
-            temperature=0.1,
-            top_p=0.9,
-            max_tokens=2000
+            model='qwen3.5-plus',  # 改为qwen3.5-plus
+            messages=messages
         )
         
         if response.status_code == 200:
-            usage = response.usage
-            print(f"汇总分析Token消耗: 输入={usage.input_tokens}, 输出={usage.output_tokens}, 总计={usage.total_tokens}")
+            print(f"Qwen3.5-Plus调用成功，开始解析汇总结果")
             
             try:
-                summary_result = json.loads(response.output.choices[0].message.content)
-                if summary_result.get("overall_score", 0) < 0:
-                    summary_result["overall_score"] = avg_score
+                # 第一步：获取原始返回内容并打印日志
+                raw_content = response.output.choices[0].message.content
+                print(f"汇总报告原始返回内容（前500字符）：{str(raw_content)[:500]}...")
+                
+                # 第二步：处理不同类型的返回内容（核心修复逻辑，和photoelectric函数一致）
+                summary_result_str = ""
+                if isinstance(raw_content, list):
+                    print(f"返回内容是List类型，长度：{len(raw_content)}，开始提取嵌套的JSON字符串")
+                    # 遍历List，提取text字段中的JSON字符串
+                    for item in raw_content:
+                        if isinstance(item, dict) and "text" in item:
+                            summary_result_str = item["text"].strip()
+                            print(f"从List中提取到JSON字符串（前200字符）：{summary_result_str[:200]}...")
+                            break
+                    # 兜底：取List第一个元素转为字符串
+                    if not summary_result_str and len(raw_content) > 0:
+                        summary_result_str = str(raw_content[0]).strip()
+                elif isinstance(raw_content, dict):
+                    print(f"返回内容是Dict类型，提取text字段")
+                    summary_result_str = raw_content.get("text", "").strip()
+                elif isinstance(raw_content, (str, bytes, bytearray)):
+                    print(f"返回内容是字符串类型，直接使用")
+                    summary_result_str = str(raw_content).strip()
+                else:
+                    raise Exception(f"不支持的返回类型：{type(raw_content)}")
+                
+                # 第三步：清理JSON字符串（移除反引号、换行、空格）
+                if not summary_result_str:
+                    raise Exception("提取到的汇总JSON字符串为空")
+                
+                summary_result_str = summary_result_str.replace("```json", "").replace("```", "").replace("\n", "").replace("\r", "").strip()
+                print(f"清理后的汇总JSON字符串（前200字符）：{summary_result_str[:200]}...")
+                
+                # 第四步：解析为字典并校验类型
+                summary_result = json.loads(summary_result_str)
+                if not isinstance(summary_result, dict):
+                    raise Exception(f"解析后不是字典类型，而是：{type(summary_result)}")
+                
+                # 兜底校验：确保整体评分在0-100之间
+                summary_result["overall_score"] = max(0, min(100, summary_result.get("overall_score", avg_score)))
+                print(f"✅ 汇总报告解析成功，整体评分：{summary_result['overall_score']}")
                 return summary_result
+            
             except json.JSONDecodeError as e:
-                print(f"解析汇总结果失败：{str(e)}")
+                print(f"解析汇总结果失败（JSON格式错误）：{str(e)}")
+                print(f"失败的内容：{summary_result_str[:500]}")
+                # 原有兜底返回值保留
                 return {
                     "overall_score": avg_score,
                     "high_freq_deductions": ["解析失败，无数据"],
@@ -317,8 +585,21 @@ def call_qwen_training_summary(training_day_data: dict, username: str):
                     "overall_improvement_suggestions": ["重新生成汇总报告", "检查项目分析数据"],
                     "project_rank": []
                 }
+            except Exception as e:
+                print(f"解析汇总结果时发生错误：{str(e)}")
+                # 原有兜底返回值保留
+                return {
+                    "overall_score": avg_score,
+                    "high_freq_deductions": ["解析错误，无数据"],
+                    "core_shortcomings": ["解析错误，无数据"],
+                    "time_overall_analysis": "无法分析",
+                    "advantage_analysis": "解析出错",
+                    "overall_improvement_suggestions": ["重启后端服务", "检查项目分析数据完整性"],
+                    "project_rank": []
+                }
         else:
-            print(f"大模型调用失败：{response.message}")
+            print(f"Qwen3.5-Plus调用失败：{response.code} - {response.message}")
+            # 原有兜底返回值保留
             return {
                 "overall_score": avg_score,
                 "high_freq_deductions": ["调用失败，无数据"],
@@ -329,7 +610,8 @@ def call_qwen_training_summary(training_day_data: dict, username: str):
                 "project_rank": []
             }
     except Exception as e:
-        print(f"调用Qwen汇总分析出错：{str(e)}")
+        print(f"调用Qwen3.5-Plus生成汇总报告出错：{str(e)}")
+        # 原有兜底返回值保留
         return {
             "overall_score": avg_score,
             "high_freq_deductions": ["调用出错，无数据"],

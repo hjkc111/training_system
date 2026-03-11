@@ -194,7 +194,7 @@ const createTrainingDay = async () => {
       showCreateDialog.value = false
       getTrainingList()
       // 跳转到光电项目详情页
-      router.push(`/training/photoelectric-day-detail/${res.data.training_day_data.training_day_id}`)
+      router.push(`/photoelectric/training/day-detail/${res.data.training_day_data.training_day_id}`)
     }
   } catch (err) {
     ElMessage.error('创建光电项目训练日失败')

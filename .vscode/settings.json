@@ -6,5 +6,7 @@
   // 可选：彻底忽略cv2的语法检查误报
   "python.analysis.ignore": ["cv2"],
   // 关键：指定VSCode使用你的training_system环境的Python解释器
-  "python.defaultInterpreterPath": "C:\\Users\\admin\\.conda\\envs\\training_system\\python.exe"
+  "python.defaultInterpreterPath": "C:\\Users\\admin\\.conda\\envs\\training_system\\python.exe",
+  "python-envs.defaultEnvManager": "ms-python.python:conda",
+  "python-envs.defaultPackageManager": "ms-python.python:conda"
 }

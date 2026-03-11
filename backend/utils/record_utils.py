@@ -31,7 +31,7 @@ def save_analysis_record(username, filename, video_path, analysis_result):
 def get_analysis_history(username):
     """获取指定用户的分析历史记录"""
     records = []
-    for file in os.listdir(ANALYSIS_DIR):
+    for file in os.listdir(ANALYSIS_DIR): 
         if file.endswith(".json"):
             try:
                 with open(os.path.join(ANALYSIS_DIR, file), "r", encoding="utf-8") as f:

@@ -81,3 +81,13 @@ try:
         print(f"接口调用错误：{response.code} - {response.message}")
 except Exception as e:
     print(f"调用失败：{e}")
+
+'''
+运行项目代码
+conda activate training_system
+D:
+cd D:\visualproject\training_system 
+python test_qwen3.5_answer.py
+'''
+
+
