@@ -69,7 +69,7 @@
               <!-- 视频上传区域（和原有逻辑完全兼容） -->
               <el-upload
                 ref="uploadRef"
-                action="/api/training/photoelectric/video/upload"
+                action="/api/photoelectric/video/upload"
                 :chunk-size="5 * 1024 * 1024"
                 accept="video/mp4,video/mov,video/avi"
                 :show-file-list="true"

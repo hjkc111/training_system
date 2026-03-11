@@ -55,6 +55,14 @@ PRESET_PROJECTS = [
     {"project_id": "project_4", "project_name": "链路通断测试", "project_desc": "网络链路通断、串扰、衰减测试操作，考核仪器使用规范性、结果判读正确率"},
     {"project_id": "project_5", "project_name": "机柜理线与标签", "project_desc": "机柜内线缆整理、标签粘贴操作，考核理线美观度、标签规范性、扎带使用标准"}
 ]
+#预设比赛项目（光电项目）
+PRESET_PHOTOELECTRIC_PROJECTS = [
+    {"project_id": "photoelectric_1", "project_name": "光纤熔接操作", "project_desc": "光纤熔接标准流程，考核端面处理、熔接损耗、热缩管封装规范性"},
+    {"project_id": "photoelectric_2", "project_name": "光电测试仪使用", "project_desc": "光电测试仪器使用，考核仪器连接规范性、参数设置正确率、结果判读准确性"},
+    {"project_id": "photoelectric_3", "project_name": "光纤端面清洁", "project_desc": "光纤端面清洁操作，考核清洁工具使用规范性、清洁效果、操作时长"},
+    {"project_id": "photoelectric_4", "project_name": "光纤识别与分类", "project_desc": "不同类型光纤识别与分类，考核识别准确率、分类规范性、操作效率"},
+    {"project_id": "photoelectric_5", "project_name": "光纤连接器安装", "project_desc": "光纤连接器安装操作，考核安装规范性、连接稳定性、操作时长"}
+]
 
 # 初始化训练日目录
 def init_training_dir():

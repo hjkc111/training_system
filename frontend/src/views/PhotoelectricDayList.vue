@@ -81,31 +81,31 @@ const showCreateDialog = ref(false)
 const createLoading = ref(false)
 // 光电项目预设训练项（基于世界技能大赛光电项目标准）
 const presetProjects = ref([
-  {
-    project_id: 'photo_001',
-    project_name: '光电元件识别与检测',
-    project_desc: '识别光电二极管、光电三极管、光纤连接器等元件，完成外观及性能基础检测'
-  },
-  {
-    project_id: 'photo_002',
-    project_name: '光路搭建与校准',
-    project_desc: '根据图纸完成光纤链路、透镜组、反射镜等光路搭建，校准光路同轴度与传输效率'
-  },
-  {
-    project_id: 'photo_003',
-    project_name: '光电信号传输调试',
-    project_desc: '调试光电信号发射/接收设备，优化信号强度、信噪比，确保稳定传输'
-  },
-  {
-    project_id: 'photo_004',
-    project_name: '光电设备故障排查',
-    project_desc: '定位并修复光路损耗、信号中断、元件损坏等常见故障'
-  },
-  {
-    project_id: 'photo_005',
-    project_name: '光电参数测量与分析',
-    project_desc: '使用光功率计、示波器等设备测量光功率、响应时间等参数，生成分析报告'
-  }
+  // {
+  //   project_id: 'photo_001',
+  //   project_name: '光电元件识别与检测',
+  //   project_desc: '识别光电二极管、光电三极管、光纤连接器等元件，完成外观及性能基础检测'
+  // },
+  // {
+  //   project_id: 'photo_002',
+  //   project_name: '光路搭建与校准',
+  //   project_desc: '根据图纸完成光纤链路、透镜组、反射镜等光路搭建，校准光路同轴度与传输效率'
+  // },
+  // {
+  //   project_id: 'photo_003',
+  //   project_name: '光电信号传输调试',
+  //   project_desc: '调试光电信号发射/接收设备，优化信号强度、信噪比，确保稳定传输'
+  // },
+  // {
+  //   project_id: 'photo_004',
+  //   project_name: '光电设备故障排查',
+  //   project_desc: '定位并修复光路损耗、信号中断、元件损坏等常见故障'
+  // },
+  // {
+  //   project_id: 'photo_005',
+  //   project_name: '光电参数测量与分析',
+  //   project_desc: '使用光功率计、示波器等设备测量光功率、响应时间等参数，生成分析报告'
+  // }
 ])
 const selectedProjectIds = ref([])
 const userInfo = ref({ username: '' })
@@ -134,17 +134,15 @@ const initUserInfo = () => {
 
 // 获取预设项目（前端本地预设，若需后端获取可保留原接口）
 const getPresetProjects = async () => {
-  // 若需从后端获取光电项目预设，取消下面注释并注释上面的本地预设
-  // try {
-  //   const res = await axios.get('/api/training/photoelectric/project/preset')
-  //   if (res.data.code === 200) {
-  //     presetProjects.value = res.data.preset_projects
-  //     selectedProjectIds.value = presetProjects.value.map(item => item.project_id)
-  //   }
-  // } catch (err) {
-  //   ElMessage.error('获取光电项目预设失败')
-  // }
-  // 本地预设默认全选
+  try {
+    const res = await axios.get('/api/training/photoelectric/project/preset')
+    if (res.data.code === 200) {
+      presetProjects.value = res.data.preset_projects
+      selectedProjectIds.value = presetProjects.value.map(item => item.project_id)
+    }
+  } catch (err) {
+    ElMessage.error('获取光电项目预设失败')
+  }
   selectedProjectIds.value = presetProjects.value.map(item => item.project_id)
 }
 
