@@ -9,10 +9,10 @@ from models import (
     AnalysisRequest, HistoryRequest, CreateTrainingDayRequest,
     ProjectAnalyzeRequest, TrainingDaySummaryRequest, TrainingDayIdRequest
 )
-from video_utils import get_file_size, extract_video_audio_text, extract_video_key_frames
-from llm_utils import call_qwen35, call_qwen_project_analysis, call_qwen_training_summary
-from record_utils import save_analysis_record, get_analysis_history
-from training_utils import (
+from utils.video_utils import get_file_size, extract_video_audio_text, extract_video_key_frames
+from utils.llm_utils import call_qwen35, call_qwen_project_analysis, call_qwen_training_summary
+from utils.record_utils import save_analysis_record, get_analysis_history
+from utils.training_utils import (
     create_training_day, get_user_training_day_list,
     get_training_day, update_project_analysis, update_training_day_summary
 )

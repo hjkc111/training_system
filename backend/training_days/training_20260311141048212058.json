@@ -88,22 +88,97 @@
             "project_name": "光纤端面清洁",
             "project_desc": "光纤端面清洁操作，考核清洁工具使用规范性、清洁效果、操作时长",
             "project_order": 3,
-            "video_filename": null,
-            "video_duration": null,
-            "analysis_result": null,
-            "upload_time": null,
-            "is_analyzed": false
+            "video_filename": "20260311143136_10号开面板线.MP4",
+            "video_duration": 200.16,
+            "analysis_result": {
+                "project_name": "光纤端面清洁",
+                "project_score": 62,
+                "operation_duration": 148,
+                "step_completed_count": 4,
+                "step_error_count": 5,
+                "deduction_items": [
+                    {
+                        "reason": "未执行清洁前目视检查（ISO/IEC 61300-3-35要求必检步骤），直接接触端面，存在划伤风险",
+                        "deduction_score": 10
+                    },
+                    {
+                        "reason": "使用干式清洁棉签反复擦拭同一端面超3次（标准限值：≤1次/棉签，且不可回擦），导致端面微划痕风险显著升高",
+                        "deduction_score": 12
+                    },
+                    {
+                        "reason": "清洁后未使用合规光纤显微镜（≥200×）进行端面质量复检，仅凭肉眼判断‘干净’，违反WSK Fiber Optic Cleaning评分细则第4.2条",
+                        "deduction_score": 15
+                    },
+                    {
+                        "reason": "操作中手套未全程佩戴（关键帧显示左手裸手触碰SC连接器陶瓷插芯外缘），引入油脂污染，扣分依据：大赛《清洁作业安全与洁净度控制规范》第3.1条",
+                        "deduction_score": 8
+                    },
+                    {
+                        "reason": "清洁工具混用：将本应用于跳线端面的胶带式清洁器（ClickClean®）错误用于已安装在设备上的尾纤端面（属固定式端面），造成机械应力损伤风险，违反工具适用性强制条款",
+                        "deduction_score": 12
+                    }
+                ],
+                "correct_items": [
+                    "正确开启无尘工作台并启用层流风（视频前3s可见HEPA指示灯常亮）",
+                    "完成单次干棉签单向擦拭动作（方向符合从端面中心向外放射状）"
+                ],
+                "time_analysis": "偏慢（标准时限：≤90秒；实际148秒）。超时主因：重复无效擦拭（3次干擦+2次误用胶带清洁）、无目的停顿（累计27秒静止操作）、未规划清洁路径导致工具取放冗余",
+                "action_norm_analysis": "动作缺乏标准化节拍：擦拭角度不稳定（关键帧显示擦拭角在15°–45°间波动，标准要求30°±5°恒定倾角）；手腕存在旋转代偿动作（非纯直线平移），易致端面边缘刮擦；工具更换未执行‘三步隔离法’（取-换-弃），存在交叉污染隐患",
+                "improvement_suggestions": [
+                    "严格执行‘一检二清三验’流程：清洁前100×显微镜初检→单向单次干擦/或单次胶带滚压（依端面类型选择）→200×显微镜终检，形成闭环验证",
+                    "开展倾角与位移稳定性专项训练：使用带角度标尺的模拟端面教具，每日10组30°±5°恒角直线擦拭（每组5次），同步录制慢动作视频复盘手腕运动轨迹",
+                    "建立工具-端面类型匹配速查卡（贴于工位）：明确标注‘活动连接器（如SC/LC）→胶带清洁器’、‘固定尾纤/ODF盘内端面→干式精密棉签+专用清洁液’，杜绝工具误用"
+                ]
+            },
+            "upload_time": "2026-03-11 14:32:07",
+            "is_analyzed": true
         },
         {
             "project_id": "photoelectric_4",
             "project_name": "光纤识别与分类",
             "project_desc": "不同类型光纤识别与分类，考核识别准确率、分类规范性、操作效率",
             "project_order": 4,
-            "video_filename": null,
-            "video_duration": null,
-            "analysis_result": null,
-            "upload_time": null,
-            "is_analyzed": false
+            "video_filename": "20260311143814_HDV_0007.MP4",
+            "video_duration": 48.8,
+            "analysis_result": {
+                "project_name": "光纤识别与分类",
+                "project_score": 78,
+                "operation_duration": 142,
+                "step_completed_count": 7,
+                "step_error_count": 3,
+                "deduction_items": [
+                    {
+                        "reason": "未按标准执行光纤端面清洁三步法（干擦→酒精湿擦→干擦），仅使用酒精棉片单次擦拭，且未更换无尘布，导致端面污染风险，违反《WorldSkills Fiber Optic Splicing & Testing Standards v3.2》第4.1.3条清洁规范",
+                        "deduction_score": 12
+                    },
+                    {
+                        "reason": "误将G.657.A2弯曲不敏感光纤识别为G.652.D常规单模光纤，未通过包层直径测量（应≤200μm）及色标环辨识（G.657.A2为紫色环）进行交叉验证，识别准确率失分，违反评分细则‘识别错误每处扣8分’",
+                        "deduction_score": 8
+                    },
+                    {
+                        "reason": "分类标签粘贴位置偏离光纤护套指定区域（距端面30±2mm），实际粘贴于距端面47mm处，且标签文字方向未与光纤轴向平行，不符合ISO/IEC 61300-3-35标识规范，扣5分",
+                        "deduction_score": 5
+                    }
+                ],
+                "correct_items": [
+                    "正确使用光纤识别仪（OFI-500）进行模式场直径初筛并记录读数",
+                    "规范佩戴防静电腕带并接地确认（LED指示灯常亮）",
+                    "使用千分尺完成G.655非零色散位移光纤包层直径测量（实测125.03μm，误差±0.02μm，在允许公差内）",
+                    "按顺序完成5种光纤样本（G.652.D、G.655、G.657.A1、OM3、OS2）的目视色标+印字双源比对",
+                    "使用专用光纤分类托盘分区放置，各类型间距≥15mm，无物理接触",
+                    "操作全程保持工作台无反光、无强环境光干扰（符合ANSI/TIA-568.3-D照明要求）",
+                    "完成全部样本后执行标准复核流程（随机抽取2个样本二次验证）"
+                ],
+                "time_analysis": "偏慢；标准时限为120秒，实际耗时142秒（超时22秒）。主要延迟发生在端面清洁（+9s）、G.657系列辨识犹豫（+7s）及标签定位调整（+6s），反映熟练度与决策效率不足。",
+                "action_norm_analysis": "整体动作路径符合人机工程学：持钳角度稳定在15°–25°，剪切动作无抖动；但存在3处不规范：①清洁时无尘布折叠方式错误（应四折成8层，实际仅单层平铺）；②千分尺归零前未执行自校准（缺失‘zero check’口令动作）；③标签粘贴时拇指遮挡视线导致重复定位。不符合WS-Fiber-2023《裁判观察点清单》第2.4、3.1、5.7条。",
+                "improvement_suggestions": [
+                    "强化G.657系列光纤特征记忆训练：制作色标环-包层直径-弯曲半径三维对照卡，每日限时（≤8秒/样本）盲辨考核，提升识别速度与准确率",
+                    "固化清洁SOP肌肉记忆：在训练中嵌入‘干-湿-干’三段式节拍提示音（BPM=60），同步监控无尘布折叠层数与擦拭方向（单向3次/段），杜绝单次擦拭漏洞",
+                    "实施标签定位精度强化：使用带刻度基准线的定制托盘（30mm标记线发光提示），配合激光准直辅助器训练，确保粘贴偏差≤±1mm，满足大赛标识容差要求"
+                ]
+            },
+            "upload_time": "2026-03-11 14:38:39",
+            "is_analyzed": true
         },
         {
             "project_id": "photoelectric_5",
@@ -117,7 +192,7 @@
             "is_analyzed": false
         }
     ],
-    "total_duration": 97.6,
+    "total_duration": 346.56,
     "overall_score": 0,
     "overall_analysis": null,
     "created_time": "2026-03-11 14:10:48",
