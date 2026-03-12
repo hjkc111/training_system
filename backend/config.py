@@ -56,12 +56,39 @@ PRESET_PROJECTS = [
     {"project_id": "project_5", "project_name": "机柜理线与标签", "project_desc": "机柜内线缆整理、标签粘贴操作，考核理线美观度、标签规范性、扎带使用标准"}
 ]
 #预设比赛项目（光电项目）
+# config.py
 PRESET_PHOTOELECTRIC_PROJECTS = [
-    {"project_id": "photoelectric_1", "project_name": "光纤熔接操作", "project_desc": "光纤熔接标准流程，考核端面处理、熔接损耗、热缩管封装规范性"},
-    {"project_id": "photoelectric_2", "project_name": "光电测试仪使用", "project_desc": "光电测试仪器使用，考核仪器连接规范性、参数设置正确率、结果判读准确性"},
-    {"project_id": "photoelectric_3", "project_name": "光纤端面清洁", "project_desc": "光纤端面清洁操作，考核清洁工具使用规范性、清洁效果、操作时长"},
-    {"project_id": "photoelectric_4", "project_name": "光纤识别与分类", "project_desc": "不同类型光纤识别与分类，考核识别准确率、分类规范性、操作效率"},
-    {"project_id": "photoelectric_5", "project_name": "光纤连接器安装", "project_desc": "光纤连接器安装操作，考核安装规范性、连接稳定性、操作时长"}
+    {
+        "project_id": "photoelectric_1",
+        "project_name": "光纤熔接操作",
+        "project_desc": "考核光纤熔接的端面处理、熔接参数设置、熔接损耗控制等规范性",
+        "evaluation_type": "video_analysis"  # 视频分析（原有逻辑）
+    },
+    {
+        "project_id": "photoelectric_2",
+        "project_name": "光电测试仪使用",
+        "project_desc": "考核仪器连接规范性、参数设置正确率、结果判读准确性",
+        "evaluation_type": "video_analysis"  # 视频分析（原有逻辑）
+    },
+    {
+        "project_id": "photoelectric_3",
+        "project_name": "光纤端面清洁",
+        "project_desc": "考核清洁步骤、工具使用、清洁效果",
+        "evaluation_type": "image_compare",  # 图片对比（上传用户图 vs 标准图）
+        "standard_image_url": "http://localhost:8000/static/assets/standard_clean.jpg"  # 标准图路径（需预先准备好）
+    },
+    {
+        "project_id": "photoelectric_4",
+        "project_name": "光纤识别与分类",
+        "project_desc": "考核光纤类型识别、分类标记",
+        "evaluation_type": "doc_upload"  # 文档上传（提交识别结果文档）
+    },
+    {
+        "project_id": "photoelectric_5",
+        "project_name": "光纤连接器安装",
+        "project_desc": "考核连接器安装步骤、压接规范、损耗测试",
+        "evaluation_type": "step_screenshot"  # 步骤截图（上传关键步骤截图）
+    }
 ]
 
 # 初始化训练日目录

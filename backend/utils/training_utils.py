@@ -12,20 +12,33 @@ try:
 except ImportError:
     from typing_extensions import List
 
-from config import TRAINING_DAY_DIR, PRESET_PROJECTS
+from config import TRAINING_DAY_DIR, PRESET_PROJECTS,PRESET_PHOTOELECTRIC_PROJECTS
 from models import TrainingProject, CreateTrainingDayRequest
 # ------------------- 训练日基础操作 -------------------
 def create_training_day(req: CreateTrainingDayRequest):
     """创建新的训练日"""
     # 生成训练日唯一ID
     training_day_id = f"training_{datetime.now().strftime('%Y%m%d%H%M%S%f')}"
+    #根据project_type选择预设项目列表
+    if req.custom_projects:
+        project_list = req.custom_projects
+    else:
+        #光电项目用preset_photoelectric_projects，其他项目用preset_projects
+        if req.project_type == "photoelectric":
+            preset_items = PRESET_PHOTOELECTRIC_PROJECTS
+        else:
+            preset_items = PRESET_PROJECTS
+        
+    
     # 确定项目列表：自定义优先，否则用预设
     project_list = req.custom_projects if req.custom_projects else [
         TrainingProject(
             project_id=item["project_id"],
             project_name=item["project_name"],
             project_desc=item["project_desc"],
-            project_order=idx+1
+            project_order=idx+1,
+            evaluation_type=item.get("evaluation_type", "video_analysis"),
+            standard_image_url=item.get("standard_image_url", ""),
         ) for idx, item in enumerate(PRESET_PROJECTS)
     ]
 

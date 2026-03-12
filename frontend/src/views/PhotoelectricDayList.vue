@@ -132,7 +132,7 @@ const initUserInfo = () => {
   }
 }
 
-// 获取预设项目（前端本地预设，若需后端获取可保留原接口）
+// 获取预设项目
 const getPresetProjects = async () => {
   try {
     const res = await axios.get('/api/photoelectric/training/project/preset')
@@ -185,6 +185,9 @@ const createTrainingDay = async () => {
       }))
 
     const res = await axios.post('/api/photoelectric/training/day/create', {
+      project_type: 'photoelectric',
+      training_day_name: "2026新光电项目训练",
+      username: userInfo.value.username,
       ...createForm.value,
       custom_projects: customProjects
     })
