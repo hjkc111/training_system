@@ -35,17 +35,20 @@ class TrainingProject(BaseModel):
     project_name: str
     project_desc: str
     project_order: int
+    evaluation_type: Optional[str] = "video_analysis"  # 评测方式，默认为视频分析
     video_filename: Optional[str] = None
     video_duration: Optional[float] = None
     analysis_result: Optional[dict] = None
     upload_time: Optional[str] = None
     is_analyzed: bool = False
+    standard_image_url: Optional[str] = ""  # ✅ 新增：标准图URL（仅图片对比项目使用）
 
 class CreateTrainingDayRequest(BaseModel):
     """创建训练日请求参数"""
     username: str
     training_day_name: str
     custom_projects: Optional[List[TrainingProject]] = None
+    project_type: Optional[str] = "general"  # ✅ 新增：标记项目类型（general/photoelectric）
 
 class ProjectAnalyzeRequest(BaseModel):
     """单项目分析请求参数"""

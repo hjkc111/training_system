@@ -1,0 +1,163 @@
+{
+    "training_day_id": "training_20260312142023244320",
+    "username": "player1",
+    "training_day_name": "2026新光电项目训练",
+    "project_list": [
+        {
+            "project_id": "photoelectric_1",
+            "project_name": "光纤熔接操作",
+            "project_desc": "考核光纤熔接的端面处理、熔接参数设置、熔接损耗控制等规范性",
+            "project_order": 1,
+            "evaluation_type": "video_analysis",
+            "video_filename": "20260312165932_HDV_0009.MP4",
+            "video_duration": 37.2,
+            "analysis_result": {
+                "project_name": "光纤熔接操作",
+                "project_score": 82,
+                "operation_duration": 195,
+                "step_completed_count": 4,
+                "step_error_count": 3,
+                "deduction_items": [
+                    {
+                        "reason": "工作台5S管理不规范，剥线钳等工具随意放置在桌面上，未归位至工具 tray",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "关键帧未展示光纤清洁步骤（酒精棉擦拭），存在端面污染导致熔接损耗大的风险",
+                        "deduction_score": 10
+                    },
+                    {
+                        "reason": "熔接机防风盖开启时，手部在电极附近悬停时间过长，存在污染V型槽或电极的隐患",
+                        "deduction_score": 3
+                    }
+                ],
+                "correct_items": [
+                    "正确选用Fujikura 70S专业级光纤熔接机",
+                    "熔接模式设置为SM FAST（单模快速），符合常规单模光纤熔接要求",
+                    "使用Ripley No Nik专业剥线钳，工具选型正确",
+                    "光纤放入V型槽的位置基本准确，夹具状态正常"
+                ],
+                "time_analysis": "用时符合标准。音频中提到'快冷了'暗示加热收缩环节正常进行，'SM FAST'模式也表明选手选择了快速熔接程序，整体节奏紧凑，但在工具整理和清洁环节可能因不规范而节省了时间（这是扣分点而非效率点）。",
+                "action_norm_analysis": "选手在设备选型和参数设置上表现专业。但在操作细节上，如工具摆放（Image 3, 4, 5显示工具散落在桌面）不够严谨。光纤装载动作（Image 1）看似平稳，但缺乏清洁动作的视觉确认。音频中提到的'保养'、'充足'表明选手关注设备状态，这是好的习惯，但操作过程中的规范性（如手部位置）仍需加强。",
+                "improvement_suggestions": [
+                    "严格执行5S现场管理：准备专用的工具托盘或防滑垫，将剥线钳、切割刀、酒精棉分区摆放，严禁工具直接接触台面滚动。",
+                    "强化'一擦一吹'或'清洁-切割-清洁'的标准流程：在切割前必须用酒精棉擦拭光纤涂覆层，切割后需清理碎屑，确保放入熔接机的光纤端面绝对洁净。",
+                    "规范手部动作：在打开防风盖进行光纤放置时，手部应迅速且稳定，避免在电极上方长时间停留或大幅度移动，防止皮屑或油脂掉落污染精密光学部件。"
+                ]
+            },
+            "upload_time": "2026-03-12 17:01:09",
+            "is_analyzed": true
+        },
+        {
+            "project_id": "photoelectric_2",
+            "project_name": "光电测试仪使用",
+            "project_desc": "考核仪器连接规范性、参数设置正确率、结果判读准确性",
+            "project_order": 2,
+            "evaluation_type": "video_analysis",
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false
+        },
+        {
+            "project_id": "photoelectric_3",
+            "project_name": "光纤端面清洁",
+            "project_desc": "考核清洁步骤、工具使用、清洁效果",
+            "project_order": 3,
+            "evaluation_type": "image_compare",
+            "video_filename": "photoelectric_3_user_20260312162651_需求.jpg",
+            "video_duration": 0,
+            "analysis_result": {
+                "project_name": "光纤端面清洁",
+                "project_score": 20,
+                "operation_duration": 0,
+                "step_completed_count": 0,
+                "step_error_count": 0,
+                "deduction_items": [
+                    {
+                        "reason": "大模型调用失败：InvalidParameter-<400> InternalError.Algo.InvalidParameter: The provided URL does not appear to be valid. Ensure it is correctly formatted.",
+                        "deduction_score": 0
+                    }
+                ],
+                "correct_items": [
+                    "无"
+                ],
+                "time_analysis": "无法分析",
+                "action_norm_analysis": "调用失败",
+                "improvement_suggestions": [
+                    "检查网络后重试",
+                    "缩短视频时长",
+                    "确保视频格式正确"
+                ]
+            },
+            "upload_time": "2026-03-12 16:26:59",
+            "is_analyzed": true
+        },
+        {
+            "project_id": "photoelectric_4",
+            "project_name": "光纤识别与分类",
+            "project_desc": "考核光纤类型识别、分类标记",
+            "project_order": 4,
+            "evaluation_type": "doc_upload",
+            "video_filename": "photoelectric_4_20260312150508_Autocoder 中 Wiki 生成及信息存储方式分析.docx",
+            "video_duration": 0,
+            "analysis_result": {
+                "project_name": "光纤识别与分类",
+                "project_score": 85,
+                "operation_duration": 245,
+                "step_completed_count": 8,
+                "step_error_count": 3,
+                "deduction_items": [
+                    {
+                        "reason": "光纤色环识别错误将蓝色误判为绿色不符合 TIA/EIA-598 标准扣 5 分",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "光纤清洁手法不规范未使用专用清洁笔且清洁次数不足扣 5 分",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "操作总时长超出标准时间限制 210 秒影响整体效率扣 5 分",
+                        "deduction_score": 5
+                    }
+                ],
+                "correct_items": [
+                    "个人防护装备佩戴完整符合安全规范",
+                    "光纤剥线钳使用角度正确未损伤纤芯",
+                    "标签打印清晰粘贴位置准确无误",
+                    "光纤分类收纳盒摆放整齐符合 5S 标准",
+                    "熔接机放电测试前端面检查合格",
+                    "光纤弯曲半径控制大于 30mm 无宏弯损耗"
+                ],
+                "time_analysis": "操作总用时 245 秒略高于标准时长 210 秒主要耗时在色环确认环节反映出熟练度不足需加强肌肉记忆训练整体节奏前松后紧后期分类步骤略显匆忙",
+                "action_norm_analysis": "整体动作流程基本连贯但在光纤清洁环节手腕抖动幅度较大未保持恒定压力剥线时刀具进刀深度控制良好未出现切伤纤芯现象整体姿态符合人体工程学要求但左手固定光纤稳定性有待加强",
+                "improvement_suggestions": [
+                    "建议每日进行色环快速识别训练建立条件反射将识别时间控制在 3 秒以内",
+                    "建议练习单手固定光纤另一手清洁的稳定动作减少手腕抖动提高清洁效率",
+                    "建议进行全流程模拟计时训练优化步骤衔接减少无效动作将总时长压缩至标准范围内"
+                ]
+            },
+            "upload_time": "2026-03-12 15:06:44",
+            "is_analyzed": true
+        },
+        {
+            "project_id": "photoelectric_5",
+            "project_name": "光纤连接器安装",
+            "project_desc": "考核连接器安装步骤、压接规范、损耗测试",
+            "project_order": 5,
+            "evaluation_type": "step_screenshot",
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false
+        }
+    ],
+    "total_duration": 37.2,
+    "overall_score": 0,
+    "overall_analysis": null,
+    "created_time": "2026-03-12 14:20:23",
+    "finished_time": null,
+    "is_finished": false
+}

@@ -16,6 +16,17 @@ from utils.training_utils import (
     create_training_day, get_user_training_day_list,
     get_training_day, update_project_analysis, update_training_day_summary
 )
+import base64
+import fitz  # PyMuPDF，用于PDF解析
+from PIL import Image  # Pillow，用于图片处理
+# ------------------- 配置补充（如果config.py未定义，可放在此处） -------------------
+ALLOWED_DOC_TYPES = ["text/plain", "application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]
+MAX_DOC_SIZE = 20 * 1024 * 1024  # 20MB
+ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/jpg"]
+MAX_IMAGE_SIZE = 5 * 1024 * 1024  # 5MB
+MAX_STEP_SCREENSHOTS = 10  # 最多10张步骤截图
+
+
 
 # 路由前缀：/api/photoelectric（区分项目）
 router = APIRouter(prefix="/api/photoelectric", tags=["光电项目"])
@@ -215,4 +226,355 @@ async def get_preset_projects_photoelectric():
     return {
         "code": 200,
         "preset_projects": PRESET_PHOTOELECTRIC_PROJECTS
+    }
+
+# ------------------- 光电项目文档上传 -------------------
+@router.post("/doc/upload")
+async def doc_upload_photoelectric(
+    file: UploadFile = File(...),
+    chunk: str = Form(None),
+    chunks: str = Form(None),
+    filename: str = Form(None),
+    username: str = Form(...),
+    project_id: str = Form(...)
+):
+    # 文档格式校验
+    if file.content_type not in ALLOWED_DOC_TYPES:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"仅支持上传txt/pdf/docx格式文档，当前格式：{file.content_type}"
+        )
+    file_size = await get_file_size(file)
+    if file_size > MAX_DOC_SIZE:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"文档大小超过限制（最大20MB），当前大小：{round(file_size/1024/1024, 2)}MB"
+        )
+    if not filename:
+        filename = file.filename or "unknown_doc"
+    # 生成唯一文件名（包含项目ID）
+    unique_filename = f"{project_id}_{datetime.now().strftime('%Y%m%d%H%M%S')}_{filename}"
+    file_path = os.path.join(UPLOAD_DIR, unique_filename)
+    
+    # 分片上传逻辑（和视频上传完全一致）
+    try:
+        chunk_int = int(chunk) if chunk is not None else None
+        chunks_int = int(chunks) if chunks is not None else None
+    except (ValueError, TypeError):
+        chunk_int = None
+        chunks_int = None
+    
+    if chunk_int is not None and chunks_int is not None:
+        temp_chunk_path = f"{file_path}.part{chunk_int}"
+        with open(temp_chunk_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+        if chunk_int == chunks_int - 1:
+            with open(file_path, "wb") as final_file:
+                for i in range(chunks_int):
+                    part_path = f"{file_path}.part{i}"
+                    if os.path.exists(part_path):
+                        with open(part_path, "rb") as part_file:
+                            final_file.write(part_file.read())
+                        os.remove(part_path)
+            status = "文档分片合并完成"
+        else:
+            status = f"文档分片{chunk_int+1}/{chunks_int}上传成功"
+    else:
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+        status = "文档普通上传完成"
+    
+    return {
+        "code": 200,
+        "message": f"文档上传成功！{status}",
+        "file_info": {
+            "filename": unique_filename,
+            "size_mb": round(file_size/1024/1024, 2),
+            "save_path": file_path.replace("\\", "/")
+        }
+    }
+
+# ------------------- 光电项目图片上传（用户操作图/步骤截图） -------------------
+@router.post("/image/upload")
+async def image_upload_photoelectric(
+    file: UploadFile = File(...),
+    chunk: str = Form(None),
+    chunks: str = Form(None),
+    filename: str = Form(None),
+    username: str = Form(...),
+    project_id: str = Form(...),
+    type: str = Form("user")  # user:用户操作图, step:步骤截图
+):
+    # 图片格式校验
+    if file.content_type not in ALLOWED_IMAGE_TYPES:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"仅支持上传jpg/png/jpeg格式图片，当前格式：{file.content_type}"
+        )
+    file_size = await get_file_size(file)
+    if file_size > MAX_IMAGE_SIZE:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"图片大小超过限制（最大5MB），当前大小：{round(file_size/1024/1024, 2)}MB"
+        )
+    if not filename:
+        filename = file.filename or "unknown_image"
+    # 生成唯一文件名（包含项目ID和类型）
+    unique_filename = f"{project_id}_{type}_{datetime.now().strftime('%Y%m%d%H%M%S')}_{filename}"
+    file_path = os.path.join(UPLOAD_DIR, unique_filename)
+    
+    # 分片上传逻辑
+    try:
+        chunk_int = int(chunk) if chunk is not None else None
+        chunks_int = int(chunks) if chunks is not None else None
+    except (ValueError, TypeError):
+        chunk_int = None
+        chunks_int = None
+    
+    if chunk_int is not None and chunks_int is not None:
+        temp_chunk_path = f"{file_path}.part{chunk_int}"
+        with open(temp_chunk_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+        if chunk_int == chunks_int - 1:
+            with open(file_path, "wb") as final_file:
+                for i in range(chunks_int):
+                    part_path = f"{file_path}.part{i}"
+                    if os.path.exists(part_path):
+                        with open(part_path, "rb") as part_file:
+                            final_file.write(part_file.read())
+                        os.remove(part_path)
+            status = "图片分片合并完成"
+        else:
+            status = f"图片分片{chunk_int+1}/{chunks_int}上传成功"
+    else:
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+        status = "图片普通上传完成"
+    
+    return {
+        "code": 200,
+        "message": f"图片上传成功！{status}",
+        "file_info": {
+            "filename": unique_filename,
+            "size_mb": round(file_size/1024/1024, 2),
+            "save_path": file_path.replace("\\", "/")
+        }
+    }
+
+# ------------------- 光电项目步骤截图上传（复用图片上传逻辑，仅做数量校验） -------------------
+@router.post("/step/screenshot/upload")
+async def step_screenshot_upload_photoelectric(
+    file: UploadFile = File(...),
+    chunk: str = Form(None),
+    chunks: str = Form(None),
+    filename: str = Form(None),
+    username: str = Form(...),
+    project_id: str = Form(...)
+):
+    # 先校验当前项目已上传的截图数量
+    project_screenshot_dir = os.path.join(UPLOAD_DIR, f"{project_id}_step_")
+    existing_screenshots = [f for f in os.listdir(UPLOAD_DIR) if f.startswith(f"{project_id}_step_")]
+    if len(existing_screenshots) >= MAX_STEP_SCREENSHOTS:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"步骤截图最多上传{MAX_STEP_SCREENSHOTS}张，当前已上传{len(existing_screenshots)}张"
+        )
+    
+    # 复用图片上传逻辑，指定type=step
+    return await image_upload_photoelectric(
+        file=file,
+        chunk=chunk,
+        chunks=chunks,
+        filename=filename,
+        username=username,
+        project_id=project_id,
+        type="step"
+    )
+
+# ------------------- 光电项目文档分析接口 -------------------
+@router.post("/training/project/analyze/doc")
+async def project_analyze_doc_photoelectric(req: ProjectAnalyzeRequest = Body(...)):
+    # 基础校验（和视频分析一致）
+    training_day = get_training_day(req.training_day_id, req.username)
+    if not training_day:
+        raise HTTPException(status_code=404, detail="训练日不存在或无权限")
+    target_project = None
+    for project in training_day["project_list"]:
+        if project["project_id"] == req.project_id:
+            target_project = project
+            break
+    if not target_project:
+        raise HTTPException(status_code=404, detail="项目不存在")
+    
+    # 读取文档内容
+    doc_path = os.path.join(UPLOAD_DIR, req.filename)
+    if not os.path.exists(doc_path):
+        raise HTTPException(status_code=404, detail="文档文件不存在")
+    
+    doc_content = ""
+    try:
+        # 根据文档类型解析内容
+        if doc_path.endswith(".txt"):
+            with open(doc_path, "r", encoding="utf-8") as f:
+                doc_content = f.read()
+        elif doc_path.endswith(".pdf"):
+            doc = fitz.open(doc_path)
+            for page in doc:
+                doc_content += page.get_text()
+            doc.close()
+        elif doc_path.endswith(".docx"):
+            # 简易docx解析（如需完整解析可安装python-docx）
+            import zipfile
+            with zipfile.ZipFile(doc_path) as zf:
+                doc_content = zf.read("word/document.xml").decode("utf-8")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"解析文档失败：{str(e)}")
+    
+    # 调用大模型分析文档
+    analysis_result = call_qwen_project_analysis_photoelectric(
+        project_name=target_project["project_name"],
+        project_desc=target_project["project_desc"],
+        video_text=doc_content,  # 文档内容传入video_text字段（复用函数）
+        key_frames_base64=[],    # 无图片，传空列表
+        username=req.username,
+        is_audio_useful=False
+    )
+    
+    # 更新项目分析结果（复用原有逻辑）
+    success, result = update_project_analysis(
+        training_day_id=req.training_day_id,
+        project_id=req.project_id,
+        username=req.username,
+        video_info={"filename": req.filename, "duration": 0},  # 文档无时长
+        analysis_result=analysis_result
+    )
+    if not success:
+        raise HTTPException(status_code=500, detail=result)
+    
+    return {
+        "code": 200,
+        "message": "文档分析完成",
+        "training_day_data": result,
+        "project_analysis": analysis_result
+    }
+
+# ------------------- 光电项目图片对比分析接口 -------------------
+@router.post("/training/project/analyze/image")
+async def project_analyze_image_photoelectric(
+    training_day_id: str = Body(...),
+    project_id: str = Body(...),
+    user_image_filename: str = Body(...),
+    username: str = Body(...)
+):
+    # 基础校验
+    training_day = get_training_day(training_day_id, username)
+    if not training_day:
+        raise HTTPException(status_code=404, detail="训练日不存在或无权限")
+    target_project = None
+    for project in training_day["project_list"]:
+        if project["project_id"] == project_id:
+            target_project = project
+            break
+    if not target_project:
+        raise HTTPException(status_code=404, detail="项目不存在")
+    
+    # 读取用户图片并转为base64
+    user_image_path = os.path.join(UPLOAD_DIR, user_image_filename)
+    if not os.path.exists(user_image_path):
+        raise HTTPException(status_code=404, detail="用户操作图片不存在")
+    
+    # 读取标准图片（从预设项目中获取）
+    standard_image_url = target_project.get("standard_image_url", "")
+    standard_image_base64 = ""
+    if standard_image_url and os.path.exists(standard_image_url):
+        with open(standard_image_url, "rb") as f:
+            standard_image_base64 = base64.b64encode(f.read()).decode("utf-8")
+    
+    # 读取用户图片base64
+    with open(user_image_path, "rb") as f:
+        user_image_base64 = base64.b64encode(f.read()).decode("utf-8")
+    
+    # 调用大模型对比分析（传入两张图片）
+    analysis_result = call_qwen_project_analysis_photoelectric(
+        project_name=target_project["project_name"],
+        project_desc=target_project["project_desc"],
+        video_text=f"用户操作图片对比标准图片分析，标准图URL：{standard_image_url}",
+        key_frames_base64=[user_image_base64, standard_image_base64],  # 传入两张图
+        username=username,
+        is_audio_useful=False
+    )
+    
+    # 更新项目分析结果
+    success, result = update_project_analysis(
+        training_day_id=training_day_id,
+        project_id=project_id,
+        username=username,
+        video_info={"filename": user_image_filename, "duration": 0},
+        analysis_result=analysis_result
+    )
+    if not success:
+        raise HTTPException(status_code=500, detail=result)
+    
+    return {
+        "code": 200,
+        "message": "图片对比分析完成",
+        "training_day_data": result,
+        "project_analysis": analysis_result
+    }
+
+# ------------------- 光电项目步骤截图分析接口 -------------------
+@router.post("/training/project/analyze/step")
+async def project_analyze_step_photoelectric(
+    training_day_id: str = Body(...),
+    project_id: str = Body(...),
+    filenames: list = Body(...),
+    username: str = Body(...)
+):
+    # 基础校验
+    training_day = get_training_day(training_day_id, username)
+    if not training_day:
+        raise HTTPException(status_code=404, detail="训练日不存在或无权限")
+    target_project = None
+    for project in training_day["project_list"]:
+        if project["project_id"] == project_id:
+            target_project = project
+            break
+    if not target_project:
+        raise HTTPException(status_code=404, detail="项目不存在")
+    
+    # 读取所有步骤截图并转为base64
+    step_images_base64 = []
+    for filename in filenames:
+        img_path = os.path.join(UPLOAD_DIR, filename)
+        if not os.path.exists(img_path):
+            raise HTTPException(status_code=404, detail=f"步骤截图{filename}不存在")
+        with open(img_path, "rb") as f:
+            step_images_base64.append(base64.b64encode(f.read()).decode("utf-8"))
+    
+    # 调用大模型分析步骤截图
+    analysis_result = call_qwen_project_analysis_photoelectric(
+        project_name=target_project["project_name"],
+        project_desc=target_project["project_desc"],
+        video_text="分析关键步骤截图的完整性、规范性、操作顺序",
+        key_frames_base64=step_images_base64[:8],  # 最多传8张（大模型限制）
+        username=username,
+        is_audio_useful=False
+    )
+    
+    # 更新项目分析结果
+    success, result = update_project_analysis(
+        training_day_id=training_day_id,
+        project_id=project_id,
+        username=username,
+        video_info={"filename": ",".join(filenames), "duration": 0},
+        analysis_result=analysis_result
+    )
+    if not success:
+        raise HTTPException(status_code=500, detail=result)
+    
+    return {
+        "code": 200,
+        "message": "步骤截图分析完成",
+        "training_day_data": result,
+        "project_analysis": analysis_result
     }
