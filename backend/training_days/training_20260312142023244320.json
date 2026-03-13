@@ -54,11 +54,48 @@
             "project_desc": "考核仪器连接规范性、参数设置正确率、结果判读准确性",
             "project_order": 2,
             "evaluation_type": "video_analysis",
-            "video_filename": null,
-            "video_duration": null,
-            "analysis_result": null,
-            "upload_time": null,
-            "is_analyzed": false
+            "video_filename": "20260313103331_Clip24.m4v",
+            "video_duration": 91.0,
+            "analysis_result": {
+                "project_name": "光电测试仪使用",
+                "project_score": 65,
+                "operation_duration": 45,
+                "step_completed_count": 4,
+                "step_error_count": 3,
+                "deduction_items": [
+                    {
+                        "reason": "视频画面出现蓝屏遮挡（第3帧），导致操作过程不连续，裁判无法评判该时间段内的操作规范性",
+                        "deduction_score": 10
+                    },
+                    {
+                        "reason": "测试线缆（红色/铜色）杂乱悬挂于镜头前，严重遮挡操作视线，不符合赛场6S管理及操作可视性要求",
+                        "deduction_score": 10
+                    },
+                    {
+                        "reason": "关键考核点缺失：画面未清晰展示光电测试仪的参数设置（波长选择、单位确认）及最终结果读数过程",
+                        "deduction_score": 15
+                    },
+                    {
+                        "reason": "光纤端面处理风险：画面显示裸露光纤操作，未观察到清洁步骤，且光纤弯曲半径在部分画面中过小，存在断纤或增加损耗风险",
+                        "deduction_score": 5
+                    }
+                ],
+                "correct_items": [
+                    "操作人员佩戴3M Comfort Grip防护手套，符合光纤操作防划伤及防污染的安全规范",
+                    "正确开启光缆接续盒/配线箱的白色盖板，动作平稳，未暴力拆解",
+                    "能够准确识别黄色外皮的光纤（通常为单模光纤）并进行后续操作",
+                    "在接续盒内进行了初步的光纤理线尝试，将光纤放入卡槽"
+                ],
+                "time_analysis": "操作用时偏慢且效率低。原因分析：选手在开启盖板和理线过程中动作略显犹豫，且花费了过多时间调整摄像头或受限于遮挡物（如蓝屏和杂乱线缆），导致有效操作时间被压缩，不符合大赛对熟练度的要求。",
+                "action_norm_analysis": "动作规范性分析：选手在个人防护（手套）和开箱操作上表现良好。但在光纤处理细节上存在隐患，如光纤弯曲度控制不够严谨，线缆管理混乱导致视线受阻。标准化的光电测试仪使用操作步骤应严格遵循：1. 准备阶段：检查仪表电量及校准标签，佩戴防静电手套；2. 清洁阶段：使用专用清洁笔或无尘纸蘸酒精清洁光纤连接器端面，并通过显微镜检查；3. 连接阶段：将参考跳线接入仪表，听到咔哒声确认锁定，再将待测光纤接入；4. 设置阶段：开启仪表，根据光纤类型设置正确波长（单模设1310nm/1550nm），确认单位为dBm；5. 测量阶段：待读数稳定后记录数据，进行相对功率测量时需先归零；6. 结束阶段：断开连接，立即盖上防尘帽，整理仪表及线缆。",
+                "improvement_suggestions": [
+                    "优化拍摄视角与现场整理：固定摄像头位置，确保仪表屏幕和操作手部全程无遮挡，操作前整理好测试线缆，避免垂落遮挡视线。",
+                    "强化端面清洁与保护意识：在连接仪表前，必须增加并展示光纤端面清洁和检查的动作，裸露光纤操作后应及时加装保护帽，避免污染或损伤。",
+                    "规范仪表操作流程展示：操作时需有意将仪表屏幕朝向镜头，清晰展示波长设置、归零操作及最终读数，确保裁判能准确评判参数设置正确率和结果判读准确性。"
+                ]
+            },
+            "upload_time": "2026-03-13 10:36:11",
+            "is_analyzed": true
         },
         {
             "project_id": "photoelectric_3",
@@ -147,17 +184,39 @@
             "project_desc": "考核连接器安装步骤、压接规范、损耗测试",
             "project_order": 5,
             "evaluation_type": "step_screenshot",
-            "video_filename": null,
-            "video_duration": null,
-            "analysis_result": null,
-            "upload_time": null,
-            "is_analyzed": false
+            "video_filename": "photoelectric_5_step_20260313103058_5951D0F79D831BDBE904A8C6827_24080ED8_23309.jpg",
+            "video_duration": 0,
+            "analysis_result": {
+                "project_name": "光纤连接器安装",
+                "project_score": 20,
+                "operation_duration": 0,
+                "step_completed_count": 0,
+                "step_error_count": 0,
+                "deduction_items": [
+                    {
+                        "reason": "大模型调用失败：InvalidParameter-<400> InternalError.Algo.InvalidParameter: The provided URL does not appear to be valid. Ensure it is correctly formatted.",
+                        "deduction_score": 0
+                    }
+                ],
+                "correct_items": [
+                    "无"
+                ],
+                "time_analysis": "无法分析",
+                "action_norm_analysis": "调用失败",
+                "improvement_suggestions": [
+                    "检查网络后重试",
+                    "缩短视频时长",
+                    "确保视频格式正确"
+                ]
+            },
+            "upload_time": "2026-03-13 10:31:23",
+            "is_analyzed": true
         }
     ],
-    "total_duration": 37.2,
+    "total_duration": 128.2,
     "overall_score": 0,
     "overall_analysis": null,
     "created_time": "2026-03-12 14:20:23",
-    "finished_time": null,
-    "is_finished": false
+    "finished_time": "2026-03-13 10:36:11",
+    "is_finished": true
 }
