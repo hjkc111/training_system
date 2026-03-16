@@ -5,3 +5,4 @@ python-dotenv
 pyjwt
 fitz
 pillow
+python-docx

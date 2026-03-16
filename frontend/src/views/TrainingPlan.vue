@@ -312,7 +312,7 @@ const handleTrainingDayChange = async (trainingDayId) => {
 
 /**
  * 接口3：生成光电训练计划
- * 后端接口路径：POST /api/ai/generate-photoelectric-plan
+ * 后端接口路径：POST /api/trainingplan/generate/plan
  * 请求参数：
  * {
  *   username: string,
@@ -354,7 +354,7 @@ const generateTrainingPlan = async () => {
   generating.value = true
   try {
     // 调用后端生成计划接口
-    const res = await axios.post('/api/ai/generate-photoelectric-plan', {
+    const res = await axios.post('/api/trainingplan/generate/plan', {
       username: userInfo.value.username,
       training_day_id: form.value.trainingDayId,
       training_day_data: selectedTrainingDay.value // 传给后端用于生成计划的原始数据
@@ -374,7 +374,7 @@ const generateTrainingPlan = async () => {
 
 /**
  * 接口4：导出训练计划
- * 后端接口路径：POST /api/ai/export-photoelectric-plan
+ * 后端接口路径：POST /api/trainingplan/export/plan
  * 请求参数：{ plan_id: string / plan_data: object, username: string }
  * 响应：返回文件流（Excel/PDF）
  */
@@ -382,7 +382,7 @@ const exportTrainingPlan = async () => {
   try {
     // 发起导出请求（设置响应类型为blob）
     const res = await axios.post(
-      '/api/ai/export-photoelectric-plan',
+      '/api/trainingplan/export/plan',
       {
         username: userInfo.value.username,
         plan_data: trainingPlan.value // 直接传计划数据，或传plan_id（后端需支持）

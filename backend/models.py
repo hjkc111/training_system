@@ -2,15 +2,15 @@
 系统数据模型定义
 包含登录、视频分析、训练日相关的请求/响应数据模型
 """
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 # 终极兼容写法：同时支持Python3.8+所有版本，彻底解决导入报错
 try:
     # Python3.9+ 优先用内置类型
-    from typing import List, Optional
+    from typing import List, Optional, Dict, Any
 except ImportError:
     # 兜底兼容
-    from typing_extensions import List, Optional
+    from typing_extensions import List, Optional,   Dict, Any
 
 # ------------------- 原有模型（完全保留，不影响原有功能） -------------------
 class LoginRequest(BaseModel):
@@ -66,3 +66,15 @@ class TrainingDayIdRequest(BaseModel):
     """训练日详情查询参数"""
     training_day_id: str
     username: str
+
+
+class TrainingPlanGenerateRequest(BaseModel):
+    """生成训练计划请求模型"""
+    username: str = Field(..., description="用户名")
+    training_day_id: str = Field(..., description="训练日ID")
+    training_day_data: Dict[str, Any] = Field(..., description="训练日详细数据")
+
+class TrainingPlanExportRequest(BaseModel):
+    """导出训练计划请求模型"""
+    username: str = Field(..., description="用户名")
+    plan_data: Dict[str, Any] = Field(..., description="已生成的训练计划数据")

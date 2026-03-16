@@ -1,0 +1,272 @@
+{
+    "training_day_id": "training_20260316135535588291",
+    "username": "player1",
+    "training_day_name": "2026.3.16光电项目日常训练",
+    "project_list": [
+        {
+            "project_id": "photoelectric_1",
+            "project_name": "光纤熔接操作",
+            "project_desc": "考核光纤熔接的端面处理、熔接参数设置、熔接损耗控制等规范性",
+            "project_order": 1,
+            "evaluation_type": "video_analysis",
+            "video_filename": "20260316135543_10号开面板线.MP4",
+            "video_duration": 200.16,
+            "analysis_result": {
+                "project_name": "光纤熔接操作",
+                "project_score": 35,
+                "operation_duration": 45,
+                "step_completed_count": 1,
+                "step_error_count": 4,
+                "deduction_items": [
+                    {
+                        "reason": "作业环境严重违规：选手坐在地面操作，未使用标准工作台，极易导致光纤端面受灰尘污染",
+                        "deduction_score": 20
+                    },
+                    {
+                        "reason": "核心工具缺失：画面中未出现光纤熔接机、光纤切割刀等必备工具，无法进行熔接操作",
+                        "deduction_score": 15
+                    },
+                    {
+                        "reason": "光缆盘留不规范：光缆直接散乱放置在地面，存在微弯损耗及外皮磨损风险",
+                        "deduction_score": 10
+                    },
+                    {
+                        "reason": "操作流程未完成：仅进行了光缆的整理和初步查看，未进行剥纤、切割、熔接等核心步骤",
+                        "deduction_score": 20
+                    }
+                ],
+                "correct_items": [
+                    "操作人员佩戴了黑色防护手套，符合基础防护要求",
+                    "能够识别光缆包装及型号（VCOM品牌）"
+                ],
+                "time_analysis": "操作效率极低且无效。在45秒的观测时间内，选手主要时间耗费在地面整理光缆和调整坐姿上，未进入任何实质性的光纤处理环节，远低于大赛标准节奏。",
+                "action_norm_analysis": "动作规范性严重不足。世界技能大赛标准要求选手必须在洁净、稳固的工作台上操作。该选手坐在地面，背部弯曲，不仅违反人体工程学，更致命的是地面灰尘会附着在剥除涂覆层后的裸纤上，导致熔接损耗过大甚至失败。标准操作应包含：1.清洁工作台；2.使用剥线钳去除光缆外护套；3.去除加强芯；4.使用米勒钳剥除光纤涂覆层；5.用酒精棉清洁裸纤；6.使用切割刀制作端面；7.放入熔接机熔接；8.热缩管保护。选手目前行为完全偏离此标准流程。",
+                "improvement_suggestions": [
+                    "严格规范作业环境：必须搭建或使用标准操作台，铺设防静电垫，严禁在地面、地毯等不洁净区域进行光纤端面处理，这是保证低损耗熔接的前提。",
+                    "强化标准工艺流程训练：严格按照‘开剥光缆->去除加强件->剥除涂覆层->清洁->切割->熔接->热缩’的八步法进行肌肉记忆训练，确保每一步工具使用得当。",
+                    "提升光缆盘留与管理意识：开剥后的光缆应使用理线环或魔术贴有序固定，避免小半径弯曲（弯曲半径应大于光缆直径的20倍），防止信号衰减。"
+                ]
+            },
+            "upload_time": "2026-03-16 13:57:05",
+            "is_analyzed": true,
+            "standard_image_url": ""
+        },
+        {
+            "project_id": "photoelectric_2",
+            "project_name": "光电测试仪使用",
+            "project_desc": "考核仪器连接规范性、参数设置正确率、结果判读准确性",
+            "project_order": 2,
+            "evaluation_type": "video_analysis",
+            "video_filename": "20260316135713_Clip24.m4v",
+            "video_duration": 91.0,
+            "analysis_result": {
+                "project_name": "光电测试仪使用",
+                "project_score": 35,
+                "operation_duration": 28,
+                "step_completed_count": 2,
+                "step_error_count": 4,
+                "deduction_items": [
+                    {
+                        "reason": "核心考核项缺失：未进行光电测试仪（光功率计/光源）的连接操作",
+                        "deduction_score": 40
+                    },
+                    {
+                        "reason": "核心考核项缺失：未进行仪器参数设置（波长、单位等）及结果判读",
+                        "deduction_score": 30
+                    },
+                    {
+                        "reason": "视频记录严重违规：出现蓝屏（Frame 3）及长时间遮挡/失焦，无法追溯操作细节",
+                        "deduction_score": 15
+                    },
+                    {
+                        "reason": "操作规范性存疑：前景线缆严重遮挡视线，无法确认光纤弯曲半径及端面清洁度",
+                        "deduction_score": 10
+                    }
+                ],
+                "correct_items": [
+                    "操作人员佩戴了3M防护手套，符合光纤操作安全规范",
+                    "正确打开了光纤熔接盘/配线箱的白色盖板",
+                    "初步识别了盘内的光纤走线路由"
+                ],
+                "time_analysis": "用时偏快但无效。视频仅展示了准备阶段（开盖、理线），未进入核心测试环节，且因视频质量问题，有效操作时间难以认定，整体流程未完成。",
+                "action_norm_analysis": "动作规范性较差。虽然佩戴了手套（符合安全标准），但摄像头 positioning 严重失误。标准操作应确保摄像头清晰对准光纤端面及仪器屏幕。Frame 3 的蓝屏和 Frame 8 的严重失焦表明选手未调整好监控设备或操作时遮挡了镜头。标准化操作步骤应为：1. 佩戴护目镜及手套；2. 检查测试仪电量及归零；3. 清洁光纤端面；4. 连接适配器；5. 选择波长（1310/1550nm）；6. 读取并记录光衰数值。本视频仅完成了类似'打开熔接盘'的预处理步骤。",
+                "improvement_suggestions": [
+                    "必须完善完整测试流程：视频需清晰展示光电测试仪的开机、波长设置、光纤跳线连接及最终读数过程，目前缺失核心得分点。",
+                    "调整拍摄视角与光线：避免前景线缆遮挡镜头（如Frame 8），确保光纤操作区域（熔接盘/适配器）处于画面中心且对焦清晰，杜绝蓝屏等记录事故。",
+                    "强化光纤端面处理规范：在连接测试仪前，必须展示使用专用清洁笔或酒精棉清洁光纤端面的动作，这是影响测试结果准确性的关键步骤，视频中未体现。"
+                ]
+            },
+            "upload_time": "2026-03-16 13:58:17",
+            "is_analyzed": true,
+            "standard_image_url": ""
+        },
+        {
+            "project_id": "photoelectric_3",
+            "project_name": "光纤端面清洁",
+            "project_desc": "考核清洁步骤、工具使用、清洁效果",
+            "project_order": 3,
+            "evaluation_type": "video_analysis",
+            "video_filename": "20260316135827_HDV_0007.MP4",
+            "video_duration": 48.8,
+            "analysis_result": {
+                "project_name": "光纤端面清洁",
+                "project_score": 0,
+                "operation_duration": 0,
+                "step_completed_count": 0,
+                "step_error_count": 5,
+                "deduction_items": [
+                    {
+                        "reason": "严重缺失：未检测到任何光纤端面清洁操作，视频内容为通信展会设备展示（3M Fibrlok接续子、Fluke/Anritsu OTDR测试仪、Panasonic布线产品等），非训练操作视频",
+                        "deduction_score": 50
+                    },
+                    {
+                        "reason": "步骤缺失：未执行'端面初检'步骤，未使用光纤显微镜检查污染情况",
+                        "deduction_score": 15
+                    },
+                    {
+                        "reason": "步骤缺失：未执行'干式清洁'步骤，未使用一键式清洁笔或Cassette清洁盒",
+                        "deduction_score": 15
+                    },
+                    {
+                        "reason": "步骤缺失：未执行'湿式清洁'步骤（如需），未使用无尘纸与酒精进行深度清洁",
+                        "deduction_score": 10
+                    },
+                    {
+                        "reason": "步骤缺失：未执行'清洁后复检'步骤，无法确认清洁效果是否达标",
+                        "deduction_score": 10
+                    }
+                ],
+                "correct_items": [],
+                "time_analysis": "无法分析。提供的画面为静态展品照片序列，包含3M Fibrlok机械接续子、Fluke OptiFiber Pro OTDR、Anritsu ACCESS Master OTDR以及Panasonic布线系统海报，完全未包含选手操作过程，无有效操作时长。",
+                "action_norm_analysis": "未检测到任何操作动作。画面显示的是通信行业展览会的展位场景。图1展示了3M Fibrlok通用光纤机械接续子及其底座；图2展示了彩色的光纤适配器或防尘帽；图4-7展示了Fluke和Anritsu的光时域反射仪（OTDR）产品海报；图8展示了Panasonic的综合布线产品。选手player1并未在视频中进行任何手持光纤跳线、使用清洁工具或显微镜检查的动作，不符合大赛考核的基本前提。",
+                "improvement_suggestions": [
+                    "纠正训练场景：当前素材为展会参观照片，请选手上传实际在操作台前进行光纤端面清洁的训练视频。标准训练应在洁净的操作台上进行，配备光纤显微镜、清洁笔、无尘纸、酒精等专用工具。",
+                    "掌握标准清洁流程（'检查-清洁-复检'循环）：标准步骤应为：1. 使用光纤显微镜检查端面污染；2. 若干式清洁笔无法清除，使用蘸有酒精的无尘纸单向擦拭或使用Cassette清洁盒；3. 再次使用显微镜复检，确保端面无污渍、无划痕、无残留纤维。",
+                    "规范工具使用手法：在使用一键式清洁笔时，应垂直对准适配器端口，按下按钮听到'咔哒'声后提起，严禁在端面来回摩擦以免划伤；使用显微镜时，应轻拿轻放，避免探头碰撞端面造成二次污染或损坏。"
+                ]
+            },
+            "upload_time": "2026-03-16 13:59:20",
+            "is_analyzed": true,
+            "standard_image_url": ""
+        },
+        {
+            "project_id": "photoelectric_4",
+            "project_name": "光纤识别与分类",
+            "project_desc": "考核光纤类型识别、分类标记",
+            "project_order": 4,
+            "evaluation_type": "video_analysis",
+            "video_filename": "20260316135928_HDV_0009.MP4",
+            "video_duration": 37.2,
+            "analysis_result": {
+                "project_name": "光纤识别与分类",
+                "project_score": 68,
+                "operation_duration": 55,
+                "step_completed_count": 3,
+                "step_error_count": 2,
+                "deduction_items": [
+                    {
+                        "reason": "缺失关键分类标记步骤，视频仅展示到机器识别，未进行人工标签粘贴或分类存放",
+                        "deduction_score": 20
+                    },
+                    {
+                        "reason": "工具摆放不符合5S管理标准，剥线钳随意放置于操作台面，未归位至工具盒",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "操作流程冗余，项目为识别与分类，选手进行了熔接操作，超出考核范围",
+                        "deduction_score": 10
+                    },
+                    {
+                        "reason": "音频汇报缺失或无效，未听到清晰的识别结果口述",
+                        "deduction_score": 5
+                    }
+                ],
+                "correct_items": [
+                    "正确选用专业光纤剥线钳（Ripley No Nik）进行光纤涂覆层处理",
+                    "利用熔接机（Fujikura 70S）自动识别功能准确判断光纤类型为单模（SM）",
+                    "熔接机模式设置正确，选择了SM FAST模式，符合单模光纤操作规范",
+                    "光纤切割与放置动作（推测）符合熔接机夹具要求，机器成功捕获光纤"
+                ],
+                "time_analysis": "用时偏快，选手似乎跳过了详细的目视检查和分类记录环节，直接进入仪器识别和熔接阶段，导致整体流程不完整，虽然效率高但不符合考核标准流程。",
+                "action_norm_analysis": "选手在工具使用上表现出一定的专业性，能够熟练使用Ripley剥线钳和Fujikura熔接机。从画面看，剥线钳握持姿势基本正确，熔接机参数设置合理。然而，动作规范性在工位整理方面表现较差，操作过程中工具随意散落，缺乏条理。此外，选手过于依赖设备自动识别，忽略了人工复核和分类标记这一核心考核点，显示出对‘识别与分类’项目标准的理解存在偏差，将重点错误地放在了后续的熔接工序上。",
+                "improvement_suggestions": [
+                    "严格遵循项目考核标准，明确‘识别与分类’的核心任务是辨别光纤类型并做标记，而非进行熔接。在完成仪器识别后，应立即停止，进行标签粘贴或分类入盘。",
+                    "加强5S现场管理意识，工具使用完毕后应立即放回指定位置，保持操作台面整洁，避免工具杂乱影响操作安全及评分。",
+                    "完善操作流程，增加‘目视检查’和‘结果记录’环节。在仪器识别前，应先检查光纤外观、颜色代码；识别后，应大声汇报或记录识别结果（如：单模光纤，G.652D等），确保考核证据链完整。"
+                ]
+            },
+            "upload_time": "2026-03-16 14:00:32",
+            "is_analyzed": true,
+            "standard_image_url": ""
+        },
+        {
+            "project_id": "photoelectric_5",
+            "project_name": "光纤连接器安装",
+            "project_desc": "考核连接器安装步骤、压接规范、损耗测试",
+            "project_order": 5,
+            "evaluation_type": "video_analysis",
+            "video_filename": "20260316140037_王永钎.MP4",
+            "video_duration": 74.27,
+            "analysis_result": {
+                "project_name": "光纤连接器安装",
+                "project_score": 72,
+                "operation_duration": 55,
+                "step_completed_count": 3,
+                "step_error_count": 3,
+                "deduction_items": [
+                    {
+                        "reason": "个人防护装备(PPE)不规范：佩戴过厚的棉质/合成手套，严重影响光纤操作的触觉灵敏度和精细度，易引入灰尘",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "关键步骤缺失：视频中未清晰展示光纤端面清洁步骤（使用无尘纸和酒精），这是降低插入损耗的关键",
+                        "deduction_score": 10
+                    },
+                    {
+                        "reason": "工具使用存疑：画面显示使用螺丝刀进行紧固，若为标准压接式连接器，应使用右侧的压接钳，工具选择错误会导致连接不可靠",
+                        "deduction_score": 8
+                    },
+                    {
+                        "reason": "操作稳定性不足：第一帧画面手部有明显运动模糊，显示操作动作过快或手部稳定性不够，易导致光纤折断或对准偏差",
+                        "deduction_score": 5
+                    }
+                ],
+                "correct_items": [
+                    "工作台面工具摆放相对整齐，有明确的区域划分",
+                    "连接器拿持姿势基本正确，避免了直接触碰光纤端面区域",
+                    "完成了连接器的机械紧固动作"
+                ],
+                "time_analysis": "用时偏慢。选手在紧固环节（图4、图8）花费了较多时间进行反复调整，且动作略显犹豫，说明对连接器锁紧机制的熟悉度不够，缺乏肌肉记忆。",
+                "action_norm_analysis": "动作规范性较差。标准的光纤连接器安装流程应严格遵循：1.剥除涂覆层（使用米勒钳，长度精准）；2.清洁光纤（使用无尘纸蘸酒精单向擦拭）；3.切割光纤（使用切割刀，确保端面平整无毛刺）；4.插入连接器（听到咔哒声或感觉到底）；5.固定/压接（使用专用压接钳或锁紧机构）；6.端面检查（使用显微镜）。视频中选手佩戴厚手套严重阻碍了剥纤和清洁的精细操作，且未看到切割刀的使用，直接进行紧固，这不符合大赛对损耗控制的严格要求。此外，使用螺丝刀紧固而非压接钳，可能表明选用了错误的连接器类型或操作方法不当。",
+                "improvement_suggestions": [
+                    "更换操作手套：立即更换为薄款丁手套或进行无手套操作（在安全允许下），以确保对125μm光纤的触觉反馈，提高剥纤和清洁的精度。",
+                    "强化清洁与切割流程：必须增加并规范光纤端面清洁步骤，使用专用酒精笔或无尘纸单向擦拭；严格使用光纤切割刀，确保切割角度小于0.5度，这是低损耗的关键。",
+                    "规范工具使用与压接手法：确认连接器类型，若是压接型，必须使用台面上的黄色压接钳进行一次性压接，听到‘咔’声即止，避免使用螺丝刀替代，确保机械连接的可靠性。"
+                ]
+            },
+            "upload_time": "2026-03-16 14:02:18",
+            "is_analyzed": true,
+            "standard_image_url": ""
+        }
+    ],
+    "total_duration": 451.43,
+    "overall_score": 42.0,
+    "overall_analysis": {
+        "overall_score": 42.0,
+        "high_freq_deductions": [
+            "调用出错，无数据"
+        ],
+        "core_shortcomings": [
+            "调用出错，无数据"
+        ],
+        "time_overall_analysis": "无法分析",
+        "advantage_analysis": "调用出错",
+        "overall_improvement_suggestions": [
+            "重启后端服务后重试"
+        ],
+        "project_rank": []
+    },
+    "created_time": "2026-03-16 13:55:35",
+    "finished_time": "2026-03-16 14:02:18",
+    "is_finished": true
+}
