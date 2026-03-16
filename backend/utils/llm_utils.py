@@ -621,3 +621,176 @@ def call_qwen_training_summary(training_day_data: dict, username: str):
             "overall_improvement_suggestions": ["重启后端服务后重试"],
             "project_rank": []
         }
+    
+
+
+def call_qwen_training_plan(training_day_data: dict, username: str):
+    """基于训练日分析数据生成个性化训练计划（适配Qwen3.5-Plus调用，复用解析逻辑）"""
+    # 1. 提取训练日核心数据（和示例代码结构一致）
+    training_day_name = training_day_data["training_day_name"]
+    overall_score = training_day_data.get("overall_score", 0)
+    project_list = training_day_data["project_list"]
+    finished_projects = [p for p in project_list if p["is_analyzed"]]
+    # 提取薄弱项目（得分<80分）核心信息
+    weak_projects = []
+    for p in finished_projects:
+        score = p["analysis_result"].get("project_score", 0)
+        if score < 80:
+            weak_projects.append({
+                "project_name": p["project_name"],
+                "score": score,
+                "main_problem": p["analysis_result"].get("action_norm_analysis", ""),
+                "deduction_items": p["analysis_result"].get("deduction_items", []),
+                "error_count": p["analysis_result"].get("step_error_count", 0)
+            })
+    # 提取优势项目（得分≥80分）
+    advantage_projects = [p for p in finished_projects if p["analysis_result"].get("project_score", 0) >= 80]
+
+    # 2. 构造精准Prompt（严格要求JSON格式，和示例代码的prompt风格一致）
+    prompt = f"""
+    你是世界技能大赛光电项目专属教练，现在针对选手{username}的训练日【{training_day_name}】生成个性化训练计划。
+    【训练日核心数据】：
+    - 训练日名称：{training_day_name}
+    - 整体评分：{overall_score}分
+    - 已完成项目数：{len(finished_projects)}个
+    - 薄弱项目（<80分）：{json.dumps(weak_projects, ensure_ascii=False)}
+    - 优势项目（≥80分）：{[p['project_name'] for p in advantage_projects]}
+
+    【训练计划生成要求】：
+    1. 计划需聚焦薄弱项目整改，严格对标世界技能大赛考核标准；
+    2. 训练周期建议14天，分天计划需包含每日主题、目标、具体训练内容、方法、验收标准；
+    3. 内容要求：尽量多的精确描述，字数尽可能多，分析维度全面，禁止精简内容；
+    4. 输出严格JSON格式（仅返回JSON，无任何额外内容、注释、换行、反引号），字段如下：
+    {{
+        "plan_title": "训练计划标题（含选手名+训练日+专项）",
+        "plan_desc": "计划描述（≥100字，说明训练背景、目标、周期）",
+        "plan_days": 训练天数（数字，建议14）,
+        "core_goal": "核心目标（≥100字，明确各薄弱项整改目标）",
+        "daily_plans": [
+            {{
+                "theme": "当日训练主题",
+                "daily_goal": "当日目标（≥50字）",
+                "project_plans": [
+                    {{
+                        "project_name": "项目名称",
+                        "training_content": "训练内容（≥100字）",
+                        "training_methods": ["训练方法1", "训练方法2"],
+                        "acceptance_criteria": "验收标准（≥50字）",
+                        "notes": "注意事项（≥50字）"
+                    }}
+                ],
+                "daily_summary": "当日总结（≥50字）",
+                "next_day_tips": "次日预习提示（最后一天为空字符串）"
+            }}
+        ],
+        "plan_summary": "计划总结（≥200字，总结整体训练逻辑、预期效果）",
+        "execution_suggestion": "执行建议（≥100字，含训练频次、监督方式、验收标准）"
+    }}
+    """
+    
+    try:
+        print("开始调用Qwen3.5-Plus生成个性化训练计划...")
+        
+        # 3. 调用Qwen3.5-Plus（完全复用示例代码的调用逻辑）
+        messages = [
+            {
+                "role": "user",
+                "content": [{"text": prompt}]  # 纯文本请求，和示例代码一致
+            }
+        ]
+        
+        response = dashscope.MultiModalConversation.call(
+            api_key=DASHSCOPE_API_KEY,
+            model='qwen3.5-plus',  # 统一使用qwen3.5-plus
+            messages=messages
+        )
+        
+        if response.status_code == 200:
+            print(f"Qwen3.5-Plus调用成功，开始解析训练计划结果")
+            
+            try:
+                # 4. 解析返回结果（完全复用示例代码的核心修复逻辑）
+                raw_content = response.output.choices[0].message.content
+                print(f"训练计划原始返回内容（前500字符）：{str(raw_content)[:500]}...")
+                
+                # 处理不同类型的返回内容
+                plan_result_str = ""
+                if isinstance(raw_content, list):
+                    print(f"返回内容是List类型，长度：{len(raw_content)}，开始提取嵌套的JSON字符串")
+                    for item in raw_content:
+                        if isinstance(item, dict) and "text" in item:
+                            plan_result_str = item["text"].strip()
+                            print(f"从List中提取到JSON字符串（前200字符）：{plan_result_str[:200]}...")
+                            break
+                    if not plan_result_str and len(raw_content) > 0:
+                        plan_result_str = str(raw_content[0]).strip()
+                elif isinstance(raw_content, dict):
+                    print(f"返回内容是Dict类型，提取text字段")
+                    plan_result_str = raw_content.get("text", "").strip()
+                elif isinstance(raw_content, (str, bytes, bytearray)):
+                    print(f"返回内容是字符串类型，直接使用")
+                    plan_result_str = str(raw_content).strip()
+                else:
+                    raise Exception(f"不支持的返回类型：{type(raw_content)}")
+                
+                # 清理JSON字符串（移除干扰字符）
+                if not plan_result_str:
+                    raise Exception("提取到的训练计划JSON字符串为空")
+                
+                plan_result_str = plan_result_str.replace("```json", "").replace("```", "").replace("\n", "").replace("\r", "").strip()
+                print(f"清理后的训练计划JSON字符串（前200字符）：{plan_result_str[:200]}...")
+                
+                # 解析为字典并校验
+                plan_result = json.loads(plan_result_str)
+                if not isinstance(plan_result, dict):
+                    raise Exception(f"解析后不是字典类型，而是：{type(plan_result)}")
+                
+                print(f"✅ 训练计划解析成功，计划标题：{plan_result.get('plan_title', '未知')}")
+                return plan_result
+            
+            except json.JSONDecodeError as e:
+                print(f"解析训练计划失败（JSON格式错误）：{str(e)}")
+                print(f"失败的内容：{plan_result_str[:500]}")
+                # 兜底返回（保证前端能正常接收）
+                return {
+                    "plan_title": f"{username} 光电项目训练计划",
+                    "plan_desc": "训练计划生成失败（JSON解析错误）",
+                    "plan_days": 14,
+                    "core_goal": "解析失败，无核心目标",
+                    "daily_plans": [],
+                    "plan_summary": "解析失败，无计划总结",
+                    "execution_suggestion": "请重新生成训练计划"
+                }
+            except Exception as e:
+                print(f"解析训练计划时发生错误：{str(e)}")
+                return {
+                    "plan_title": f"{username} 光电项目训练计划",
+                    "plan_desc": "训练计划生成失败（解析异常）",
+                    "plan_days": 14,
+                    "core_goal": "解析异常，无核心目标",
+                    "daily_plans": [],
+                    "plan_summary": "解析异常，无计划总结",
+                    "execution_suggestion": "重启后端服务后重新生成"
+                }
+        else:
+            print(f"Qwen3.5-Plus调用失败：{response.code} - {response.message}")
+            return {
+                "plan_title": f"{username} 光电项目训练计划",
+                "plan_desc": "训练计划生成失败（调用接口失败）",
+                "plan_days": 14,
+                "core_goal": "接口调用失败，无核心目标",
+                "daily_plans": [],
+                "plan_summary": "接口调用失败，无计划总结",
+                "execution_suggestion": "检查API密钥和网络后重试"
+            }
+    except Exception as e:
+        print(f"调用Qwen3.5-Plus生成训练计划出错：{str(e)}")
+        return {
+            "plan_title": f"{username} 光电项目训练计划",
+            "plan_desc": "训练计划生成失败（系统异常）",
+            "plan_days": 14,
+            "core_goal": "系统异常，无核心目标",
+            "daily_plans": [],
+            "plan_summary": "系统异常，无计划总结",
+            "execution_suggestion": "联系管理员排查后端服务"
+        }
