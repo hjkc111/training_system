@@ -1,0 +1,23 @@
+{
+    "id": "analysis_20260303171115571237",
+    "username": "player1",
+    "video_filename": "20260303171109_王永钎.MP4",
+    "video_path": "D:/visualproject/training_system/backend/uploads/20260303171109_王永钎.MP4",
+    "video_duration": 74.27,
+    "analysis_result": {
+        "analysis_summary": "无法获取视频画面与音频内容，所有分析均因输入数据缺失而无法执行。系统未提供任何可视帧、动作序列或时间信息，无法识别核心动作、评估规范性、统计时长或关键动作数量。",
+        "action_norm_score": 0,
+        "improvement_suggestions": [
+            "上传可正常解码的视频文件（如MP4/H.264格式）",
+            "确保视频包含清晰可见的训练主体与完整动作周期",
+            "补充同步可用的音频或字幕文本以支持多模态分析",
+            "避免使用受保护、加密或损坏的媒体文件"
+        ],
+        "video_stats": {
+            "duration": 0,
+            "action_count": 0
+        },
+        "key_frame_analysis": "无有效帧数据，无法进行关键帧识别或描述"
+    },
+    "analysis_time": "2026-03-03 17:11:15"
+}

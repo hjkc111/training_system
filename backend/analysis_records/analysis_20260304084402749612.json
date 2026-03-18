@@ -1,0 +1,23 @@
+{
+    "id": "analysis_20260304084402749612",
+    "username": "player1",
+    "video_filename": "20260304084336_10号开面板线.MP4",
+    "video_path": "D:/visualproject/training_system/backend/uploads/20260304084336_10号开面板线.MP4",
+    "video_duration": 200.16,
+    "analysis_result": {
+        "analysis_summary": "视频音频文字内容严重失真、无法识别有效训练指令或动作描述，疑似语音识别错误或环境干扰导致文本混乱（如'鰍帶小火一分鐘馬士兔酒小一下滑asse'无明确运动学或训练语义）。无法从中提取可验证的核心动作、技术要点或训练场景，故无法评估规范性及改进点。",
+        "action_norm_score": 0,
+        "improvement_suggestions": [
+            "重新上传清晰、无背景噪音的训练视频",
+            "确保口述指令使用标准术语并语速适中",
+            "建议同步提供文字脚本或动作说明文档",
+            "启用高质量音频录制设备并进行语音校验"
+        ],
+        "video_stats": {
+            "duration": 0,
+            "action_count": 0
+        },
+        "key_frame_analysis": "无有效关键帧可识别；音频转文字结果无语义，无法定位动作起止或技术特征"
+    },
+    "analysis_time": "2026-03-04 08:44:02"
+}

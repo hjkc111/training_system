@@ -1,0 +1,152 @@
+{
+    "training_day_id": "training_photoelectric_20260318102104828489",
+    "username": "player1",
+    "project_type": "photoelectric",
+    "training_day_name": "2026.3.18光电项目日常训练10.21",
+    "project_list": [
+        {
+            "project_id": "photoelectric_1",
+            "project_name": "光纤熔接操作",
+            "project_desc": "考核光纤熔接的端面处理、熔接参数设置、熔接损耗控制等规范性",
+            "project_order": 1,
+            "evaluation_type": "video_analysis",
+            "video_filename": "20260318102110_光纤熔接1.mp4",
+            "video_duration": 154.3,
+            "analysis_result": {
+                "project_name": "光纤熔接操作",
+                "project_score": 78,
+                "operation_duration": 165,
+                "step_completed_count": 5,
+                "step_error_count": 3,
+                "deduction_items": [
+                    {
+                        "reason": "光纤放置严重不规范，剥除后的裸纤及尾纤过长且直接散落在金属工作台上，极易造成光纤污染、微弯或断裂",
+                        "deduction_score": 8
+                    },
+                    {
+                        "reason": "操作姿势不符合人体工程学，身体过度前倾贴近设备，长期操作易疲劳且影响手部稳定性",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "工具定置管理不到位，剥线钳、酒精瓶等工具未放置在固定区域，操作过程中存在碰倒风险",
+                        "deduction_score": 4
+                    },
+                    {
+                        "reason": "清洁动作不够标准，未见使用专用无尘纸进行'单向擦拭'，存在端面污染隐患",
+                        "deduction_score": 5
+                    }
+                ],
+                "correct_items": [
+                    "正确佩戴护目镜和防护手套，符合实验室安全操作规范",
+                    "使用了酒精瓶等清洁辅助工具，具备清洁意识",
+                    "能够正确开启和操作光纤熔接机界面",
+                    "在操作前对工作台面进行了擦拭清洁"
+                ],
+                "time_analysis": "用时偏慢。从关键帧来看，选手在光纤的整理和放置上花费了过多时间，动作连贯性不足，特别是在处理长段光纤时显得犹豫，导致整体效率低于大赛标准时间。",
+                "action_norm_analysis": "选手具备基础的安全防护意识（护目镜、手套），但在核心工艺流程的规范性上存在明显短板。主要问题在于光纤的'拿、放、理'环节：剥除涂覆层后，未将光纤妥善固定或盘绕，而是任由其散落在台面，这是光纤熔接的大忌，会直接引入损耗甚至导致熔接失败。此外，熔接机操作时手部动作略显生硬，盖防风盖和启动熔接的衔接不够流畅。",
+                "improvement_suggestions": [
+                    "严格规范光纤理线：剥除和切割后的光纤应立即放入熔接机V型槽或使用临时理线架，严禁将裸纤直接平铺在工作台面上，防止灰尘吸附和物理损伤。",
+                    "优化操作姿态与工位：调整座椅高度，使视线与熔接机屏幕保持水平，身体保持正直，利用手臂支撑点提高手部操作的稳定性，减少抖动。",
+                    "强化清洁工艺训练：严格执行光纤端面清洁标准（如使用专用无尘纸蘸取酒精，单向擦拭），并养成'随做随清'的习惯，确保熔接损耗控制在0.02dB以内。"
+                ]
+            },
+            "upload_time": "2026-03-18 10:22:57",
+            "is_analyzed": true,
+            "standard_image_url": ""
+        },
+        {
+            "project_id": "photoelectric_2",
+            "project_name": "光电测试仪使用",
+            "project_desc": "考核仪器连接规范性、参数设置正确率、结果判读准确性",
+            "project_order": 2,
+            "evaluation_type": "video_analysis",
+            "video_filename": "20260318105804_光纤熔接1.mp4",
+            "video_duration": 154.3,
+            "analysis_result": {
+                "project_name": "光电测试仪使用",
+                "project_score": 78,
+                "operation_duration": 45,
+                "step_completed_count": 4,
+                "step_error_count": 2,
+                "deduction_items": [
+                    {
+                        "reason": "光纤线缆管理不规范，测试完成后光纤散落在工作台上，未进行盘绕或固定，存在损伤风险",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "操作流程中出现犹豫和重复动作（如第3-4帧伸手取物后返回），显示对设备熟练度不足，影响效率",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "关键清洁步骤未在画面中明确体现，光纤端面清洁是熔接/测试前的核心步骤，缺失将导致测试损耗大",
+                        "deduction_score": 7
+                    },
+                    {
+                        "reason": "操作姿势过于贴近设备，虽便于观察但不符合人体工程学及防污染标准操作规范",
+                        "deduction_score": 5
+                    }
+                ],
+                "correct_items": [
+                    "正确佩戴防护眼镜和手套，符合安全操作规范",
+                    "能够正确开启设备并进行光纤放置操作",
+                    "测试过程中保持工作台相对整洁，无无关杂物干扰"
+                ],
+                "time_analysis": "用时偏慢。标准熔接或测试准备流程通常在30秒内完成光纤制备与放置，选手耗时约45秒，主要浪费在寻找工具和调整光纤位置的犹豫上，效率需提升。",
+                "action_norm_analysis": "动作规范性中等。选手具备基本的安全意识（佩戴PPE），但在精细操作环节（如光纤放入V型槽）手法不够稳，存在手部抖动。工具取用路径不优化，导致动作冗余。",
+                "improvement_suggestions": [
+                    "严格执行'清洁-切割-放置'的标准三步法，特别是在放入熔接机前，必须使用酒精棉纸单向擦拭光纤，并在画面中清晰展示该动作。",
+                    "优化工位布局，将剥线钳、切割刀、酒精棉等常用工具固定在右手侧易取位置，减少转身或大范围伸手取物的动作，提升操作流畅度。",
+                    "加强光纤余长管理训练，测试过程中暂时不用的光纤应整齐盘绕在桌面上或专用线槽内，避免散乱造成的微弯损耗或绊倒风险。"
+                ]
+            },
+            "upload_time": "2026-03-18 10:59:44",
+            "is_analyzed": true,
+            "standard_image_url": ""
+        },
+        {
+            "project_id": "photoelectric_3",
+            "project_name": "光纤端面清洁",
+            "project_desc": "考核清洁步骤、工具使用、清洁效果",
+            "project_order": 3,
+            "evaluation_type": "image_compare",
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false,
+            "standard_image_url": ""
+        },
+        {
+            "project_id": "photoelectric_4",
+            "project_name": "光纤识别与分类",
+            "project_desc": "考核光纤类型识别、分类标记",
+            "project_order": 4,
+            "evaluation_type": "doc_upload",
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false,
+            "standard_image_url": ""
+        },
+        {
+            "project_id": "photoelectric_5",
+            "project_name": "光纤连接器安装",
+            "project_desc": "考核连接器安装步骤、压接规范、损耗测试",
+            "project_order": 5,
+            "evaluation_type": "step_screenshot",
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false,
+            "standard_image_url": ""
+        }
+    ],
+    "total_duration": 308.6,
+    "overall_score": 0.0,
+    "overall_analysis": null,
+    "created_time": "2026-03-18 10:21:04",
+    "finished_time": null,
+    "is_finished": false
+}

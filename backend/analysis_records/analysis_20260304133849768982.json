@@ -1,0 +1,23 @@
+{
+    "id": "analysis_20260304133849768982",
+    "username": "player1",
+    "video_filename": "20260304133829_王永钎.MP4",
+    "video_path": "D:/visualproject/training_system/backend/uploads/20260304133829_王永钎.MP4",
+    "video_duration": 74.27,
+    "analysis_result": {
+        "analysis_summary": "视频内容无法识别有效职业技能操作。音频转文字'1笔退 order回饰小槌把它拿出来条碎三线毛浮腱'语义混乱，无对应世界技能大赛标准项目术语（如网络布线、焊接、数控等）；关键帧未提供具体图像描述，无法验证动作真实性。判定为无效训练素材，不具备技术动作分析基础。",
+        "action_norm_score": 0,
+        "improvement_suggestions": [
+            "立即核查视频录制质量：确保画面清晰、光线充足、操作区域完整入镜",
+            "重新上传规范训练视频，需包含可辨识的职业技能动作（如剥线-压接-RJ45模块安装）",
+            "音频需同步、无杂音，口述内容应与操作一致且符合行业术语（如'使用剥线钳距外皮端2cm处环切护套'）",
+            "上传前按世赛标准标注项目类别（如信息网络布线、电气装置、工业控制等）"
+        ],
+        "video_stats": {
+            "duration": 0,
+            "action_count": 0
+        },
+        "key_frame_analysis": "关键帧数据缺失或未提供有效视觉信息，无法执行动作识别与时序分析"
+    },
+    "analysis_time": "2026-03-04 13:38:49"
+}

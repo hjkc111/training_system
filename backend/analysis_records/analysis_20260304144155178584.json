@@ -1,0 +1,22 @@
+{
+    "id": "analysis_20260304144155178584",
+    "username": "player1",
+    "video_filename": "20260304144105_王永钎.MP4",
+    "video_path": "D:/visualproject/training_system/backend/uploads/20260304144105_王永钎.MP4",
+    "video_duration": 74.27,
+    "analysis_result": {
+        "analysis_summary": "关键帧画面中未提供任何可视内容（无图像数据），无法识别人物、工具、操作对象或环境场景；依据规则必须基于画面分析，故默认无有效动作信息，但按要求最低给予基础分。",
+        "action_norm_score": 20,
+        "improvement_suggestions": [
+            "请确保训练视频包含清晰可见的操作画面，如手部动作、工具特写或工作台场景",
+            "建议在拍摄时固定机位并保证充足光照，突出技能操作核心区域",
+            "避免纯音频或黑屏/静帧素材，关键帧需呈现至少一个可辨识的职业技能动作"
+        ],
+        "video_stats": {
+            "duration": 0,
+            "action_count": 1
+        },
+        "key_frame_analysis": "画面缺失或不可见，无有效视觉信息"
+    },
+    "analysis_time": "2026-03-04 14:41:55"
+}

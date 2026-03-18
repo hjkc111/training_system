@@ -1,0 +1,79 @@
+{
+    "training_day_id": "training_photoelectric_20260317162959906677",
+    "username": "player1",
+    "project_type": "photoelectric",
+    "training_day_name": "2026.3.17光电项目日常训练",
+    "project_list": [
+        {
+            "project_id": "photoelectric_1",
+            "project_name": "光纤熔接操作",
+            "project_desc": "考核光纤熔接的端面处理、熔接参数设置、熔接损耗控制等规范性",
+            "project_order": 1,
+            "evaluation_type": "video_analysis",
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false,
+            "standard_image_url": ""
+        },
+        {
+            "project_id": "photoelectric_2",
+            "project_name": "光电测试仪使用",
+            "project_desc": "考核仪器连接规范性、参数设置正确率、结果判读准确性",
+            "project_order": 2,
+            "evaluation_type": "video_analysis",
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false,
+            "standard_image_url": ""
+        },
+        {
+            "project_id": "photoelectric_3",
+            "project_name": "光纤端面清洁",
+            "project_desc": "考核清洁步骤、工具使用、清洁效果",
+            "project_order": 3,
+            "evaluation_type": "video_analysis",
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false,
+            "standard_image_url": ""
+        },
+        {
+            "project_id": "photoelectric_4",
+            "project_name": "光纤识别与分类",
+            "project_desc": "考核光纤类型识别、分类标记",
+            "project_order": 4,
+            "evaluation_type": "video_analysis",
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false,
+            "standard_image_url": ""
+        },
+        {
+            "project_id": "photoelectric_5",
+            "project_name": "光纤连接器安装",
+            "project_desc": "考核连接器安装步骤、压接规范、损耗测试",
+            "project_order": 5,
+            "evaluation_type": "video_analysis",
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false,
+            "standard_image_url": ""
+        }
+    ],
+    "total_duration": 0,
+    "overall_score": 0,
+    "overall_analysis": null,
+    "created_time": "2026-03-17 16:29:59",
+    "finished_time": null,
+    "is_finished": false
+}

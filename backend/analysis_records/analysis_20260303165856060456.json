@@ -1,0 +1,22 @@
+{
+    "id": "analysis_20260303165856060456",
+    "username": "player1",
+    "video_filename": "20260303165849_HDV_0009.MP4",
+    "video_path": "D:/visualproject/training_system/backend/uploads/20260303165849_HDV_0009.MP4",
+    "video_duration": 37.2,
+    "analysis_result": {
+        "analysis_summary": "无法获取视频音频文字内容，且无视觉帧数据可用，无法识别核心动作、评估规范性或提取关键帧。所有分析要素缺失，无法执行实质性训练视频分析。",
+        "action_norm_score": 0,
+        "improvement_suggestions": [
+            "重新上传完整可解析的视频文件（MP4/H.264编码，含清晰动作画面）",
+            "确保视频光线充足、主体居中、无遮挡且全程稳定录制",
+            "如需语音分析，请提供同步高质量音频轨道"
+        ],
+        "video_stats": {
+            "duration": 0,
+            "action_count": 0
+        },
+        "key_frame_analysis": "无有效帧数据，无法进行关键帧识别与分析"
+    },
+    "analysis_time": "2026-03-03 16:58:56"
+}

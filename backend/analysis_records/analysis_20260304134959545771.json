@@ -1,0 +1,22 @@
+{
+    "id": "analysis_20260304134959545771",
+    "username": "player1",
+    "video_filename": "20260304134923_10号开面板线.MP4",
+    "video_path": "D:/visualproject/training_system/backend/uploads/20260304134923_10号开面板线.MP4",
+    "video_duration": 200.16,
+    "analysis_result": {
+        "analysis_summary": "关键帧画面中可见一名穿蓝色工装的训练者站立于标准实训工作台前，双手正操作一把带绝缘手柄的斜口钳夹持一段双绞网线，线缆一端已剥除外皮露出四对彩色线芯；工作台表面有网络模块、压线钳及散落的RJ45水晶头；背景可见‘世界技能大赛’标识展板一角。环境整洁，光线充足，符合网络布线项目训练场景。",
+        "action_norm_score": 76,
+        "improvement_suggestions": [
+            "剥线长度略超标准（约1.5cm，应控制在1.0–1.2cm），易致线芯外露过长影响水晶头压接密封性",
+            "斜口钳夹持位置偏近线芯根部，存在损伤铜芯风险，建议钳口距剥口边缘保持3mm以上距离",
+            "左手未使用理线梳固定线序，八芯排列松散，易导致T568B线序错位，建议增加理线辅助工具并目视校验色序"
+        ],
+        "video_stats": {
+            "duration": 0,
+            "action_count": 3
+        },
+        "key_frame_analysis": "画面显示人物手持斜口钳剥除网线外护套，裸露双绞线芯，处于网络布线模块的线缆预处理阶段"
+    },
+    "analysis_time": "2026-03-04 13:49:59"
+}

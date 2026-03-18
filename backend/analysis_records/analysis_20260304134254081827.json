@@ -1,0 +1,22 @@
+{
+    "id": "analysis_20260304134254081827",
+    "username": "player1",
+    "video_filename": "20260304134236_10号开面板线.MP4",
+    "video_path": "D:/visualproject/training_system/backend/uploads/20260304134236_10号开面板线.MP4",
+    "video_duration": 200.16,
+    "analysis_result": {
+        "analysis_summary": "关键帧显示player1身着深蓝色工装，站立于浅灰色实训台前，双手正将一根带RJ45水晶头的网线插入网络配线架端口；台面可见理线架、剥线钳、测线仪及已布设的部分双绞线；背景有‘世界技能大赛’字样横幅局部出镜；环境整洁，符合网络布线项目训练场景。",
+        "action_norm_score": 76,
+        "improvement_suggestions": [
+            "水晶头插入时拇指未垂直施力，易致接触不良，建议保持手腕中立位并垂直下压",
+            "网线外皮剥离长度约18mm，略超标准12–15mm范围，建议使用剥线钳刻度精准控制",
+            "未见左手固定配线架或拉直线缆，导致插入时线缆轻微扭转，建议左手中指与无名指夹持线缆根部提供反向支撑"
+        ],
+        "video_stats": {
+            "duration": 0,
+            "action_count": 1
+        },
+        "key_frame_analysis": "画面显示人物站立于实训台前，双手操作带水晶头的网线，正将其插入网络配线架端口，台面配备专业布线工具及设备"
+    },
+    "analysis_time": "2026-03-04 13:42:54"
+}

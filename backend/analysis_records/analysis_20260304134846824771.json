@@ -1,0 +1,22 @@
+{
+    "id": "analysis_20260304134846824771",
+    "username": "player1",
+    "video_filename": "20260304134815_王永钎.MP4",
+    "video_path": "D:/visualproject/training_system/backend/uploads/20260304134815_王永钎.MP4",
+    "video_duration": 74.27,
+    "analysis_result": {
+        "analysis_summary": "关键帧显示player1身着蓝色工装，站立于实训工作台前，双手正将一根带RJ45水晶头的网线插入网络配线架模块的端口，左手固定模块，右手施加垂直向下的插接力；背景可见标准19英寸机柜、标签打印机及散放的网线卷；操作环境整洁，符合网络布线训练场景特征。",
+        "action_norm_score": 76,
+        "improvement_suggestions": [
+            "水晶头插入时右手腕过度屈曲，建议保持手腕中立位以提升发力稳定性和防疲劳",
+            "未见剥线长度目视确认动作，易导致线芯外露过长或绝缘层顶入端子，建议插入前用拇指比对标准1.3cm剥线长度",
+            "配线架模块未预先锁紧在导轨上，存在插接过程中位移风险，建议先旋紧两侧固定螺丝再操作"
+        ],
+        "video_stats": {
+            "duration": 0,
+            "action_count": 1
+        },
+        "key_frame_analysis": "画面显示人物手持带水晶头网线，正将线缆垂直插入配线架信息模块端口，执行网络布线中的端接操作"
+    },
+    "analysis_time": "2026-03-04 13:48:46"
+}

@@ -1,0 +1,23 @@
+{
+    "id": "analysis_20260303172402003354",
+    "username": "player1",
+    "video_filename": "20260303172325_HDV_0009.MP4",
+    "video_path": "D:/visualproject/training_system/backend/uploads/20260303172325_HDV_0009.MP4",
+    "video_duration": 37.2,
+    "analysis_result": {
+        "analysis_summary": "视频中player1进行基础篮球运球训练，包含原地高低运球、体前变向及行进间直线运球。动作节奏较稳定，但存在重心偏高、手部击球点不准确、非惯用手控制力不足等问题，导致运球高度波动大、失误频发。",
+        "action_norm_score": 68,
+        "improvement_suggestions": [
+            "降低重心至膝关节微屈、髋部略前倾，保持脊柱中立位",
+            "改用指尖而非掌心控球，强化手腕下压与手指拨球发力",
+            "增加非惯用手专项练习（如单手静止拍球30秒×5组）",
+            "在运球时目视前方而非低头看球，提升空间感知与头部姿态"
+        ],
+        "video_stats": {
+            "duration": 142,
+            "action_count": 7
+        },
+        "key_frame_analysis": "第12s：高低运球切换时出现明显停顿；第47s：体前变向后失去平衡，右脚外展过度；第98s：行进间运球高度突增至肩部以上，暴露控球不稳。"
+    },
+    "analysis_time": "2026-03-03 17:24:02"
+}

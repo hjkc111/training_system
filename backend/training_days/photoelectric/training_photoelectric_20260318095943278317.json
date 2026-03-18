@@ -1,0 +1,120 @@
+{
+    "training_day_id": "training_photoelectric_20260318095943278317",
+    "username": "player1",
+    "project_type": "photoelectric",
+    "training_day_name": "2026.3.19光电项目日常训练9.59",
+    "project_list": [
+        {
+            "project_id": "photoelectric_1",
+            "project_name": "光纤熔接操作",
+            "project_desc": "考核光纤熔接的端面处理、熔接参数设置、熔接损耗控制等规范性",
+            "project_order": 1,
+            "evaluation_type": "video_analysis",
+            "video_filename": "20260318101047_光纤熔接1.mp4",
+            "video_duration": 154.3,
+            "analysis_result": {
+                "project_name": "光纤熔接操作",
+                "project_score": 85,
+                "operation_duration": 45,
+                "step_completed_count": 4,
+                "step_error_count": 3,
+                "deduction_items": [
+                    {
+                        "reason": "工具摆放不规范，剥线钳/清洁工具随意放置在操作台面上，未归位至工具盒或指定区域，违反5S管理标准",
+                        "deduction_score": 3
+                    },
+                    {
+                        "reason": "光纤余长管理混乱，操作台上散落的光纤线缆未进行梳理固定，存在缠绕和微弯损耗风险",
+                        "deduction_score": 3
+                    },
+                    {
+                        "reason": "端面清洁动作观察不清晰，未明显看到使用专用酒精纸单向擦拭的标准动作，存在端面污染隐患",
+                        "deduction_score": 2
+                    },
+                    {
+                        "reason": "操作姿态不符合人体工程学，身体过度前倾靠近熔接机，长时间操作易导致疲劳和精度下降",
+                        "deduction_score": 2
+                    },
+                    {
+                        "reason": "熔接保护环节（热缩管加热）在视频片段中未完整展示或操作仓促，可能影响接头机械强度",
+                        "deduction_score": 5
+                    }
+                ],
+                "correct_items": [
+                    "正确佩戴护目镜和防护手套，符合安全操作规范",
+                    "熔接机防风盖闭合操作准确，能正确触发熔接程序",
+                    "熔接完成后能主动查看屏幕上的损耗估算值",
+                    "光纤置入V型槽时动作基本平稳，未出现明显的大幅度抖动"
+                ],
+                "time_analysis": "用时偏快。视频片段约45秒，涵盖了从准备到熔接完成的过程。对于高质量的光纤熔接（含端面制备、熔接、保护），标准用时通常在60-90秒。选手速度较快，但牺牲了部分精细操作（如清洁、理线）的规范性。",
+                "action_norm_analysis": "选手整体操作流程连贯，但在细节处理上略显粗糙。主要问题在于工作台面的整洁度维护（工具乱放的）以及光纤的在线管理。手部动作在拿取工具时有较大的移动半径，增加了意外触碰光纤的风险。熔接机操作界面使用熟练，但在光纤放置后的微调动作不够细腻。",
+                "improvement_suggestions": [
+                    "严格执行5S现场管理标准，操作台上除当前必需工具外，其余工具应放入工具盒，剥线钳等使用后应立即归位，避免散落在台面上。",
+                    "规范光纤端面清洁步骤，必须使用沾有无水酒精的专用清洁纸，采用单向擦拭法（严禁来回擦拭），并在显微镜下确认端面无灰尘后再放入熔接机。",
+                    "优化线缆管理，使用理线夹或胶带固定进局光纤和尾纤，保持操作区域清爽，防止光纤在操作过程中被意外挂断或产生微弯。"
+                ]
+            },
+            "upload_time": "2026-03-18 10:12:31",
+            "is_analyzed": true,
+            "standard_image_url": ""
+        },
+        {
+            "project_id": "photoelectric_2",
+            "project_name": "光电测试仪使用",
+            "project_desc": "考核仪器连接规范性、参数设置正确率、结果判读准确性",
+            "project_order": 2,
+            "evaluation_type": "video_analysis",
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false,
+            "standard_image_url": ""
+        },
+        {
+            "project_id": "photoelectric_3",
+            "project_name": "光纤端面清洁",
+            "project_desc": "考核清洁步骤、工具使用、清洁效果",
+            "project_order": 3,
+            "evaluation_type": "video_analysis",
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false,
+            "standard_image_url": ""
+        },
+        {
+            "project_id": "photoelectric_4",
+            "project_name": "光纤识别与分类",
+            "project_desc": "考核光纤类型识别、分类标记",
+            "project_order": 4,
+            "evaluation_type": "video_analysis",
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false,
+            "standard_image_url": ""
+        },
+        {
+            "project_id": "photoelectric_5",
+            "project_name": "光纤连接器安装",
+            "project_desc": "考核连接器安装步骤、压接规范、损耗测试",
+            "project_order": 5,
+            "evaluation_type": "video_analysis",
+            "video_filename": null,
+            "video_duration": null,
+            "analysis_result": null,
+            "upload_time": null,
+            "is_analyzed": false,
+            "standard_image_url": ""
+        }
+    ],
+    "total_duration": 154.3,
+    "overall_score": 0.0,
+    "overall_analysis": null,
+    "created_time": "2026-03-18 09:59:43",
+    "finished_time": null,
+    "is_finished": false
+}

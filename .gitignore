@@ -1,0 +1,151 @@
+# ==================== 【通用全局忽略】 ====================
+# 操作系统自动生成文件
+.DS_Store                # Mac系统
+Thumbs.db                # Windows系统
+Desktop.ini              # Windows系统
+*.tmp                    # 临时文件
+*.log                    # 日志文件
+*.swp                    # Vim交换文件
+*~                       # 临时文件（Linux/Mac）
+.DS_Store?
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Icon?
+._*
+$RECYCLE.BIN
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# 编辑器/IDE配置文件（避免提交个性化配置）
+.vscode/                 # VSCode
+.idea/                   # IntelliJ/PyCharm
+.project                 # Eclipse
+.classpath               # Eclipse
+.c9/                     # Cloud9
+*.launch                 # Eclipse
+.settings/               # Eclipse
+*.sublime-project        # Sublime Text
+*.sublime-workspace      # Sublime Text
+.history/                # 编辑器历史记录
+
+# 大文件/视频文件（核心！彻底屏蔽所有视频格式）
+*.mp4
+*.MP4
+*.mov
+*.MOV
+*.avi
+*.AVI
+*.flv
+*.FLV
+*.mkv
+*.MKV
+*.wmv
+*.WMV
+*.mpeg
+*.MPEG
+*.mp3                    # 音频文件（可选，按需保留）
+*.zip                    # 压缩包（可选，按需保留）
+*.rar                    # 压缩包（可选，按需保留）
+*.7z                     # 压缩包（可选，按需保留）
+
+# 精准忽略指定视频目录（双重保障，对应你的大视频路径）
+backend/static/resources/standard_tutorials/
+
+
+# ==================== 【Python 后端（backend）专属忽略】 ====================
+# 虚拟环境（所有常见命名）
+backend/venv/
+backend/env/
+backend/.venv/
+backend/ENV/
+backend/env.local/
+backend/venv.local/
+
+# Python编译/缓存文件
+backend/__pycache__/
+backend/*.py[cod]
+backend/*$py.class
+backend/*.so
+backend/.Python
+backend/build/
+backend/develop-eggs/
+backend/dist/
+backend/downloads/
+backend/eggs/
+backend/lib/
+backend/lib64/
+backend/parts/
+backend/sdist/
+backend/var/
+backend/wheels/
+backend/*.egg-info/
+backend/.installed.cfg
+backend/*.egg
+
+# 环境变量/敏感配置（避免提交密钥、数据库密码等）
+backend/.env
+backend/.env.local
+backend/.env.*.local
+backend/.env.production
+backend/.env.development
+
+# 运行时生成的文件
+backend/uploads/                 # 上传文件
+backend/analysis_records/        # 分析记录
+backend/media_extracts/          # 媒体提取文件
+backend/pytest_cache/            # pytest缓存
+backend/.pytest_cache/
+backend/coverage/                # 测试覆盖率报告
+backend/htmlcov/
+backend/*.prof                   # 性能分析文件
+backend/*.pid                    # 进程ID文件
+
+# 日志文件（后端运行日志）
+backend/*.log
+backend/logs/
+
+
+# ==================== 【Vue/前端（frontend）专属忽略】 ====================
+# 依赖包（无需提交，npm install 即可重建）
+frontend/node_modules/
+
+# 构建产物（打包后的文件）
+frontend/dist/
+frontend/build/
+frontend/dist-ssr/
+frontend/public/dist/
+
+# 前端环境变量（敏感配置）
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.production.local
+frontend/.env.test.local
+
+# 前端日志/缓存
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+frontend/.pnpm-debug.log
+frontend/.eslintcache
+frontend/.npm/
+frontend/.yarn/
+frontend/.pnpm-store/
+
+# 前端构建临时文件
+frontend/.nuxt/
+frontend/.quasar/
+frontend/.vite/
+frontend/vite.config.js.local
+frontend/.cache/
+frontend/.parcel-cache/
+
+# 前端测试相关
+frontend/coverage/
+frontend/test-results/
