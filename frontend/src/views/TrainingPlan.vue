@@ -32,6 +32,9 @@
                     <div class="option-label">
                       <span>{{ day.training_day_name }}</span>
                       <span class="option-time">{{ day.created_time }}</span>
+                      <!-- 新增：显示训练日状态 -->
+                      <span class="option-status" v-if="day.overall_score">✅ 已完成</span>
+                      <span class="option-status" v-else>🔄 进行中</span>
                     </div>
                   </template>
                 </el-option>
@@ -47,13 +50,13 @@
             <el-collapse-item title="整体评分与完成情况">
               <el-descriptions :column="3" border size="small">
                 <el-descriptions-item label="整体评分">
-                  {{ selectedTrainingDay.overall_score || 0 }}分
+                  {{ selectedTrainingDay.overall_score || '暂未生成' }}分
                 </el-descriptions-item>
                 <el-descriptions-item label="完成项目数">
                   {{ finishedProjectCount }} / {{ totalProjectCount }}
                 </el-descriptions-item>
                 <el-descriptions-item label="平均项目得分">
-                  {{ averageProjectScore.toFixed(1) }}分
+                  {{ averageProjectScore > 0 ? averageProjectScore.toFixed(1) : '暂未生成' }}分
                 </el-descriptions-item>
               </el-descriptions>
             </el-collapse-item>
@@ -83,10 +86,14 @@
             size="large"
             @click="generateTrainingPlan"
             :loading="generating"
-            :disabled="!form.trainingDayId"
+            :disabled="!form.trainingDayId || !selectedTrainingDay?.overall_score"
           >
             <i class="el-icon-magic"></i> 生成详细训练计划
           </el-button>
+          <!-- 新增：禁用提示 -->
+          <p class="disabled-tip" v-if="form.trainingDayId && !selectedTrainingDay?.overall_score">
+            ⚠️ 该训练日尚未生成整体评分，无法生成训练计划
+          </p>
         </div>
 
         <!-- 第四步：展示生成的训练计划 -->
@@ -243,20 +250,33 @@ const weakProjects = computed(() => {
  * }
  */
 const getPhotoelectricTrainingDays = async () => {
-  if (!userInfo.value.username) {
+  // 1. 检查用户信息
+  if (!userInfo.value || !userInfo.value.username) {
     ElMessage.warning('请先登录')
     router.push('/login')
     return
   }
+
   try {
+    console.log('开始请求光电训练日列表，用户：', userInfo.value.username) // 调试日志
     const res = await axios.post('/api/photoelectric/training/day/list', {
       username: userInfo.value.username
     })
+    
+    console.log('光电训练日列表接口返回：', res.data) // 调试日志
     if (res.data.code === 200) {
-      // 只展示已完成的训练日（有整体评分的）
-      trainingDayList.value = res.data.list.filter(day => day.overall_score)
+      // 关键修改：去掉overall_score过滤，显示所有训练日
+      trainingDayList.value = res.data.list || []
+      
+      // 提示：如果列表为空
+      if (trainingDayList.value.length === 0) {
+        ElMessage.info('暂无光电训练日，请先创建训练日并完成训练')
+      }
+    } else {
+      ElMessage.error('获取训练日列表失败：' + res.data.detail)
     }
   } catch (err) {
+    console.error('获取光电训练日列表出错：', err) // 调试日志
     ElMessage.error('获取训练日列表失败：' + (err.response?.data?.detail || err.message))
   }
 }
@@ -297,6 +317,7 @@ const handleTrainingDayChange = async (trainingDayId) => {
     return
   }
   try {
+    console.log('请求训练日详情，ID：', trainingDayId) // 调试日志
     const res = await axios.post('/api/photoelectric/training/day/detail', {
       training_day_id: trainingDayId,
       username: userInfo.value.username
@@ -306,6 +327,7 @@ const handleTrainingDayChange = async (trainingDayId) => {
       trainingPlan.value = null // 清空原有计划
     }
   } catch (err) {
+    console.error('获取训练日详情出错：', err) // 调试日志
     ElMessage.error('获取训练日详情失败：' + (err.response?.data?.detail || err.message))
   }
 }
@@ -351,6 +373,12 @@ const handleTrainingDayChange = async (trainingDayId) => {
  */
 const generateTrainingPlan = async () => {
   if (!selectedTrainingDay.value) return
+  // 校验：必须有整体评分才能生成计划
+  if (!selectedTrainingDay.value.overall_score) {
+    ElMessage.warning('该训练日尚未生成整体评分，无法生成训练计划')
+    return
+  }
+  
   generating.value = true
   try {
     // 调用后端生成计划接口
@@ -476,6 +504,19 @@ onMounted(() => {
   font-size: 12px;
   color: #94a3b8;
   margin-top: 2px;
+}
+/* 新增：状态样式 */
+.option-status {
+  font-size: 11px;
+  margin-top: 2px;
+  color: #64748b;
+}
+/* 新增：禁用提示样式 */
+.disabled-tip {
+  color: #f59e0b;
+  font-size: 12px;
+  margin-top: 8px;
+  margin-left: 10px;
 }
 .analysis-collapse {
   margin-left: 10px;

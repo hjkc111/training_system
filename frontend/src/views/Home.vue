@@ -12,9 +12,6 @@
         <p class="hero-desc">
           基于AI技术的训练视频分析管理平台，助力选手高效训练、教练精准指导，提升大赛备赛效率
         </p>
-        <a href="https://github.com/your-repo-url" target="_blank" class="repo-btn">
-          <i class="el-icon-github"></i> 源代码仓库
-        </a>
       </div>
     </section>
 
@@ -25,8 +22,8 @@
         <p class="section-subtitle">一站式覆盖训练全流程管理需求</p>
 
         <div class="feature-card-list">
-          <!-- 数据分析模块 -->
-          <div class="feature-card">
+          <!-- 数据分析模块 - 跳转至数据分析页 -->
+          <router-link to="/data-analysis" tag="div" class="feature-card">
             <div class="card-icon">
               <i class="el-icon-data-analysis"></i>
             </div>
@@ -37,10 +34,10 @@
               <p>✅ 对比标准动作库，定位偏差并给出改进建议</p>
               <p>✅ 多维度数据可视化，直观展示训练效果趋势</p>
             </div>
-          </div>
+          </router-link>
 
-          <!-- 训练计划模块 -->
-          <div class="feature-card">
+          <!-- 训练计划模块 - 跳转至训练计划页 -->
+          <router-link to="/training-plan" tag="div" class="feature-card">
             <div class="card-icon">
               <i class="el-icon-schedule"></i>
             </div>
@@ -51,10 +48,10 @@
               <p>✅ 计划进度实时追踪，自动提醒未完成任务</p>
               <p>✅ 历史计划归档，支持训练方案复用与优化</p>
             </div>
-          </div>
+          </router-link>
 
-          <!-- 资源查阅模块 -->
-          <div class="feature-card">
+          <!-- 资源查阅模块 - 跳转至资源查阅页 -->
+          <router-link to="/resource-view" tag="div" class="feature-card">
             <div class="card-icon">
               <i class="el-icon-document-library"></i>
             </div>
@@ -65,10 +62,10 @@
               <p>✅ 分类检索资源，支持收藏与下载</p>
               <p>✅ 资源更新提醒，同步最新大赛政策与要求</p>
             </div>
-          </div>
+          </router-link>
 
-          <!-- 个人中心模块 -->
-          <div class="feature-card">
+          <!-- 个人中心模块 - 跳转至个人中心页 -->
+          <router-link to="/profile" tag="div" class="feature-card">
             <div class="card-icon">
               <i class="el-icon-user"></i>
             </div>
@@ -79,7 +76,7 @@
               <p>✅ 消息通知中心，接收计划、评价、资源更新提醒</p>
               <p>✅ 个人训练数据看板，展示成长曲线</p>
             </div>
-          </div>
+          </router-link>
         </div>
       </div>
     </section>
@@ -116,7 +113,7 @@
     <!-- 底部信息 -->
     <footer class="footer-section">
       <div class="footer-container">
-        <p>© 2025 世界技能大赛训练管理系统 | 源码仓库：<a href="https://github.com/your-repo-url" target="_blank">github.com/your-repo-url</a></p>
+        <p>© 2025 世界技能大赛训练管理系统</p>
       </div>
     </footer>
   </div>
@@ -124,6 +121,7 @@
 
 <script setup>
 import HeaderNav from '@/components/HeaderNav.vue'
+// 确保vue-router已在项目中配置，router-link可直接使用
 </script>
 
 <style scoped>
@@ -169,22 +167,6 @@ a {
   line-height: 1.6;
   opacity: 0.9;
 }
-.repo-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: white;
-  color: #2563eb;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-.repo-btn:hover {
-  background: #f1f5f9;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
 
 /* 功能区样式 */
 .feature-section {
@@ -217,6 +199,8 @@ a {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   transition: all 0.3s ease;
   border: 1px solid #e2e8f0;
+  /* 增加鼠标指针样式，提示可点击 */
+  cursor: pointer;
 }
 .feature-card:hover {
   transform: translateY(-5px);
@@ -352,5 +336,11 @@ a {
   .card-icon i {
     font-size: 24px;
   }
+}
+
+/* 修复router-link默认样式，确保卡片样式不受影响 */
+:deep(.feature-card) {
+  color: inherit;
+  text-decoration: none;
 }
 </style>
