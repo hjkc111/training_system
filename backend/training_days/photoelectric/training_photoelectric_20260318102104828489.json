@@ -109,11 +109,33 @@
             "project_desc": "考核清洁步骤、工具使用、清洁效果",
             "project_order": 3,
             "evaluation_type": "image_compare",
-            "video_filename": null,
-            "video_duration": null,
-            "analysis_result": null,
-            "upload_time": null,
-            "is_analyzed": false,
+            "video_filename": "photoelectric_3_user_20260319093609_报告.png",
+            "video_duration": 0,
+            "analysis_result": {
+                "project_name": "光纤端面清洁",
+                "project_score": 20,
+                "operation_duration": 0,
+                "step_completed_count": 0,
+                "step_error_count": 0,
+                "deduction_items": [
+                    {
+                        "reason": "大模型调用失败：InvalidParameter-<400> InternalError.Algo.InvalidParameter: The provided URL does not appear to be valid. Ensure it is correctly formatted.",
+                        "deduction_score": 0
+                    }
+                ],
+                "correct_items": [
+                    "无"
+                ],
+                "time_analysis": "无法分析",
+                "action_norm_analysis": "调用失败",
+                "improvement_suggestions": [
+                    "检查网络后重试",
+                    "缩短视频时长",
+                    "确保视频格式正确"
+                ]
+            },
+            "upload_time": "2026-03-19 09:36:11",
+            "is_analyzed": true,
             "standard_image_url": ""
         },
         {
@@ -122,11 +144,44 @@
             "project_desc": "考核光纤类型识别、分类标记",
             "project_order": 4,
             "evaluation_type": "doc_upload",
-            "video_filename": null,
-            "video_duration": null,
-            "analysis_result": null,
-            "upload_time": null,
-            "is_analyzed": false,
+            "video_filename": "photoelectric_4_20260319093620_1号.pdf",
+            "video_duration": 0,
+            "analysis_result": {
+                "project_name": "光纤识别与分类",
+                "project_score": 85,
+                "operation_duration": 185,
+                "step_completed_count": 12,
+                "step_error_count": 2,
+                "deduction_items": [
+                    {
+                        "reason": "光纤色谱识别错误，将橙色误判为棕色，违反 TIA-598-C 标准色序规定",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "剥线钳使用角度不当，导致纤芯表面出现轻微划痕，不符合无损操作规范",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "操作总时长超出标准时限 5 秒，效率评估扣分",
+                        "deduction_score": 5
+                    }
+                ],
+                "correct_items": [
+                    "个人防护装备佩戴完整符合安全规范",
+                    "光纤清洁步骤使用专用无尘纸与酒精规范操作",
+                    "分类标签粘贴位置准确且清晰可辨",
+                    "工具使用后归位整齐符合 5S 管理要求"
+                ],
+                "time_analysis": "总用时 185 秒，略高于标准 180 秒，主要耗时在色谱确认环节，表明选手对颜色代码记忆不够熟练，存在犹豫重复确认动作，整体节奏前松后紧，符合标准但缺乏冗余时间应对突发状况，建议在后续训练中设定 170 秒为目标时限以预留检查时间",
+                "action_norm_analysis": "动作规范性整体良好，但在持纤手势上存在瑕疵，需特别注意手指发力点。标准操作步骤应为：1. 佩戴防护眼镜确保眼部安全；2. 检查光纤端面是否有污染；3. 使用米勒钳去除涂覆层，角度控制在 30 度以内且用力均匀；4. 无尘纸蘸酒精单向清洁至少两次；5. 依据色谱表分类并记录；6. 粘贴标签确保牢固。选手在第 3 步剥线时手腕晃动较大，易造成微弯损耗影响信号传输，需加强肌肉记忆训练，其余步骤如清洁方向、标签粘贴力度均符合大赛行业标准，工具摆放亦符合 5S 现场管理要求",
+                "improvement_suggestions": [
+                    "建议加强 TIA-598-C 色谱标准背诵与快速反应训练，采用闪卡模式提高识别速度",
+                    "建议针对剥线钳握持姿势进行定型训练，确保刀口与光纤轴线夹角稳定在 30 度以内避免伤及纤芯",
+                    "建议在模拟高压环境下进行限时训练，提升心理抗压能力以减少犹豫时间，确保操作流畅度"
+                ]
+            },
+            "upload_time": "2026-03-19 09:38:12",
+            "is_analyzed": true,
             "standard_image_url": ""
         },
         {
@@ -135,18 +190,91 @@
             "project_desc": "考核连接器安装步骤、压接规范、损耗测试",
             "project_order": 5,
             "evaluation_type": "step_screenshot",
-            "video_filename": null,
-            "video_duration": null,
-            "analysis_result": null,
-            "upload_time": null,
-            "is_analyzed": false,
+            "video_filename": "photoelectric_5_step_20260319093819_报告.png",
+            "video_duration": 0,
+            "analysis_result": {
+                "project_name": "光纤连接器安装",
+                "project_score": 20,
+                "operation_duration": 0,
+                "step_completed_count": 0,
+                "step_error_count": 0,
+                "deduction_items": [
+                    {
+                        "reason": "大模型调用失败：InvalidParameter-<400> InternalError.Algo.InvalidParameter: The provided URL does not appear to be valid. Ensure it is correctly formatted.",
+                        "deduction_score": 0
+                    }
+                ],
+                "correct_items": [
+                    "无"
+                ],
+                "time_analysis": "无法分析",
+                "action_norm_analysis": "调用失败",
+                "improvement_suggestions": [
+                    "检查网络后重试",
+                    "缩短视频时长",
+                    "确保视频格式正确"
+                ]
+            },
+            "upload_time": "2026-03-19 09:38:21",
+            "is_analyzed": true,
             "standard_image_url": ""
         }
     ],
     "total_duration": 308.6,
     "overall_score": 0.0,
-    "overall_analysis": null,
+    "overall_analysis": {
+        "overall_score": 56,
+        "high_freq_deductions": [
+            "操作流程完整性缺失导致时长记录异常扣分，三个项目时长为零严重违反物理操作常识，反映训练数据记录系统故障或选手存在省略步骤违规行为",
+            "光纤熔接损耗值超出标准范围导致精度扣分，熔接操作扣分高达 22 分表明损耗控制未达到大赛竞技水平，需重点优化放电参数与对准精度",
+            "光电测试仪器读数不稳定及操作规范不符导致性能扣分，测试仪使用扣分 22 分显示选手对仪器校准及读数保持能力不足，易受环境干扰影响"
+        ],
+        "core_shortcomings": [
+            "训练数据真实性与操作流程规范性存在严重脱节风险，零时长项目直接导致成绩无效化风险，必须立即排查是设备故障还是人为跳过步骤",
+            "核心实操技能模块稳定性不足且缺乏高精度控制能力，熔接与测试两大核心项仅得 78 分，距离奖牌竞争力要求的 90 分以上差距巨大",
+            "基础工艺环节重视程度不够导致低分项严重拖累整体成绩，清洁与安装项目仅得 20 分，显示选手对基础规范缺乏敬畏之心，细节处理极其粗糙"
+        ],
+        "time_overall_analysis": "本次训练总时长 308.6 秒严重低于世界技能大赛光电项目标准单模块考核时长通常要求的 15 至 30 分钟区间，显示出训练强度与实战模拟严重脱节，尤其是光纤端面清洁、光纤识别与分类、光纤连接器安装三个项目记录时长为 0 秒，这在物理操作层面属于不可能事件，极大概率反映了训练数据记录系统故障或选手存在严重省略操作流程、未实际执行操作步骤即提交结果的违规行为，而光纤熔接操作与光电测试仪使用各耗时 154.3 秒，虽有一定操作时间但相较于高标准竞技要求仍显仓促，可能导致操作精度不足，整体用时分布极度不均衡，暴露出训练过程管理混乱及选手对时间分配策略缺乏基本认知，必须立即核查计时设备并重新规范操作流程以确保训练数据的真实性与有效性，否则后续训练计划将基于错误数据制定从而导致方向性偏差",
+        "advantage_analysis": "本次训练中选手展现出一定的理论基础优势，特别是在光纤识别与分类项目中取得了 85 分的全场最高分，表明选手对于光纤类型、颜色编码及基本参数特性的理论知识掌握较为牢固，能够在非实操或低耗时环节准确输出正确结果，其次选手的训练任务完成度达到百分之百，五个规定项目全部显示已完成状态，反映出选手具备较强的任务执行意识和训练纪律性，能够按照训练计划覆盖所有考核模块，没有出现漏项或弃考现象，这种全覆盖的训练态度是后续提升技能水平的良好基础，只要在操作规范性和工艺精度上加以强化，有望将理论优势转化为实操成绩，且选手在熔接与测试项目上得分一致，显示出技能发展具有一定的均衡性潜力",
+        "overall_improvement_suggestions": [
+            "实施全流程视频回溯与计时校准训练，每日训练前必须检查计时设备灵敏度，操作中全程开启高清摄像记录，训练后由教练组逐一复核视频时间与系统记录时间是否一致，针对时长为 0 的项目进行重测，直至连续三天数据记录准确无误且操作时长符合大赛标准区间方可验收，确保训练数据真实反映操作水平，杜绝虚假数据干扰训练判断",
+            "开展光纤熔接与测试专项精度强化周，每日安排不少于 2 小时的专项重复训练，重点针对熔接损耗控制在 0.02dB 以内及测试仪读数稳定性进行考核，采用盲测方式记录每次熔接损耗值，要求连续 50 次操作平均损耗低于阈值且无异常值，验收标准为连续一周专项测试平均分提升至 90 分以上，确保核心技能达到竞技状态",
+            "建立基础工艺标准化操作清单，针对光纤端面清洁与连接器安装等低分项，制定每一步骤的标准化动作视频教材，选手需每日进行慢动作分解练习至少 30 分钟，教练手持计时器现场监督每一步骤耗时是否合理，验收标准为连续三次模拟考核中基础工艺项目得分不低于 85 分且操作时长记录正常，彻底消除基础项低分短板"
+        ],
+        "project_rank": [
+            {
+                "project_name": "光纤识别与分类",
+                "score": 85,
+                "rank": 1,
+                "gap_analysis": "作为最高分项目领先第二名 7 分，主要优势在于理论知识掌握扎实，但需注意实操转化，避免理论高分实操低能的現象"
+            },
+            {
+                "project_name": "光纤熔接操作",
+                "score": 78,
+                "rank": 2,
+                "gap_analysis": "与最高分差距 7 分，主要失分在于熔接损耗控制不足及操作耗时偏短，需加强放电参数优化与光纤对准精度训练"
+            },
+            {
+                "project_name": "光电测试仪使用",
+                "score": 78,
+                "rank": 3,
+                "gap_analysis": "与最高分差距 7 分，与熔接项目并列，失分原因在于仪器校准不规范及读数稳定性差，需强化仪器操作标准化流程"
+            },
+            {
+                "project_name": "光纤端面清洁",
+                "score": 20,
+                "rank": 4,
+                "gap_analysis": "与最高分差距高达 65 分，时长为 0 秒显示操作严重缺失，属于致命性失误，需重新学习清洁标准流程并严格执行计时操作"
+            },
+            {
+                "project_name": "光纤连接器安装",
+                "score": 20,
+                "rank": 5,
+                "gap_analysis": "与最高分差距高达 65 分，时长为 0 秒表明未完成实际安装动作，工艺完全不合格，需从基础工具使用开始重新训练安装步骤"
+            }
+        ]
+    },
     "created_time": "2026-03-18 10:21:04",
-    "finished_time": null,
-    "is_finished": false
+    "finished_time": "2026-03-19 09:41:14",
+    "is_finished": true
 }

@@ -222,7 +222,8 @@ def update_training_day_summary(training_day_id: str, username: str, overall_ana
     training_day = get_training_day(training_day_id, username)
     if not training_day:
         return False, "训练日不存在或无权限"
-    
+    training_day["overall_score"] = overall_analysis.get("overall_score" , 0)
+    #training_day["overall_score"] = overall_analysis.get("overall_score", training_day.get("overall_score", 0))
     training_day["overall_analysis"] = overall_analysis
     training_day["is_finished"] = True
     training_day["finished_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")

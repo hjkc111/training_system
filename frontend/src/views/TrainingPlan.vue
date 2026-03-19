@@ -91,7 +91,7 @@
             <i class="el-icon-magic"></i> 生成详细训练计划
           </el-button>
           <!-- 新增：禁用提示 -->
-          <p class="disabled-tip" v-if="form.trainingDayId && !selectedTrainingDay?.overall_score">
+          <p class="disabled-tip" v-if="form.trainingDayId && !selectedTrainingDay?.overall_score || 0">
             ⚠️ 该训练日尚未生成整体评分，无法生成训练计划
           </p>
         </div>
@@ -323,7 +323,10 @@ const handleTrainingDayChange = async (trainingDayId) => {
       username: userInfo.value.username
     })
     if (res.data.code === 200) {
-      selectedTrainingDay.value = res.data.detail
+      selectedTrainingDay.value = {
+        ...res.data.detail,
+        overall_score: res.data.detail.overall_score || 0 // 确保有overall_score字段，默认为0
+      }
       trainingPlan.value = null // 清空原有计划
     }
   } catch (err) {

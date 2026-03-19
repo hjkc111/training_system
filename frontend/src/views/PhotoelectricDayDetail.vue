@@ -281,9 +281,74 @@
         </el-tabs>
       </el-card>
 
-      <!-- 汇总报告部分（和原有逻辑完全一致） -->
+      <!-- 汇总报告部分（补充完整渲染逻辑） -->
       <el-card v-if="trainingDayInfo.is_finished && trainingDayInfo.overall_analysis" class="summary-card" shadow="never">
-        <!-- 原有汇总代码不变 -->
+        <template #header>
+          <div class="card-header">
+            <i class="el-icon-data-line"></i>
+            <span>光电项目训练日整体汇总报告</span>
+          </div>
+        </template>
+        <!-- 整体评分 -->
+        <div class="score-card">
+          <div class="score-circle">
+            {{ trainingDayInfo?.overall_analysis?.overall_score || 0 }}
+            <span class="score-unit">分</span>
+          </div>
+          <div class="score-desc">本次训练整体评分</div>
+        </div>
+        <!-- 高频扣分项 + 核心短板 -->
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-card shadow="never" class="stat-card">
+              <template #header><span>高频扣分项</span></template>
+              <div class="deduction-list">
+                <div 
+                  v-for="(item, idx) in trainingDayInfo?.overall_analysis?.high_freq_deductions || []" 
+                  :key="idx"
+                  class="deduction-item"
+                >
+                  {{ idx+1 }}. {{ item }}
+                </div>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="12">
+            <el-card shadow="never" class="stat-card">
+              <template #header><span>核心短板</span></template>
+              <div class="suggest-list">
+                <div 
+                  v-for="(item, idx) in trainingDayInfo?.overall_analysis?.core_shortcomings || []" 
+                  :key="idx"
+                  class="suggest-item"
+                >
+                  {{ idx+1 }}. {{ item }}
+                </div>
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
+        <!-- 整体用时分析 -->
+        <el-divider content-position="left">整体用时分析</el-divider>
+        <el-card shadow="never" class="summary-card-inner">
+          {{ trainingDayInfo?.overall_analysis?.time_overall_analysis || '暂无分析数据' }}
+        </el-card>
+        <!-- 优势分析 -->
+        <el-divider content-position="left">优势分析</el-divider>
+        <el-card shadow="never" class="summary-card-inner">
+          {{ trainingDayInfo?.overall_analysis?.advantage_analysis || '暂无分析数据' }}
+        </el-card>
+        <!-- 整体改进建议 -->
+        <el-divider content-position="left">整体改进建议</el-divider>
+        <div class="suggest-list">
+          <div 
+            v-for="(suggest, idx) in trainingDayInfo?.overall_analysis?.overall_improvement_suggestions || []" 
+            :key="idx"
+            class="suggest-item"
+          >
+            {{ idx+1 }}. {{ suggest }}
+          </div>
+        </div>
       </el-card>
 
       <div class="summary-action" v-if="allProjectFinished && !trainingDayInfo.overall_analysis">
@@ -457,7 +522,7 @@ const generateSummary = async () => {
     })
     if (res.data.code === 200) {
       ElMessage.success('光电项目整体汇总生成完成！')
-      getTrainingDayDetail()
+      await getTrainingDayDetail()
     }
   } catch (err) {
     let msg = '生成光电项目汇总失败！'

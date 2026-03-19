@@ -518,7 +518,7 @@ const generateSummary = async () => {
     })
     if (res.data.code === 200) {
       ElMessage.success('整体汇总生成完成！')
-      getTrainingDayDetail()
+      await getTrainingDayDetail()
     }
   } catch (err) {
     let msg = '生成汇总失败！'
