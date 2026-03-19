@@ -197,13 +197,12 @@
                 <div v-else-if="project.evaluation_type === 'step_screenshot'">
                   <el-upload
                     ref="stepScreenshotUploadRef"
-                    action="/api/network/step/screenshot/upload"
+                    action="#"
                     accept="image/jpg,image/png,image/jpeg"
                     :show-file-list="true"
-                    :on-success="handleStepScreenshotUploadSuccess"
-                    :on-error="handleStepScreenshotUploadError"
+                    :on-change="handleStepScreenshotFileChange" <!-- 监听文件选择 -->
                     :before-upload="beforeStepScreenshotUpload"
-                    :data="{ username: userInfo.username, project_id: project.project_id }"
+                    :http-request="() => {}" <!-- 禁用默认上传请求 -->
                     drag
                     :multiple="true"
                     class="uploader"
@@ -222,7 +221,7 @@
 
                   <div class="action-group">
                     <el-button 
-                      v-if="uploadedStepScreenshotFilenames.length > 0" 
+                      v-if="uploadedStepScreenshotBase64List.length > 0" 
                       type="primary" 
                       @click="analyzeCurrentStepScreenshotProject"
                       :loading="analyzing"
@@ -390,7 +389,11 @@ const uploadedDocFilename = ref('')
 const userImageUploadRef = ref(null)
 const uploadedUserImageFilename = ref('')
 const stepScreenshotUploadRef = ref(null)
-const uploadedStepScreenshotFilenames = ref([])
+// 注释/删除原来的文件名列表
+// const uploadedStepScreenshotFilenames = ref([])
+
+// 新增：保存步骤截图的Base64字符串（带data:image/前缀）
+const uploadedStepScreenshotBase64List = ref([])
 
 // 计算属性
 const finishedCount = computed(() => {
@@ -629,51 +632,104 @@ const analyzeCurrentImageProject = async () => {
   }
 }
 
-// ------------------- 新增：步骤截图上传/分析 -------------------
+// ------------------- 修改：步骤截图上传校验（保留原有逻辑） -------------------
 const beforeStepScreenshotUpload = (file) => {
-  const allowedTypes = ['image/jpg', 'image/png', 'image/jpeg']
+  const allowedTypes = ['image/jpg', 'image/png', 'image/jpeg'];
   if (!allowedTypes.includes(file.type)) {
-    ElMessage.error('仅支持jpg/png格式截图！')
-    return false
+    ElMessage.error('仅支持jpg/png格式截图！');
+    return false;
   }
   if (file.size > 5 * 1024 * 1024) {
-    ElMessage.error('单张截图大小不能超过5MB！')
-    return false
+    ElMessage.error('单张截图大小不能超过5MB！');
+    return false;
   }
-  if (uploadedStepScreenshotFilenames.value.length >= 10) {
-    ElMessage.error('最多上传10张步骤截图！')
-    return false
+  if (uploadedStepScreenshotBase64List.value.length >= 10) {
+    ElMessage.error('最多上传10张步骤截图！');
+    return false;
   }
-  return true
-}
-const handleStepScreenshotUploadSuccess = (res) => {
-  uploadedStepScreenshotFilenames.value.push(res.file_info?.filename || '')
-  ElMessage.success('步骤截图上传成功！')
-}
-const handleStepScreenshotUploadError = (err) => {
-  ElMessage.error('步骤截图上传失败，请重试！')
-}
+  return true;
+};
+// const handleStepScreenshotUploadSuccess = (res) => {
+//   uploadedStepScreenshotFilenames.value.push(res.file_info?.filename || '')
+//   ElMessage.success('步骤截图上传成功！')
+// }
+// const handleStepScreenshotUploadError = (err) => {
+//   ElMessage.error('步骤截图上传失败，请重试！')
+// }
 const analyzeCurrentStepScreenshotProject = async () => {
-  const currentProject = projectList.value[currentProjectIndex.value]
-  analyzing.value = true
+  const currentProject = projectList.value[currentProjectIndex.value];
+  if (uploadedStepScreenshotBase64List.value.length === 0) {
+    ElMessage.warning('请先上传步骤截图！');
+    return;
+  }
+
+  analyzing.value = true;
   try {
-    const res = await axios.post('/api/network/training/project/analyze/step', {
+    // 兜底校验：确保每个Base64都带正确前缀
+    const validBase64List = uploadedStepScreenshotBase64List.value.map(img => {
+      if (typeof img === 'string' && img.trim()) {
+        return img.startsWith('data:image/') 
+          ? img 
+          : `data:image/jpeg;base64,${img.trim()}`;
+      }
+      return '';
+    }).filter(Boolean); // 过滤空值
+
+    if (validBase64List.length === 0) {
+      ElMessage.error('无有效截图数据！');
+      analyzing.value = false;
+      return;
+    }
+
+    // 调用后端接口：传递Base64（单张/多张根据后端要求调整）
+    const res = await axios.post('/api/photoelectric/training/project/analyze/step', {
       training_day_id: trainingDayId,
       project_id: currentProject.project_id,
-      filenames: uploadedStepScreenshotFilenames.value,
-      username: userInfo.value.username
-    })
+      username: userInfo.value.username,
+      image_base64: validBase64List, // 单张：传第一个；多张则改image_base64_list: validBase64List
+      project_name: currentProject.project_name, // 可选：后端需要则传
+      project_desc: currentProject.project_desc  // 可选：后端需要则传
+    });
+
     if (res.data.code === 200) {
-      ElMessage.success('步骤截图分析完成！')
-      uploadedStepScreenshotFilenames.value = []
-      getTrainingDayDetail()
+      ElMessage.success('步骤截图分析完成！');
+      uploadedStepScreenshotBase64List.value = []; // 清空列表
+      getTrainingDayDetail(); // 刷新页面数据
+    } else {
+      ElMessage.error(`分析失败：${res.data.detail || res.data.message}`);
     }
   } catch (err) {
-    ElMessage.error('步骤截图分析失败：' + (err.response?.data?.detail || ''))
+    const errMsg = `分析失败：${err.response?.data?.detail || err.message}`;
+    ElMessage.error(errMsg);
+    console.error('步骤分析接口错误：', err);
   } finally {
-    analyzing.value = false
+    analyzing.value = false;
   }
-}
+};
+// ------------------- 新增：文件转Base64工具函数 -------------------
+const fileToBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file); // 自动生成带data:image/前缀的Base64
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+};
+
+// ------------------- 新增：处理文件选择（替代原上传成功逻辑） -------------------
+const handleStepScreenshotFileChange = async (file) => {
+  if (file.status !== 'ready') return; // 仅处理文件就绪状态
+  try {
+    // 读取文件为标准Base64（带data:image/前缀）
+    const base64Str = await fileToBase64(file.raw);
+    uploadedStepScreenshotBase64List.value.push(base64Str);
+    ElMessage.success('步骤截图加载成功！');
+  } catch (err) {
+    ElMessage.error('步骤截图解析失败，请重试！');
+    console.error('文件转Base64失败：', err);
+  }
+};
+
 </script>
 
 <style scoped>

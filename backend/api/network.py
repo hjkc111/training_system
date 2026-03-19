@@ -20,6 +20,11 @@ from utils.training_utils import (
     get_training_day, update_project_analysis, update_training_day_summary
 )
 
+import re
+from typing_extensions import List, Dict, Optional
+
+
+
 # ------------------- 配置补充 -------------------
 ALLOWED_DOC_TYPES = ["text/plain", "application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]
 MAX_DOC_SIZE = 20 * 1024 * 1024  # 20MB
@@ -547,10 +552,13 @@ async def project_analyze_image_network(
 async def project_analyze_step_network(
     training_day_id: str = Body(...),
     project_id: str = Body(...),
-    filenames: list = Body(...),
-    username: str = Body(...)
+    image_base64_list: list = Body(...),  # 改动1：接收前端传的Base64列表（替代filenames）
+    username: str = Body(...),
+    # 可选：接收项目名称/描述（前端传的话）
+    project_name: str = Body(None),
+    project_desc: str = Body(None)
 ):
-    # 基础校验
+    # 基础校验（保留原有逻辑）
     training_day = get_training_day(training_day_id, username)
     if not training_day:
         raise HTTPException(status_code=404, detail="训练日不存在或无权限")
@@ -562,31 +570,49 @@ async def project_analyze_step_network(
     if not target_project:
         raise HTTPException(status_code=404, detail="项目不存在")
     
-    # 读取所有步骤截图并转为base64
+    # 改动2：处理前端传的Base64列表（剥离data:image前缀，保留纯Base64）
     step_images_base64 = []
-    for filename in filenames:
-        img_path = os.path.join(UPLOAD_DIR, filename)
-        if not os.path.exists(img_path):
-            raise HTTPException(status_code=404, detail=f"步骤截图{filename}不存在")
-        with open(img_path, "rb") as f:
-            step_images_base64.append(base64.b64encode(f.read()).decode("utf-8"))
+    for base64_str in image_base64_list:
+        if not isinstance(base64_str, str) or not base64_str.strip():
+            continue  # 过滤空值
+        
+        # 解析Data URL格式的Base64（data:image/jpeg;base64,xxxx）
+        base64_pattern = r"data:image/[a-zA-Z0-9]+;base64,(.+)"
+        match = re.match(base64_pattern, base64_str.strip())
+        if match:
+            # 提取纯Base64部分
+            pure_base64 = match.group(1)
+            step_images_base64.append(pure_base64)
+        else:
+            # 兼容纯Base64（无前缀）的情况
+            step_images_base64.append(base64_str.strip())
     
-    # 调用大模型分析步骤截图
+    # 校验有效Base64数量
+    if len(step_images_base64) == 0:
+        raise HTTPException(status_code=400, detail="无有效步骤截图Base64数据")
+    if len(step_images_base64) > MAX_STEP_SCREENSHOTS:
+        raise HTTPException(status_code=400, detail=f"步骤截图最多上传{MAX_STEP_SCREENSHOTS}张")
+    
+    # 调用大模型分析（保留原有逻辑，传入处理后的纯Base64列表）
+    # 优先用前端传的project_name/desc，没有则用训练日里的
+    final_project_name = project_name or target_project["project_name"]
+    final_project_desc = project_desc or target_project["project_desc"]
+    
     analysis_result = call_qwen_project_analysis_network(
-        project_name=target_project["project_name"],
-        project_desc=target_project["project_desc"],
+        project_name=final_project_name,
+        project_desc=final_project_desc,
         video_text="分析关键步骤截图的完整性、规范性、操作顺序",
         key_frames_base64=step_images_base64[:8],  # 最多传8张（大模型限制）
         username=username,
         is_audio_useful=False
     )
     
-    # 更新项目分析结果
+    # 更新项目分析结果（保留原有逻辑）
     success, result = update_project_analysis(
         training_day_id=training_day_id,
         project_id=project_id,
         username=username,
-        video_info={"filename": ",".join(filenames), "duration": 0},
+        video_info={"filename": f"step_screenshots_{len(step_images_base64)}_imgs", "duration": 0},
         analysis_result=analysis_result
     )
     if not success:

@@ -64,11 +64,49 @@
             "project_desc": "考核仪器连接规范性、参数设置正确率、结果判读准确性",
             "project_order": 2,
             "evaluation_type": "video_analysis",
-            "video_filename": null,
-            "video_duration": null,
-            "analysis_result": null,
-            "upload_time": null,
-            "is_analyzed": false,
+            "video_filename": "20260319105519_光纤熔接1.mp4",
+            "video_duration": 154.3,
+            "analysis_result": {
+                "project_name": "光电测试仪使用",
+                "project_score": 82,
+                "operation_duration": 455,
+                "step_completed_count": 12,
+                "step_error_count": 3,
+                "deduction_items": [
+                    {
+                        "reason": "光纤接口连接未保持严格垂直，存在倾斜角度风险，可能导致端面损伤",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "参数设置阶段量程选择犹豫，导致操作时长超出标准范围，影响效率评分",
+                        "deduction_score": 3
+                    },
+                    {
+                        "reason": "测试结束后探头未及时归位至指定收纳盒，违反 5S 管理规范",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "读数时视线与显示屏未完全垂直，存在潜在视差误差，影响结果判读准确性",
+                        "deduction_score": 5
+                    }
+                ],
+                "correct_items": [
+                    "仪器开机自检流程完整，电源连接稳固无松动",
+                    "接地线连接正确，无虚接现象符合安全规范",
+                    "基本波长参数设置数值准确无误",
+                    "测试数据记录格式符合规范书写清晰",
+                    "个人防护装备佩戴齐全符合安全操作要求"
+                ],
+                "time_analysis": "总用时 455 秒，相比标准用时 420 秒偏慢约 8.3%。主要原因在于参数设置阶段犹豫时间过长，特别是在波长选择与量程切换环节存在反复确认动作，导致整体节奏拖沓。虽然未超时，但效率未达到金牌标准，需在熟练度上加强，建议通过肌肉记忆训练减少思考停顿时间。音频内容因噪声明显且无关操作指令，已按优先级规则忽略，仅依据视觉关键帧判定。",
+                "action_norm_analysis": "整体动作规范性良好，但在仪器连接环节存在瑕疵。具体表现为光纤接口插拔时未严格保持垂直角度，存在轻微倾斜，长期操作可能损伤接口端面。接地线连接时手部稳定性不足，有轻微抖动。读数时视线未完全垂直于显示屏，存在轻微视差风险。大部分工具摆放符合 5S 管理要求，但测试结束后未及时归位探头，需改进。操作过程中身体姿态基本稳定，未出现大幅晃动影响精度的情况。",
+                "improvement_suggestions": [
+                    "强化光纤接口垂直插拔训练，使用专用夹具辅助定型，确保每次连接角度误差小于 5 度，避免物理损伤影响测试精度",
+                    "建立参数设置标准化口诀，将波长、量程、积分时间等设置流程固化，减少大脑决策时间，目标将设置环节压缩至 30 秒以内",
+                    "实施双人互检机制，在读数环节增加二次确认步骤，消除视差影响，同时养成测试结束后立即归位工具的习惯，符合大赛 5S 评分细则"
+                ]
+            },
+            "upload_time": "2026-03-19 10:57:36",
+            "is_analyzed": true,
             "standard_image_url": ""
         },
         {
@@ -111,7 +149,7 @@
             "standard_image_url": ""
         }
     ],
-    "total_duration": 154.3,
+    "total_duration": 308.6,
     "overall_score": 0.0,
     "overall_analysis": null,
     "created_time": "2026-03-18 09:59:43",

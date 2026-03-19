@@ -9,12 +9,34 @@
             "project_name": "光纤熔接操作",
             "project_desc": "考核光纤熔接的端面处理、熔接参数设置、熔接损耗控制等规范性",
             "project_order": 1,
-            "evaluation_type": "video_analysis",
-            "video_filename": null,
-            "video_duration": null,
-            "analysis_result": null,
-            "upload_time": null,
-            "is_analyzed": false,
+            "evaluation_type": "image_compare",
+            "video_filename": "photoelectric_1_user_20260319104509_光纤熔接.png",
+            "video_duration": 0,
+            "analysis_result": {
+                "project_name": "光纤熔接操作",
+                "project_score": 20,
+                "operation_duration": 0,
+                "step_completed_count": 0,
+                "step_error_count": 0,
+                "deduction_items": [
+                    {
+                        "reason": "大模型调用失败：InvalidParameter-<400> InternalError.Algo.InvalidParameter: The provided URL does not appear to be valid. Ensure it is correctly formatted.",
+                        "deduction_score": 0
+                    }
+                ],
+                "correct_items": [
+                    "无"
+                ],
+                "time_analysis": "无法分析",
+                "action_norm_analysis": "调用失败",
+                "improvement_suggestions": [
+                    "检查网络后重试",
+                    "缩短视频时长",
+                    "确保视频格式正确"
+                ]
+            },
+            "upload_time": "2026-03-19 10:45:11",
+            "is_analyzed": true,
             "standard_image_url": ""
         },
         {
@@ -22,12 +44,34 @@
             "project_name": "光电测试仪使用",
             "project_desc": "考核仪器连接规范性、参数设置正确率、结果判读准确性",
             "project_order": 2,
-            "evaluation_type": "video_analysis",
-            "video_filename": null,
-            "video_duration": null,
-            "analysis_result": null,
-            "upload_time": null,
-            "is_analyzed": false,
+            "evaluation_type": "image_compare",
+            "video_filename": "photoelectric_2_user_20260319105126_光纤熔接.png",
+            "video_duration": 0,
+            "analysis_result": {
+                "project_name": "光电测试仪使用",
+                "project_score": 20,
+                "operation_duration": 0,
+                "step_completed_count": 0,
+                "step_error_count": 0,
+                "deduction_items": [
+                    {
+                        "reason": "大模型调用失败：InvalidParameter-<400> InternalError.Algo.InvalidParameter: The result_format parameter has been deprecated for this model name. You must either remove this parameter or set its value to \"message\".",
+                        "deduction_score": 0
+                    }
+                ],
+                "correct_items": [
+                    "无"
+                ],
+                "time_analysis": "无法分析",
+                "action_norm_analysis": "调用失败",
+                "improvement_suggestions": [
+                    "检查网络后重试",
+                    "缩短视频时长",
+                    "确保视频格式正确"
+                ]
+            },
+            "upload_time": "2026-03-19 10:51:28",
+            "is_analyzed": true,
             "standard_image_url": ""
         },
         {
@@ -35,12 +79,42 @@
             "project_name": "光纤端面清洁",
             "project_desc": "考核清洁步骤、工具使用、清洁效果",
             "project_order": 3,
-            "evaluation_type": "video_analysis",
-            "video_filename": null,
-            "video_duration": null,
-            "analysis_result": null,
-            "upload_time": null,
-            "is_analyzed": false,
+            "evaluation_type": "image_compare",
+            "video_filename": "photoelectric_3_user_20260319105308_光纤熔接.png",
+            "video_duration": 0,
+            "analysis_result": {
+                "project_name": "光纤端面清洁",
+                "project_score": 85,
+                "operation_duration": 95,
+                "step_completed_count": 5,
+                "step_error_count": 2,
+                "deduction_items": [
+                    {
+                        "reason": "清洁擦拭方向错误，采用来回擦拭而非单向擦拭，可能导致污渍重新附着或划伤端面，严重违反光纤清洁单向性原则",
+                        "deduction_score": 10
+                    },
+                    {
+                        "reason": "未等待清洁剂完全挥发即进行二次检测，影响检测准确性且可能残留液渍，不符合标准干燥等待流程",
+                        "deduction_score": 5
+                    }
+                ],
+                "correct_items": [
+                    "正确佩戴防静电手环并确认接地良好，符合 ESD 防护标准",
+                    "初次显微镜检测操作规范，焦距调节准确，图像清晰",
+                    "清洁工具选择符合当前端面污染类型要求，选用了一键式清洁笔",
+                    "最终检测流程完整，判定结果记录清晰，数据可追溯",
+                    "操作结束后工具归位整齐，工作台面无遗留杂物"
+                ],
+                "time_analysis": "总用时 95 秒，相对于标准流程的 120 秒略显偏快，主要原因是在清洁等待挥发环节省略了必要时间，虽然提升了效率但牺牲了质量稳定性，建议在保证清洁效果的前提下优化节奏，标准流程应包含至少 10 秒的挥发等待时间，整体节奏前紧后松，检测环节用时充足但清洁环节过于仓促",
+                "action_norm_analysis": "选手整体动作流畅度较好，手持光纤连接器姿态稳定，拇指与食指捏持位置正确，避免了手部油脂污染连接器外壳，但在擦拭动作上存在明显规范性问题，单手操作清洁笔时力度控制不均，导致清洁笔头接触压力波动，显微镜观察时眼部贴合不够紧密导致外界光线干扰，影响了对微小划痕的识别，工具归位意识较强，未出现工具跌落风险，符合大赛安全操作基本要求，但精细动作需加强肌肉记忆训练，特别是清洁笔按压行程的控制需更加精准",
+                "improvement_suggestions": [
+                    "强化单向擦拭肌肉记忆训练，使用标记练习板确保每次擦拭均为单向运动，杜绝来回擦拭习惯，可在训练时设置物理限位辅助纠正动作轨迹",
+                    "建立标准化时间节奏感，在清洁剂挥发环节强制计数至少 10 秒，避免因求快而忽略物理挥发过程，建议使用节拍器辅助训练时间感知",
+                    "优化显微镜观察姿势，调整座椅高度与眼罩位置，确保完全遮光环境下进行端面缺陷判定，提高检测准确率，同时建议增加不同污染样本的识别训练以提升判读速度"
+                ]
+            },
+            "upload_time": "2026-03-19 10:54:55",
+            "is_analyzed": true,
             "standard_image_url": ""
         },
         {
@@ -48,12 +122,34 @@
             "project_name": "光纤识别与分类",
             "project_desc": "考核光纤类型识别、分类标记",
             "project_order": 4,
-            "evaluation_type": "video_analysis",
-            "video_filename": null,
-            "video_duration": null,
-            "analysis_result": null,
-            "upload_time": null,
-            "is_analyzed": false,
+            "evaluation_type": "image_compare",
+            "video_filename": "photoelectric_4_user_20260319105803_光纤熔接.png",
+            "video_duration": 0,
+            "analysis_result": {
+                "project_name": "光纤识别与分类",
+                "project_score": 20,
+                "operation_duration": 0,
+                "step_completed_count": 0,
+                "step_error_count": 0,
+                "deduction_items": [
+                    {
+                        "reason": "调用出错：HTTPSConnectionPool(host='dashscope.aliyuncs.com', port=443): Read timed out. (read timeout=300)",
+                        "deduction_score": 0
+                    }
+                ],
+                "correct_items": [
+                    "无"
+                ],
+                "time_analysis": "无法分析",
+                "action_norm_analysis": "调用出错",
+                "improvement_suggestions": [
+                    "重启后端服务",
+                    "检查视频文件",
+                    "确保FFmpeg环境正常"
+                ]
+            },
+            "upload_time": "2026-03-19 11:03:04",
+            "is_analyzed": true,
             "standard_image_url": ""
         },
         {
@@ -61,17 +157,50 @@
             "project_name": "光纤连接器安装",
             "project_desc": "考核连接器安装步骤、压接规范、损耗测试",
             "project_order": 5,
-            "evaluation_type": "video_analysis",
-            "video_filename": null,
-            "video_duration": null,
-            "analysis_result": null,
-            "upload_time": null,
-            "is_analyzed": false,
+            "evaluation_type": "image_compare",
+            "video_filename": "photoelectric_5_user_20260319110424_光纤熔接.png",
+            "video_duration": 0,
+            "analysis_result": {
+                "project_name": "光纤连接器安装",
+                "project_score": 82,
+                "operation_duration": 345,
+                "step_completed_count": 10,
+                "step_error_count": 3,
+                "deduction_items": [
+                    {
+                        "reason": "剥纤长度控制不精准，裸纤长度超出标准范围 0.5mm 以上，影响插入损耗",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "端面清洁操作不规范，未使用专用清洁笔单向擦拭，导致端面存在微量灰尘残留",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "最终损耗测试值为 0.35dB，超过大赛标准要求的 0.30dB 阈值",
+                        "deduction_score": 8
+                    }
+                ],
+                "correct_items": [
+                    "操作全程佩戴防护眼镜，符合安全规范",
+                    "剥线钳使用角度保持垂直，未损伤纤芯",
+                    "热缩管加热均匀，无气泡产生",
+                    "工具摆放整齐，符合 5S 管理要求"
+                ],
+                "time_analysis": "总操作用时 345 秒，略高于世界技能大赛该项目标准用时 300 秒，主要耗时集中在端面清洁与显微镜检查环节，选手因担心清洁不彻底而反复操作导致时间浪费，剥纤和切割环节速度符合标准流程，整体节奏呈现前松后紧态势，最后测试环节略显匆忙，建议在保证质量的前提下优化时间分配策略，减少非必要重复动作，提升一次成功率",
+                "action_norm_analysis": "选手整体动作规范性良好，站立姿势符合人体工程学要求，但在持纤手势上存在轻微抖动，特别是在切割刀盖板闭合瞬间，左手固定光纤不够稳固，标准操作步骤应为剥除涂覆层后用酒精棉单向清洁，放置于切割刀槽位时手指应轻压光纤两端而非中间，切割完成后立即插入连接器并压接，选手在清洁后停留时间过长导致端面二次污染风险增加，压接钳使用力度均匀，锁扣声音清晰，符合压接规范，工具归位意识较强，但工作台面的光纤碎屑清理不够及时，存在安全隐患",
+                "improvement_suggestions": [
+                    "加强剥纤长度控制训练，使用刻度尺辅助练习，确保裸纤长度误差控制在 0.2mm 以内，符合大赛高精度要求",
+                    "优化端面清洁手法，严格遵循单向擦拭原则，避免往复擦拭造成划痕，建议练习使用专用清洁笔而非棉签以提高效率",
+                    "进行模拟压力测试训练，在限定时间内完成全流程操作，重点压缩清洁和检查环节的非必要耗时，提升整体操作节奏感"
+                ]
+            },
+            "upload_time": "2026-03-19 11:05:58",
+            "is_analyzed": true,
             "standard_image_url": ""
         }
     ],
-    "total_duration": 0,
-    "overall_score": 0,
+    "total_duration": 0.0,
+    "overall_score": 0.0,
     "overall_analysis": null,
     "created_time": "2026-03-18 10:17:41",
     "finished_time": null,

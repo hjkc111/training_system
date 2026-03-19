@@ -10,11 +10,39 @@
             "project_desc": "网络布线标准水晶头端接操作，考核端接规范性、线序正确率、操作时长",
             "project_order": 1,
             "evaluation_type": "video_analysis",
-            "video_filename": null,
-            "video_duration": null,
-            "analysis_result": null,
-            "upload_time": null,
-            "is_analyzed": false,
+            "video_filename": "20260319111244_光纤熔接1.mp4",
+            "video_duration": 154.3,
+            "analysis_result": {
+                "project_name": "RJ45 水晶头端接",
+                "project_score": 85,
+                "operation_duration": 165,
+                "step_completed_count": 6,
+                "step_error_count": 2,
+                "deduction_items": [
+                    {
+                        "reason": "水晶头前端线芯裸露长度超过 1mm 标准范围，存在信号串扰风险",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "网线外皮未完全压入水晶头尾套内部，抗拉力测试可能不达标",
+                        "deduction_score": 10
+                    }
+                ],
+                "correct_items": [
+                    "线序排列严格遵循 T568B 国际标准，橙白、橙、绿白、蓝、蓝白、绿、棕白、棕顺序正确",
+                    "剥线操作使用专用剥线钳，未损伤内部线芯绝缘层",
+                    "压接工具使用正确，听到清脆咔哒声确认锁止"
+                ],
+                "time_analysis": "选手总操作用时为 165 秒，该成绩处于行业合格范围内但相对于世界技能大赛夺金标准略显偏慢，大赛高标准通常要求在 120 秒以内完成高质量端接且测试通过，分析视频关键帧发现主要耗时集中在双绞线解绞与线序整理环节，手指灵活性及协调性需进一步加强，建议通过高频次肌肉记忆训练缩短理线时间，同时需注意避免因过度追求速度而牺牲线序平整度导致返工",
+                "action_norm_analysis": "动作规范性整体表现良好，持线手势稳定且符合人体工程学，剥线刀口平整无毛刺，但在插入水晶头环节存在轻微犹豫与调整，导致线芯顶端未能完全顶到水晶头最前端触点，压接钳握持力度均匀充足，未出现二次压接违规操作，音频内容因包含大量噪音及无关词汇未作为评分依据，裁判组完全依赖视觉关键帧判定操作合规性与安全性",
+                "improvement_suggestions": [
+                    "建议增加线序盲操训练强度，强化 T568B 线序肌肉记忆，减少视觉确认时间，提升整体操作流速与连贯性",
+                    "改进剥线力度控制技巧，确保外皮切口整齐且内芯绝缘层无划痕，预留外皮长度控制在 15mm 左右以便压入水晶头卡扣位",
+                    "压接前增加一次严格目视检查环节，确认线芯顶端齐平且外皮已进入水晶头压接片下方，避免一次性失误导致重做浪费时间"
+                ]
+            },
+            "upload_time": "2026-03-19 11:14:59",
+            "is_analyzed": true,
             "standard_image_url": ""
         },
         {
@@ -22,12 +50,45 @@
             "project_name": "110配线架端接",
             "project_desc": "110语音配线架端接操作，考核打线规范性、导通率、操作时长",
             "project_order": 2,
-            "evaluation_type": "video_analysis",
-            "video_filename": null,
-            "video_duration": null,
-            "analysis_result": null,
-            "upload_time": null,
-            "is_analyzed": false,
+            "evaluation_type": "image_compare",
+            "video_filename": "project_2_user_20260319111653_光纤熔接.png",
+            "video_duration": 0,
+            "analysis_result": {
+                "project_name": "110 配线架端接",
+                "project_score": 85,
+                "operation_duration": 385,
+                "step_completed_count": 15,
+                "step_error_count": 3,
+                "deduction_items": [
+                    {
+                        "reason": "线头预留长度超标，部分线头超过 1.5mm 行业标准",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "打线刀角度偏差，未保持 45 度垂直入刀导致芯线轻微损伤",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "双绞线解绞长度过长，超过 13mm 标准影响近端串扰",
+                        "deduction_score": 5
+                    }
+                ],
+                "correct_items": [
+                    "色序排列完全符合 T568B 标准规范",
+                    "打线刀握持姿势正确，发力顺畅",
+                    "配线架标签粘贴位置准确且清晰",
+                    "工具使用完毕后归位整齐"
+                ],
+                "time_analysis": "总用时 385 秒，略高于大赛黄金标准 360 秒，主要耗时在理线环节，整体节奏前松后紧，符合训练期特征但需提升熟练度",
+                "action_norm_analysis": "标准操作步骤应包含：1. 剥线：使用专用剥线刀环切外皮，长度控制在 30mm 内，不伤芯线绝缘层；2. 理线：按色标顺序梳理线对，保持双绞状态至端接点前 13mm 处；3. 端接：使用 110 打线刀，刀口朝向线对内侧，与配线架成 45 度角，一次性压接到位并切断多余线头；4. 检查：目测线序无误，线头平整无毛刺。选手 player1 在剥线环节力度控制尚可，但在理线时解绞过长，打线时手腕灵活性不足导致个别点位角度偏差，整体动作连贯性较好但细节精度需加强，工具摆放符合 5S 管理要求",
+                "improvement_suggestions": [
+                    "加强打线刀角度肌肉记忆训练，使用角度辅助器进行定点练习确保每次入刀均为 45 度",
+                    "优化理线手法，练习在不解开双绞的情况下完成色序排列，严格控制解绞长度在 13mm 以内",
+                    "进行限时模拟训练，将理线环节耗时压缩 20%，提升整体操作节奏感以符合大赛时长要求"
+                ]
+            },
+            "upload_time": "2026-03-19 11:18:18",
+            "is_analyzed": true,
             "standard_image_url": ""
         },
         {
@@ -35,12 +96,45 @@
             "project_name": "光纤熔接操作",
             "project_desc": "光纤熔接标准流程，考核端面处理、熔接损耗、热缩管封装规范性",
             "project_order": 3,
-            "evaluation_type": "video_analysis",
-            "video_filename": null,
-            "video_duration": null,
-            "analysis_result": null,
-            "upload_time": null,
-            "is_analyzed": false,
+            "evaluation_type": "image_compare",
+            "video_filename": "project_3_user_20260319111930_光纤熔接.png",
+            "video_duration": 0,
+            "analysis_result": {
+                "project_name": "光纤熔接操作",
+                "project_score": 85,
+                "operation_duration": 185,
+                "step_completed_count": 8,
+                "step_error_count": 3,
+                "deduction_items": [
+                    {
+                        "reason": "光纤端面清洁未遵循单向擦拭原则，存在二次污染风险，违反清洁工艺标准",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "热缩管放置未居中，偏移量超过 1mm 标准，影响保护强度",
+                        "deduction_score": 5
+                    },
+                    {
+                        "reason": "操作总时长超出标准时限 5 秒，时间管理需优化",
+                        "deduction_score": 5
+                    }
+                ],
+                "correct_items": [
+                    "剥纤长度控制准确，露出涂覆层长度符合 30mm 标准",
+                    "熔接机参数设置正确，自动对准成功",
+                    "熔接损耗估算值低于 0.02dB，符合优质标准",
+                    "热缩管加热后表面平整无气泡"
+                ],
+                "time_analysis": "总用时 185 秒，略高于标准时限 180 秒，超时比例约为 2.8%。主要耗时集中在端面制备环节，特别是剥纤与清洁动作稍显犹豫，重复调整次数较多。熔接机自动对准时间正常，显示设备状态良好。热缩加热环节符合标准，等待冷却时间充足。整体节奏呈现前松后紧态势，前期准备阶段耗时过长导致后期略显匆忙，需提升剥纤钳使用熟练度及肌肉记忆，建议后续训练中加入分段计时考核以优化时间分配策略",
+                "action_norm_analysis": "动作规范性总体良好，符合大赛基本操作要求，但存在细节瑕疵需修正。持纤姿势基本正确，左手拇指与食指配合稳定，无明显抖动。切割刀使用时力度控制尚可，刀刃寿命判断准确。但清洁光纤时酒精棉擦拭方向未严格遵循单向原则，存在往复擦拭风险，易导致灰尘残留。熔接机盖关闭动作轻柔，符合设备保护要求，无撞击声。热缩管放置时未使用镊子辅助，手指直接接触可能引入污染，需强化无尘操作意识，且加热后检查环节略显仓促，未充分确认收缩均匀性",
+                "improvement_suggestions": [
+                    "强化酒精棉单向清洁训练，确保每次擦拭更换棉面，杜绝往复运动导致污渍回填，这是降低熔接损耗的关键",
+                    "练习热缩管预放置技巧，使用专用镊子辅助定位，确保加热前居中误差小于 0.5mm，避免加热后偏移",
+                    "进行计时模拟训练，针对剥纤环节设定分段时限，提升整体操作流畅度与时间管理能力，确保大赛时间内完成"
+                ]
+            },
+            "upload_time": "2026-03-19 11:20:49",
+            "is_analyzed": true,
             "standard_image_url": ""
         },
         {
@@ -70,8 +164,8 @@
             "standard_image_url": ""
         }
     ],
-    "total_duration": 0,
-    "overall_score": 0,
+    "total_duration": 154.3,
+    "overall_score": 0.0,
     "overall_analysis": null,
     "created_time": "2026-03-18 10:23:20",
     "finished_time": null,

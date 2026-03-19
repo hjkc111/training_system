@@ -122,7 +122,7 @@ def call_qwen35(video_text, key_frames_base64, username, is_audio_useful):
     
 # ------------------- 新增：单项目专项分析（适配比赛项目）网络布线 -------------------
 def call_qwen_project_analysis_network(project_name: str, project_desc: str, video_text: str, key_frames_base64: list, username: str, is_audio_useful: bool):
-    """针对单个比赛项目的专项AI分析（修复List嵌套JSON的解析错误）"""
+    """针对单个比赛项目的专项AI分析（修复result_format弃用+超时问题）"""
     prompt = f"""
     你是世界技能大赛官方认证的技术裁判，现在针对【{project_name}】项目，分析选手{username}的训练视频，严格遵循该项目的行业标准和大赛评分规则。
     【项目标准说明】：{project_desc}
@@ -153,71 +153,86 @@ def call_qwen_project_analysis_network(project_name: str, project_desc: str, vid
     
     try:
         print(f"开始调用Qwen3.5-Plus进行【{project_name}】专项分析...")
-        valid_frames = key_frames_base64[:8]
-        print(f"向Qwen3.5-Plus传递 {len(valid_frames)} 帧关键帧")
         
-        # 构建messages（和你能跑的代码结构一致）
+        # 图片格式适配（补全Base64前缀）
+        valid_frames = []
+        for img in key_frames_base64[:8]:  # 最多8帧，减少超时概率
+            if isinstance(img, str) and img.strip():
+                # 补全Base64前缀（大模型要求）
+                if img.startswith('/9j/') or img.startswith('iVBORw0KGgo'):
+                    valid_frames.append(f"data:image/jpeg;base64,{img}")
+                elif img.startswith('data:image/'):
+                    valid_frames.append(img)
+                else:
+                    valid_frames.append(f"data:image/jpeg;base64,{img}")
+        
+        if not valid_frames:
+            raise ValueError("无有效图片Base64数据")
+        
+        print(f"向Qwen3.5-Plus传递 {len(valid_frames)} 帧关键帧（已适配格式）")
+        
+        # 按最新规范构造messages（text在前+image_url格式）
         messages = [
             {
                 "role": "user",
-                "content": [{"image": b64} for b64 in valid_frames] + [{"text": prompt}]
+                "content": [
+                    {"type": "text", "text": prompt},
+                    *[{"type": "image_url", "image_url": {"url": frame}} for frame in valid_frames]
+                ]
             }
         ]
         
-        # 调用Qwen3.5-Plus
+        # ========== 核心修复1：移除弃用的result_format参数 ==========
+        # ========== 核心修复2：调整超时+减少max_tokens，降低响应时间 ==========
         response = dashscope.MultiModalConversation.call(
             api_key=DASHSCOPE_API_KEY,
             model='qwen3.5-plus',
-            messages=messages
+            messages=messages,
+            temperature=0.1,       # 降低随机性
+            max_tokens=2000,        # 减少输出长度，加快响应（足够满足需求）
+            timeout=120             # 延长超时到120秒，解决前端端口关闭问题
+            # 移除result_format参数（模型已弃用）
         )
         
         if response.status_code == 200:
             print(f"Qwen3.5-Plus调用成功，开始解析结果")
             
             try:
-                # 第一步：获取原始返回内容并打印（完整日志）
+                # 解析返回内容（保留原有逻辑）
                 raw_content = response.output.choices[0].message.content
                 print(f"大模型原始返回内容：{str(raw_content)[:500]}...")
                 
-                # 第二步：处理List类型返回（核心修复）
                 analysis_result_str = ""
                 if isinstance(raw_content, list):
-                    print(f"返回内容是List类型，长度：{len(raw_content)}，开始提取嵌套的JSON字符串")
-                    # 遍历List，找到包含text字段的字典
+                    print(f"返回内容是List类型，长度：{len(raw_content)}")
                     for item in raw_content:
                         if isinstance(item, dict) and "text" in item:
-                            # 提取text字段里的内容（这才是真正的JSON字符串）
                             analysis_result_str = item["text"].strip()
-                            print(f"从List中提取到JSON字符串（前200字符）：{analysis_result_str[:200]}...")
                             break
-                    # 如果List里没找到text字段，取第一个元素转为字符串
                     if not analysis_result_str and len(raw_content) > 0:
                         analysis_result_str = str(raw_content[0]).strip()
                 elif isinstance(raw_content, dict):
-                    print(f"返回内容是Dict类型，提取text字段")
                     analysis_result_str = raw_content.get("text", "").strip()
                 elif isinstance(raw_content, (str, bytes, bytearray)):
-                    print(f"返回内容是字符串类型，直接使用")
                     analysis_result_str = str(raw_content).strip()
                 else:
                     raise Exception(f"不支持的返回类型：{type(raw_content)}")
                 
-                # 第三步：清理JSON字符串（移除多余字符）
                 if not analysis_result_str:
                     raise Exception("提取到的JSON字符串为空")
                 
-                # 移除markdown反引号、换行、空格
+                # 清理JSON字符串
                 analysis_result_str = analysis_result_str.replace("```json", "").replace("```", "").replace("\n", "").replace("\r", "").strip()
                 print(f"清理后的JSON字符串（前200字符）：{analysis_result_str[:200]}...")
                 
-                # 第四步：解析为字典
+                # 解析为字典
                 analysis_result = json.loads(analysis_result_str)
                 
-                # 第五步：校验是否为字典（防止解析后还是List）
+                # 校验格式
                 if not isinstance(analysis_result, dict):
                     raise Exception(f"解析后不是字典类型，而是：{type(analysis_result)}")
                 
-                # 兜底校验：确保得分在0-100之间
+                # 兜底校验得分范围
                 analysis_result["project_score"] = max(0, min(100, analysis_result.get("project_score", 0)))
                 print(f"✅ 解析成功，项目得分：{analysis_result['project_score']}")
                 return analysis_result
@@ -240,7 +255,6 @@ def call_qwen_project_analysis_network(project_name: str, project_desc: str, vid
                 }
             except Exception as e:
                 print(f"解析结果时发生错误：{str(e)}")
-                # 兜底返回值
                 return {
                     "project_name": project_name,
                     "project_score": 20,
@@ -255,7 +269,6 @@ def call_qwen_project_analysis_network(project_name: str, project_desc: str, vid
                 }
         else:
             print(f"Qwen3.5-Plus调用失败：{response.code} - {response.message}")
-            # 兜底返回值
             return {
                 "project_name": project_name,
                 "project_score": 20,
@@ -270,7 +283,6 @@ def call_qwen_project_analysis_network(project_name: str, project_desc: str, vid
             }
     except Exception as e:
         print(f"调用Qwen3.5-Plus出错：{str(e)}")
-        # 兜底返回值
         return {
             "project_name": project_name,
             "project_score": 20,
@@ -285,7 +297,7 @@ def call_qwen_project_analysis_network(project_name: str, project_desc: str, vid
         }
 #针对光电项目的qwen3.5-plus实验
 def call_qwen_project_analysis_photoelectric(project_name: str, project_desc: str, video_text: str, key_frames_base64: list, username: str, is_audio_useful: bool):
-    """针对单个比赛项目的专项AI分析（修复List嵌套JSON的解析错误）"""
+    """针对单个比赛项目的专项AI分析（修复result_format弃用+超时问题）"""
     prompt = f"""
     你是世界技能大赛官方认证的技术裁判，现在针对【{project_name}】项目，分析选手{username}的训练视频，严格遵循该项目的行业标准和大赛评分规则。
     【项目标准说明】：{project_desc}
@@ -316,71 +328,86 @@ def call_qwen_project_analysis_photoelectric(project_name: str, project_desc: st
     
     try:
         print(f"开始调用Qwen3.5-Plus进行【{project_name}】专项分析...")
-        valid_frames = key_frames_base64[:8]
-        print(f"向Qwen3.5-Plus传递 {len(valid_frames)} 帧关键帧")
         
-        # 构建messages（和你能跑的代码结构一致）
+        # 图片格式适配（补全Base64前缀）
+        valid_frames = []
+        for img in key_frames_base64[:8]:  # 最多8帧，减少超时概率
+            if isinstance(img, str) and img.strip():
+                # 补全Base64前缀（大模型要求）
+                if img.startswith('/9j/') or img.startswith('iVBORw0KGgo'):
+                    valid_frames.append(f"data:image/jpeg;base64,{img}")
+                elif img.startswith('data:image/'):
+                    valid_frames.append(img)
+                else:
+                    valid_frames.append(f"data:image/jpeg;base64,{img}")
+        
+        if not valid_frames:
+            raise ValueError("无有效图片Base64数据")
+        
+        print(f"向Qwen3.5-Plus传递 {len(valid_frames)} 帧关键帧（已适配格式）")
+        
+        # 按最新规范构造messages（text在前+image_url格式）
         messages = [
             {
                 "role": "user",
-                "content": [{"image": b64} for b64 in valid_frames] + [{"text": prompt}]
+                "content": [
+                    {"type": "text", "text": prompt},
+                    *[{"type": "image_url", "image_url": {"url": frame}} for frame in valid_frames]
+                ]
             }
         ]
         
-        # 调用Qwen3.5-Plus
+        # ========== 核心修复1：移除弃用的result_format参数 ==========
+        # ========== 核心修复2：调整超时+减少max_tokens，降低响应时间 ==========
         response = dashscope.MultiModalConversation.call(
             api_key=DASHSCOPE_API_KEY,
             model='qwen3.5-plus',
-            messages=messages
+            messages=messages,
+            temperature=0.1,       # 降低随机性
+            max_tokens=2000,        # 减少输出长度，加快响应（足够满足需求）
+            timeout=120             # 延长超时到120秒，解决前端端口关闭问题
+            # 移除result_format参数（模型已弃用）
         )
         
         if response.status_code == 200:
             print(f"Qwen3.5-Plus调用成功，开始解析结果")
             
             try:
-                # 第一步：获取原始返回内容并打印（完整日志）
+                # 解析返回内容（保留原有逻辑）
                 raw_content = response.output.choices[0].message.content
                 print(f"大模型原始返回内容：{str(raw_content)[:500]}...")
                 
-                # 第二步：处理List类型返回（核心修复）
                 analysis_result_str = ""
                 if isinstance(raw_content, list):
-                    print(f"返回内容是List类型，长度：{len(raw_content)}，开始提取嵌套的JSON字符串")
-                    # 遍历List，找到包含text字段的字典
+                    print(f"返回内容是List类型，长度：{len(raw_content)}")
                     for item in raw_content:
                         if isinstance(item, dict) and "text" in item:
-                            # 提取text字段里的内容（这才是真正的JSON字符串）
                             analysis_result_str = item["text"].strip()
-                            print(f"从List中提取到JSON字符串（前200字符）：{analysis_result_str[:200]}...")
                             break
-                    # 如果List里没找到text字段，取第一个元素转为字符串
                     if not analysis_result_str and len(raw_content) > 0:
                         analysis_result_str = str(raw_content[0]).strip()
                 elif isinstance(raw_content, dict):
-                    print(f"返回内容是Dict类型，提取text字段")
                     analysis_result_str = raw_content.get("text", "").strip()
                 elif isinstance(raw_content, (str, bytes, bytearray)):
-                    print(f"返回内容是字符串类型，直接使用")
                     analysis_result_str = str(raw_content).strip()
                 else:
                     raise Exception(f"不支持的返回类型：{type(raw_content)}")
                 
-                # 第三步：清理JSON字符串（移除多余字符）
                 if not analysis_result_str:
                     raise Exception("提取到的JSON字符串为空")
                 
-                # 移除markdown反引号、换行、空格
+                # 清理JSON字符串
                 analysis_result_str = analysis_result_str.replace("```json", "").replace("```", "").replace("\n", "").replace("\r", "").strip()
                 print(f"清理后的JSON字符串（前200字符）：{analysis_result_str[:200]}...")
                 
-                # 第四步：解析为字典
+                # 解析为字典
                 analysis_result = json.loads(analysis_result_str)
                 
-                # 第五步：校验是否为字典（防止解析后还是List）
+                # 校验格式
                 if not isinstance(analysis_result, dict):
                     raise Exception(f"解析后不是字典类型，而是：{type(analysis_result)}")
                 
-                # 兜底校验：确保得分在0-100之间
+                # 兜底校验得分范围
                 analysis_result["project_score"] = max(0, min(100, analysis_result.get("project_score", 0)))
                 print(f"✅ 解析成功，项目得分：{analysis_result['project_score']}")
                 return analysis_result
@@ -403,7 +430,6 @@ def call_qwen_project_analysis_photoelectric(project_name: str, project_desc: st
                 }
             except Exception as e:
                 print(f"解析结果时发生错误：{str(e)}")
-                # 兜底返回值
                 return {
                     "project_name": project_name,
                     "project_score": 20,
@@ -418,7 +444,6 @@ def call_qwen_project_analysis_photoelectric(project_name: str, project_desc: st
                 }
         else:
             print(f"Qwen3.5-Plus调用失败：{response.code} - {response.message}")
-            # 兜底返回值
             return {
                 "project_name": project_name,
                 "project_score": 20,
@@ -433,7 +458,6 @@ def call_qwen_project_analysis_photoelectric(project_name: str, project_desc: st
             }
     except Exception as e:
         print(f"调用Qwen3.5-Plus出错：{str(e)}")
-        # 兜底返回值
         return {
             "project_name": project_name,
             "project_score": 20,
